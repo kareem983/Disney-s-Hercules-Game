@@ -1,0 +1,33 @@
+
+Flame.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Flame
+  rotate: false
+  xy: 1, 1
+  size: 155, 152
+  orig: 155, 152
+  offset: 0, 0
+  index: -1
+Flame
+  rotate: false
+  xy: 145, 1
+  size: 155, 152
+  orig: 155, 152
+  offset: 0, 0
+  index: -1
+Flame
+  rotate: false
+  xy: 290, 1
+  size: 155, 113
+  orig: 155, 113
+  offset: 0, 0
+  index: -1
+Flame
+  rotate: false
+  xy: 435, 1
+  size: 155, 152
+  orig: 155, 152
+  offset: 0, 0
+  index: -1
