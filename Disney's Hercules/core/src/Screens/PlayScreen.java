@@ -3,6 +3,7 @@ package Screens;
 
 import Scenes.Hud;
 import Sprites.Hercules;
+import StaticGraphics.DrawClass;
 import StaticGraphics.Flame;
 import Tools.B2WorldCreator;
 import Tools.WorldContactListener;
@@ -23,7 +24,6 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 
 /* LEVEL ONE SCREEN  */
 public class PlayScreen implements Screen{  
@@ -38,13 +38,15 @@ public class PlayScreen implements Screen{
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     
-    private TextureAtlas atlas;
-    private Flame flame;
+    private TextureAtlas FlameAtlas;
     
-    
+    private World world;
+    private DrawClass staticGraphics;
     private Hercules player;
     
     public PlayScreen(Main game){
+        
+        world = new World(new Vector2(0, 0), true);
         
         this.game = game;
         gameCam = new OrthographicCamera();
@@ -55,29 +57,50 @@ public class PlayScreen implements Screen{
         renderer = new OrthogonalTiledMapRenderer(map);
         gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
         
-        atlas = new TextureAtlas("Sprites\\Main\\Flame.atlas");
-        flame = new Flame(this);
+        FlameAtlas = new TextureAtlas("Sprites\\Main\\Flame.atlas");
+        staticGraphics = new DrawClass(this);
     }
     public TextureAtlas getAtlas(){
-        return atlas;
+        return FlameAtlas;
+    }
+
+    public World getWorld() {
+        return world;
+    }
+
+    public TiledMap getMap() {
+        return map;
     }
     @Override
     public void show() {
         
     }
     public void handleInput(float dt){
-        if (Gdx.input.isTouched()){
+        
+         if ( (Gdx.input.isKeyPressed(Keys.SHIFT_RIGHT) && Gdx.input.isKeyPressed(Keys.RIGHT) ) && gameCam.position.x  <= 23000 ){
+            gameCam.position.x += 800 * dt;
+        }
+                
+        else if ( (Gdx.input.isTouched() || Gdx.input.isKeyPressed(Keys.RIGHT) ) && gameCam.position.x  <= 23000 ){
             gameCam.position.x += 400 * dt;
         }
-        else if (Gdx.input.isKeyPressed(Keys.SPACE)){
+        else if (Gdx.input.isKeyPressed(Keys.LEFT) && gameCam.position.x  >= 1010){
             gameCam.position.x -= 400 * dt;
+        }
+        
+        else if (Gdx.input.isKeyPressed(Keys.UP)  && gameCam.position.y  <= 720){
+            gameCam.position.y += 200 * dt;
+        }
+        
+        else if (Gdx.input.isKeyPressed(Keys.DOWN) && gameCam.position.y  >= 410){
+            gameCam.position.y -= 200 * dt;
         }
     }
      public void update(float dt){
          handleInput(dt);
 //         world.step(1/60f, 6, 10);        //     neccessary For GameSpeed Issues
-         flame.update(dt);
-         
+        for (Flame flame : staticGraphics.getFlames())
+            flame.update(dt);
         
         gameCam.update();
        renderer.setView(gameCam);
@@ -93,7 +116,8 @@ public class PlayScreen implements Screen{
    
        game.batch.setProjectionMatrix(gameCam.combined);
        game.batch.begin();
-       game.batch.draw(flame.getFrame(delta), 350/Main.PPM, 80/Main.PPM);
+      for (Flame flame : staticGraphics.getFlames())
+            flame.draw(game.batch);
        game.batch.end();
     }
     
