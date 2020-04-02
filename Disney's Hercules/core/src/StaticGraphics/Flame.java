@@ -17,14 +17,15 @@ public class Flame extends Sprite{
     private Animation candleFlame;
     private float elapsedTime;
     
-    public Flame(PlayScreen screen) {
+    public Flame(PlayScreen screen, float x, float y) {
         super(screen.getAtlas().findRegion("Flame"));
-    
+        
+        setPosition(x, y);
         Array <TextureRegion> frames = new Array<TextureRegion>();
         
         for (int i =0; i < 4; ++i)
             frames.add(new TextureRegion(getTexture(), i*155, 0, 155, 152));
-        candleFlame = new Animation(0.4f, frames);
+        candleFlame = new Animation(0.2f, frames);
     }
     
     public void update(float dt){
