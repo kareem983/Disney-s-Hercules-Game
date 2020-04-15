@@ -27,6 +27,7 @@ public class Hercules extends Sprite {
         
     public World world;
     public Body b2body;
+    public boolean pickedlightsword=false,pickedfireballsword=false;
     
     private float HerculesInitPosX = 800f;
     private float HerculesInitPosY = 180f;
@@ -65,19 +66,20 @@ public  BodyDef bdef ;
     currentState = State.STANDING;
         previousState = State.STANDING;
         stateTimer = 0;
-        runningRight = false;
+        runningRight = true;
         setBounds(0, 0, 50*3/ Main.PPM , 75*3/ Main.PPM);
          defineAnimation(screen);
-
-      
 
     
 }
 
+    public boolean isRunningRight() {
+        return runningRight;
+    }
+
     public void update(float dt){
         setPosition(b2body.getPosition().x  - getWidth()/2, b2body.getPosition().y - getHeight()/2 + 50/ Main.PPM);
-       
-        setRegion(getFrame(dt));
+        setRegion(getFrame(dt)); 
     }
     
        // this fn return which animation that will draw now 
