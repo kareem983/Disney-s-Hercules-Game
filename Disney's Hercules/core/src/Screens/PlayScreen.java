@@ -58,6 +58,10 @@ public class PlayScreen implements Screen{
     private Hercules player; 
     public TallPiller piller;
     
+    private GoldenCoin gold1,gold2,gold3,gold4,gold5,gold6;
+    private SilverCoin silver1,silver2,silver3;
+    
+    
     public PlayScreen(Main game){
         
         this.game = game;
@@ -89,6 +93,18 @@ public class PlayScreen implements Screen{
         hud=new Hud(player,game.batch);
         
         piller = new TallPiller(world,this , 6660 , 50 );
+            /*Coins*/
+        gold1=new GoldenCoin (world,this,3050,300); 
+        gold2=new GoldenCoin (world,this,3150,300);
+        gold3=new GoldenCoin (world,this,3250,300);
+        gold4=new GoldenCoin (world,this,18520,690);
+        gold5=new GoldenCoin (world,this,18670,690);
+        gold6=new GoldenCoin (world,this,18820,690);
+        
+        silver1=new SilverCoin (world,this,4380,500);
+        silver2=new SilverCoin (world,this,4530,450);
+        silver3=new SilverCoin (world,this,4680,400);
+    
 
     }
     public TextureAtlas getAtlas(){
@@ -97,12 +113,12 @@ public class PlayScreen implements Screen{
     public TextureAtlas getTotalAtlas(){
         return TotalAtlas;
     }
-public TextureAtlas getAtlas_pillar(){return atlas_pillar;}
+    public TextureAtlas getAtlas_pillar(){return atlas_pillar;}
     
-public TextureAtlas getAtlas_Run(){
+    public TextureAtlas getAtlas_Run(){
         return atlas_run;
     }
-public TextureAtlas getAtlas_jumb(){
+    public TextureAtlas getAtlas_jumb(){
         return atlas_jumb;
     }
    
@@ -206,7 +222,18 @@ public TextureAtlas getAtlas_jumb(){
         gameCam.position.y = player .b2body.getPosition().y+255/Main.PPM ;
         
         piller.update(dt);
+         silver1.update(dt);
+         silver2.update(dt);
+         silver3.update(dt);
         
+        
+         gold1.update(dt);
+         gold2.update(dt);
+         gold3.update(dt);
+         gold4.update(dt);
+         gold5.update(dt);
+         gold6.update(dt); 
+         
         gameCam.update();
        renderer.setView(gameCam);
     }
@@ -233,6 +260,18 @@ public TextureAtlas getAtlas_jumb(){
        piller.draw(game.batch);
        staticlightiningsword.draw(game.batch);
        staticfireballsword.draw(game.batch);
+       
+       silver1.draw(game.batch);
+       silver2.draw(game.batch);
+       silver3.draw(game.batch);
+
+       gold1.draw(game.batch);
+       gold2.draw(game.batch);
+       gold3.draw(game.batch);
+       gold4.draw(game.batch);
+       gold5.draw(game.batch);
+       gold6.draw(game.batch);
+       
        game.batch.end();
        
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
