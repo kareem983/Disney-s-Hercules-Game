@@ -1,16 +1,41 @@
 
 package Tools;
 
+import HealthAttacker.Enemy;
+import Sprites.Hercules;
+import com.Hercules.game.Main;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
 public class WorldContactListener implements ContactListener{
 
     @Override
     public void beginContact(Contact contact) {
+        Fixture fixA = contact.getFixtureA();
+        Fixture fixB = contact.getFixtureB();
         
+        int collisionDefinition = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
+        switch (collisionDefinition){
+            case Main.HERCULES_BORDER_BIT | Main.ENEMY_BIT:
+                if (fixA.getFilterData().categoryBits == Main.ENEMY_BIT && Hercules.hercules_sword)
+                    ((Enemy)fixA.getUserData()).Stap();
+                else if (Hercules.hercules_sword)
+                    ((Enemy)fixB.getUserData()).Stap(); /*      Damaging of The Baby Dragon To Hercules
+                else if (fixA.getFilterData().categoryBits == Main.ENEMY_BIT)
+                    ((Hercules)fixA.getUserData()).babyDragonDamage();
+                else if (fixB.getFilterData().categoryBits == Main.ENEMY_BIT)
+                    ((Hercules)fixB.getUserData()).babyDragonDamage();  */
+                break;
+            case Main.ENEMY_BIT | Main.SKY_BORDER_BIT:
+                if (fixA.getFilterData().categoryBits == Main.ENEMY_BIT && Hercules.hercules_sword)
+                    ((Enemy)fixA.getUserData()).reverseVelocity(true,false);
+                else
+                    ((Enemy)fixB.getUserData()).reverseVelocity(true, false);
+                break;
+        }
     }
 
     @Override

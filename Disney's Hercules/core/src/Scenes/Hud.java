@@ -14,14 +14,12 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.ui.Value;
 
 public class Hud implements Disposable{
-	public int i=0,counter=3;
+        public int i=0,counter=3;
         public Texture img1,img2;
         public Texture [] healthlevel;
         public TextureRegion[] t;
@@ -94,7 +92,6 @@ public class Hud implements Disposable{
     }
     public void update()
     {
-        //
         s.setPosition(herucle.b2body.getPosition().x-600/Main.PPM,700/Main.PPM);
         s1[3].setPosition(herucle.b2body.getPosition().x-270/Main.PPM,680/Main.PPM);
         s2[0].setPosition(herucle.b2body.getPosition().x-500/Main.PPM,705/Main.PPM);
@@ -123,7 +120,7 @@ public class Hud implements Disposable{
     
     @Override
     public void dispose() {
-      //   stage.dispose();
+         stage.dispose();
     }
     
 }

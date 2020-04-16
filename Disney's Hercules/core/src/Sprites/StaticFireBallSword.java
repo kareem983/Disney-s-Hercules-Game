@@ -29,7 +29,7 @@ public class StaticFireBallSword extends Swords{
     }
      @Override
     public void update() {
-        if(herucle.b2body.getPosition().x >x && herucle.b2body.getPosition().y>y && counter==0)
+        if(herucle.b2body.getPosition().x >x && herucle.b2body.getPosition().y>y && counter==0&&herucle.b2body.getPosition().x<x+100/Main.PPM)
         {
             counter++;
             herucle.pickedfireballsword=true;

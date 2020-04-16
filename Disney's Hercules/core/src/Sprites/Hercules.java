@@ -1,7 +1,3 @@
-
-
-
-
 package Sprites;
 
 import Screens.PlayScreen;
@@ -20,6 +16,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
@@ -38,7 +35,7 @@ public class Hercules extends Sprite {
     public State currentState;
     public State previousState;
     private Animation HerculesRun; 
-    private Animation HerculesStand; 
+            private Animation HerculesStand; 
     private Animation HerculesJump;
     public Animation HerculesPush;
     public Animation HerculesSword;
@@ -50,36 +47,33 @@ public class Hercules extends Sprite {
 public  BodyDef bdef ;
 
    public  boolean  hercules_push = false ;
-   private float timePush =0 ;
-   public  boolean  hercules_sword = false ;
-   private float timeSword =0 ;
-   public  boolean  hercules_Drink = false ;
-   private float timeDrink =0 ;
-   public  boolean  hercules_Die = false ;
-   private float timeDie =0 ;
+       private float timePush =0 ;
+   public  static boolean  hercules_sword = false ;
+       private float timeSword =0 ;
+public  static boolean  hercules_Drink = false ;
+       private float timeDrink =0 ;
+public  static boolean  hercules_Die = false ;
+       private float timeDie =0 ;
 
-   public Hercules(World world , PlayScreen screen){
+    public Hercules(World world , PlayScreen screen){
 
-    this.world =world ;
-    defineHercules();
- 
-    currentState = State.STANDING;
+        this.world =world ;
+        defineHercules();
+       
+        currentState = State.STANDING;
         previousState = State.STANDING;
         stateTimer = 0;
-        runningRight = true;
+        runningRight = false;
         setBounds(0, 0, 50*3/ Main.PPM , 75*3/ Main.PPM);
          defineAnimation(screen);
-
     
 }
-
     public boolean isRunningRight() {
         return runningRight;
     }
-
     public void update(float dt){
         setPosition(b2body.getPosition().x  - getWidth()/2, b2body.getPosition().y - getHeight()/2 + 50/ Main.PPM);
-        setRegion(getFrame(dt)); 
+        setRegion(getFrame(dt));
     }
     
        // this fn return which animation that will draw now 
@@ -172,10 +166,27 @@ public  BodyDef bdef ;
              b2body =world.createBody(bdef) ;
              
              FixtureDef fdef = new FixtureDef();
+             FixtureDef fdef2 = new FixtureDef();
              CircleShape shape = new CircleShape();
              shape.setRadius(30 / Main.PPM);
-             fdef.shape = shape ;
-             b2body.createFixture(fdef) ;
+             fdef2.shape = shape ;
+             fdef2.filter.categoryBits = Main.HERCULES_BIT;
+             b2body.createFixture(fdef2) ;
+   
+             // CREATE SIDES FOR BABY DRAGON
+             PolygonShape border = new PolygonShape();
+             Vector2[] vertice = new Vector2[4];
+             vertice[0] = new Vector2(-50, 120).scl(1/Main.PPM);
+             vertice[1] = new Vector2(50, 120).scl(1/Main.PPM);
+             vertice[2] = new Vector2(-50, 30).scl(1/Main.PPM);
+             vertice[3] = new Vector2(50, 30).scl(1/Main.PPM);
+             border.set(vertice);
+             
+             fdef.shape = border;
+             fdef.filter.categoryBits = Main.HERCULES_BORDER_BIT ;
+             fdef.filter.maskBits =Main.GROUND_BIT | Main.ENEMY_BIT ;
+             fdef.isSensor = true;
+             b2body.createFixture(fdef);
     }
     
    private void  defineAnimation(PlayScreen screen){

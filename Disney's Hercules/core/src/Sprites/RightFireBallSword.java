@@ -33,7 +33,7 @@ public class RightFireBallSword extends Swords {
         setRegion(region);
         increment += Gdx.graphics.getDeltaTime() * 30;
         setPosition(directionx + 100 * increment / Main.PPM, directiony);
-        if (statetimer > 1) {
+        if (statetimer > 5) {
             setBounds(0, 0, 0, 0);
         }
       
