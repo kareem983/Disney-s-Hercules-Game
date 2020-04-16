@@ -12,5 +12,5 @@ public class DesktopLauncher {
                 config.height = 768;
                 config.fullscreen = false;
 	 new LwjglApplication(new Main(), config);
-	}
+            }
 }

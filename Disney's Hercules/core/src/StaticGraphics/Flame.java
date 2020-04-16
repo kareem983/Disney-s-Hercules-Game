@@ -26,6 +26,7 @@ public class Flame extends Sprite{
         for (int i =0; i < 4; ++i)
             frames.add(new TextureRegion(getTexture(), i*155, 0, 155, 152));
         candleFlame = new Animation(0.2f, frames);
+        setBounds(getX(), getY(), 150/Main.PPM, 150/Main.PPM);
     }
     
     public void update(float dt){

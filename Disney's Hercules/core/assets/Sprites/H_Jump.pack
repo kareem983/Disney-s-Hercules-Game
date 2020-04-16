@@ -1,0 +1,12 @@
+
+H_Jump.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Jump
+  rotate: false
+  xy: 1, 1
+  size: 600, 96
+  orig: 600, 96
+  offset: 0, 0
+  index: -1
