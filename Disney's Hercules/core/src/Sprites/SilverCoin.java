@@ -49,7 +49,7 @@ public class SilverCoin extends Coin{
      public void update(float dt){
          if (hercule.b2body.getPosition().x > (this.posX-68)/Main.PPM && hercule.b2body.getPosition().x < (this.posX+88)/Main.PPM && hercule.b2body.getPosition().y>(this.posY-60)/Main.PPM && hercule.b2body.getPosition().y<(this.posY+50)/Main.PPM)
          {
-             setPosition(0,0); 
+             setPosition(-50,-50); 
              if(this.isfound){
              this.hud.score+=5;
              }

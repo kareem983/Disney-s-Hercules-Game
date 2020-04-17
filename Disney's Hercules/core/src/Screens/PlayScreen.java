@@ -203,10 +203,13 @@ public class PlayScreen implements Screen{
          }
       }
       
+      
+      
+      
      public void update(float dt){
          handleInput(dt);
          hud.update();
-        world.step(1/60f, 6, 2);  
+         world.step(1/60f, 6, 2);  
         
         for (Flame flame : staticGraphics.getFlames())
             flame.update(dt);
@@ -220,23 +223,22 @@ public class PlayScreen implements Screen{
         if (player.b2body.getPosition().x>1000/Main.PPM && player.b2body.getPosition().x<23000/Main.PPM)
             gameCam.position.x = player .b2body.getPosition().x ;
         if (player.b2body.getPosition().y<470/Main.PPM )
-        gameCam.position.y = player .b2body.getPosition().y+255/Main.PPM ;
+            gameCam.position.y = player .b2body.getPosition().y+255/Main.PPM ;
         
         piller.update(dt);
-         silver1.update(dt);
-         silver2.update(dt);
-         silver3.update(dt);
         
-        
-         gold1.update(dt);
-         gold2.update(dt);
-         gold3.update(dt);
-         gold4.update(dt);
-         gold5.update(dt);
-         gold6.update(dt); 
+        silver1.update(dt);
+        silver2.update(dt);
+        silver3.update(dt);
+        gold1.update(dt);
+        gold2.update(dt);
+        gold3.update(dt);
+        gold4.update(dt);
+        gold5.update(dt);
+        gold6.update(dt); 
 
-         gameCam.update();
-       renderer.setView(gameCam);
+        gameCam.update();
+        renderer.setView(gameCam);
     }
     
     @Override
@@ -250,10 +252,11 @@ public class PlayScreen implements Screen{
        
        game.batch.setProjectionMatrix(gameCam.combined);
        game.batch.begin();
-      for (Flame flame : staticGraphics.getFlames())
+       for (Flame flame : staticGraphics.getFlames())
             flame.draw(game.batch);
         for(Enemy enemy : creator.getBabyDragons())
             enemy.draw(game.batch);
+        
        hud.s.draw(game.batch);
        hud.s1[3].draw(game.batch);
        hud.s2[0].draw(game.batch);
@@ -265,7 +268,6 @@ public class PlayScreen implements Screen{
        silver1.draw(game.batch);
        silver2.draw(game.batch);
        silver3.draw(game.batch);
-
        gold1.draw(game.batch);
        gold2.draw(game.batch);
        gold3.draw(game.batch);
@@ -275,8 +277,8 @@ public class PlayScreen implements Screen{
        
        game.batch.end();
        
-        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
-        hud.stage.draw();
+       game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+       hud.stage.draw();
     }
     
     @Override
