@@ -32,6 +32,7 @@ public class Hud implements Disposable{
         public Label scoreText;
         public Label scoreLabel;
         public Integer score;
+        
         public Hud (Hercules herucle,SpriteBatch sb){
                this.herucle=herucle;
                 img1= new Texture("sprites\\hud\\healthbar.gif");
@@ -80,14 +81,6 @@ public class Hud implements Disposable{
                viewport=new FitViewport(Main.WIDTH,Main.HEIGHT, new OrthographicCamera());
                stage=new Stage(viewport, sb);
                
-      }
-    public void update()
-    {
-        s.setPosition(herucle.b2body.getPosition().x-600/Main.PPM,700/Main.PPM);
-        s1[3].setPosition(herucle.b2body.getPosition().x-270/Main.PPM,680/Main.PPM);
-        s2[0].setPosition(herucle.b2body.getPosition().x-500/Main.PPM,705/Main.PPM);
-        hit();                  
-        
                Table table=new Table();
                table.top();
                table.setFillParent(true);
@@ -101,8 +94,16 @@ public class Hud implements Disposable{
                table.add(scoreText).expandX();
                table.row();
                table.add(scoreLabel).expandX();
-               stage.addActor(table);   
-        
+               stage.addActor(table);  
+               
+      }
+    public void update()
+    {
+        s.setPosition(herucle.b2body.getPosition().x-600/Main.PPM,700/Main.PPM);
+        s1[3].setPosition(herucle.b2body.getPosition().x-270/Main.PPM,680/Main.PPM);
+        s2[0].setPosition(herucle.b2body.getPosition().x-500/Main.PPM,705/Main.PPM);
+        hit();                  
+        scoreLabel.setText(String.format("%3d",score));
     }
     public void hit() {
         if (Gdx.input.justTouched()) {

@@ -21,11 +21,8 @@ public class GoldenCoin extends Coin{
       super(screen,0,0,563,564,posX,posY);  
       this.hercule=hercule;
       this.hud=hud;
-       setPosition(this.posX /Main.PPM , this.posY /Main.PPM);    
-       
+       setPosition(this.posX /Main.PPM , this.posY /Main.PPM);   
    }
-   
-   
    
      @Override
      public void DefineAnimation(){

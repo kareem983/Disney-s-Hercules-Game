@@ -306,7 +306,6 @@ public class PlayScreen implements Screen{
        world.dispose();
        debuger.dispose();
        hud.dispose();
-       
     }
     
 }
