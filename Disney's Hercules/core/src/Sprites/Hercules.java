@@ -35,7 +35,7 @@ public class Hercules extends Sprite {
     public State currentState;
     public State previousState;
     private Animation HerculesRun; 
-            private Animation HerculesStand; 
+    private Animation HerculesStand; 
     private Animation HerculesJump;
     public Animation HerculesPush;
     public Animation HerculesSword;

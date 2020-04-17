@@ -1,5 +1,3 @@
-
-
 package Tools;
 
 import Screens.PlayScreen;
@@ -41,7 +39,8 @@ public class B2WorldCreator {
             BabyDragonSurface();
             BabyDragons();
     }
-      private void Hercules(){
+
+    private void Hercules(){
           
         for(MapObject object : map.getLayers().get("Hercules Ground").getObjects().getByType(RectangleMapObject.class)){
             Rectangle  rec = ((RectangleMapObject) object ).getRectangle() ;
@@ -55,6 +54,7 @@ public class B2WorldCreator {
                 body.createFixture(fdef ) ;
              }   
          }
+    
       private void BabyDragonSurface(){
           
          for(MapObject object : map.getLayers().get("Baby Dragon Surface").getObjects().getByType(RectangleMapObject.class)){
@@ -82,6 +82,7 @@ public class B2WorldCreator {
         }
          
       }
+      
       private void BabyDragons(){
            for(MapObject object : map.getLayers().get("Baby Dragons").getObjects().getByType(RectangleMapObject.class)){
             Rectangle  rec = ((RectangleMapObject) object ).getRectangle() ;
@@ -92,4 +93,5 @@ public class B2WorldCreator {
     public Array<BabyDragon> getBabyDragons() {
         return babyDragons;
     }
+    
 }

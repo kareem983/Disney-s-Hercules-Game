@@ -1,5 +1,6 @@
 package Sprites;
 
+import Scenes.Hud;
 import Screens.PlayScreen;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.Gdx;
@@ -22,29 +23,25 @@ public abstract class Coin extends Sprite{
     protected int height;
     protected int posX;
     protected int posY;
-    protected World world;
     protected Animation CoinDraw;
     protected float stateTimer;
+    public Hercules hercule;
+    protected Hud hud; 
+    boolean isfound=true; 
     
-     public Coin(World world, PlayScreen screen ,int startX,int startY,int width,int height,int posX,int posY){
+     public Coin(PlayScreen screen ,int startX,int startY,int width,int height,int posX,int posY){
          this.startX=startX;
          this.startY=startY;
          this.width=width;
          this.height=height;
          this.posX=posX;
          this.posY=posY;
-         this.world=world;
          this.stateTimer=0;
-         setBounds(0,0,37/Main.PPM,60/Main.PPM);
+         setBounds(0,0,45/Main.PPM,50/Main.PPM);
          DefineAnimation();
      }
      
-     public void update(float dt){
-         setPosition(this.posX /Main.PPM , this.posY /Main.PPM);
-         stateTimer+=Gdx.graphics.getDeltaTime();
-         setRegion((TextureRegion) CoinDraw.getKeyFrame(stateTimer,true ));
-         if(stateTimer>10)stateTimer=0;
-     }
+     public abstract void update(float dt);
      
      public abstract void DefineAnimation();
      

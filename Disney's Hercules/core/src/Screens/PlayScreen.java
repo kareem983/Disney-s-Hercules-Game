@@ -94,16 +94,17 @@ public class PlayScreen implements Screen{
         
         piller = new TallPiller(world,this , 6660 , 50 );
             /*Coins*/
-        gold1=new GoldenCoin (world,this,3050,300); 
-        gold2=new GoldenCoin (world,this,3150,300);
-        gold3=new GoldenCoin (world,this,3250,300);
-        gold4=new GoldenCoin (world,this,18520,690);
-        gold5=new GoldenCoin (world,this,18670,690);
-        gold6=new GoldenCoin (world,this,18820,690);
+      
+        gold1=new GoldenCoin (this,3050,300,player,hud); 
+        gold2=new GoldenCoin (this,3150,300,player,hud);
+        gold3=new GoldenCoin (this,3250,300,player,hud);
+        gold4=new GoldenCoin (this,18520,690,player,hud);
+        gold5=new GoldenCoin (this,18670,690,player,hud);
+        gold6=new GoldenCoin (this,18820,690,player,hud);
         
-        silver1=new SilverCoin (world,this,4380,500);
-        silver2=new SilverCoin (world,this,4530,450);
-        silver3=new SilverCoin (world,this,4680,400);
+        silver1=new SilverCoin (this,4380,400,player,hud);
+        silver2=new SilverCoin (this,4530,350,player,hud);
+        silver3=new SilverCoin (this,4680,300,player,hud);
     
 
     }
@@ -233,8 +234,8 @@ public class PlayScreen implements Screen{
          gold4.update(dt);
          gold5.update(dt);
          gold6.update(dt); 
-         
-        gameCam.update();
+
+         gameCam.update();
        renderer.setView(gameCam);
     }
     

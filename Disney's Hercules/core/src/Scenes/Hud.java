@@ -79,23 +79,30 @@ public class Hud implements Disposable{
                score=0;
                viewport=new FitViewport(Main.WIDTH,Main.HEIGHT, new OrthographicCamera());
                stage=new Stage(viewport, sb);
-               Table table=new Table();
-               table.top();
-               table.setFillParent(true);
-         
-               scoreText=new Label("SCORE",new Label.LabelStyle(new BitmapFont(),Color.BLACK));
-               scoreLabel=new Label(String.format("%3d",score),new Label.LabelStyle(new BitmapFont(),Color.BLACK));
-               table.add(scoreText).expandX();
-               table.row();
-               table.add(scoreLabel).expandX();
-               stage.addActor(table);
-    }
+               
+      }
     public void update()
     {
         s.setPosition(herucle.b2body.getPosition().x-600/Main.PPM,700/Main.PPM);
         s1[3].setPosition(herucle.b2body.getPosition().x-270/Main.PPM,680/Main.PPM);
         s2[0].setPosition(herucle.b2body.getPosition().x-500/Main.PPM,705/Main.PPM);
         hit();                  
+        
+               Table table=new Table();
+               table.top();
+               table.setFillParent(true);
+         
+               scoreText=new Label("SCORE",new Label.LabelStyle(new BitmapFont(),Color.GOLD));
+               scoreText.setFontScale(2f);
+               scoreLabel=new Label(String.format("%3d",score),new Label.LabelStyle(new BitmapFont(),Color.GOLD));
+               scoreLabel.setFontScale(2f);
+               scoreLabel.setWidth(150);
+               scoreLabel.setHeight(150);
+               table.add(scoreText).expandX();
+               table.row();
+               table.add(scoreLabel).expandX();
+               stage.addActor(table);   
+        
     }
     public void hit() {
         if (Gdx.input.justTouched()) {
@@ -116,7 +123,8 @@ public class Hud implements Disposable{
                }
             
             }
-        }}
+        }
+    }
     
     @Override
     public void dispose() {

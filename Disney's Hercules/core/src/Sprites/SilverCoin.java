@@ -1,7 +1,9 @@
 package Sprites;
 
+import Scenes.Hud;
 import Screens.PlayScreen;
 import com.Hercules.game.Main;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -15,11 +17,13 @@ import com.badlogic.gdx.utils.Array;
 public class SilverCoin extends Coin{
 
     
-   public SilverCoin(World world ,PlayScreen screen,int posX, int posY){
-      super(world,screen,0,0,563,564,posX,posY);  
+   public SilverCoin(PlayScreen screen,int posX, int posY,Hercules hercule,Hud hud){
+      super(screen,0,0,563,564,posX,posY);  
+      this.hercule=hercule;
+      this.hud=hud;
+      setPosition(this.posX /Main.PPM , this.posY /Main.PPM);
    }
 
-   
    
    @Override
    public void DefineAnimation(){
@@ -40,4 +44,22 @@ public class SilverCoin extends Coin{
          CoinDraw=new Animation(0.09f,frames);
          frames.clear();
    }
+   
+     @Override
+     public void update(float dt){
+         if (hercule.b2body.getPosition().x > (this.posX-68)/Main.PPM && hercule.b2body.getPosition().x < (this.posX+88)/Main.PPM && hercule.b2body.getPosition().y>(this.posY-60)/Main.PPM && hercule.b2body.getPosition().y<(this.posY+50)/Main.PPM)
+         {
+             setPosition(0,0); 
+             if(this.isfound){
+             this.hud.score+=5;
+             }
+             this.isfound=false;
+         }
+         
+         stateTimer+=Gdx.graphics.getDeltaTime();
+         setRegion((TextureRegion) CoinDraw.getKeyFrame(stateTimer,true ));
+         if(stateTimer>10)stateTimer=0;
+     
+     }
+   
 }

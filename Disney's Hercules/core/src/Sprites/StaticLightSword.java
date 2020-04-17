@@ -27,9 +27,9 @@ public class StaticLightSword extends Swords{
     public void update() {
          if (herucle.b2body.getPosition().x > x && herucle.b2body.getPosition().y>y &&counter==0&&herucle.b2body.getPosition().x<x+100/Main.PPM)
         {
-            counter++;  
+           counter++;  
            herucle.pickedlightsword=true;
-           setBounds(0,0,0,0);
+           setBounds(0,0,0,0);  
         }
         
         statetimer += Gdx.graphics.getDeltaTime();
