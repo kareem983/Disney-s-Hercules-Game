@@ -44,9 +44,10 @@ public class Cannons extends Sprite{
     
     private void DefineAnimation(){
      Array<TextureRegion> frame = new Array<TextureRegion>();
-        frame.add(new TextureRegion(new Texture("Sprites\\FireballCannon.png"),0,0,137,320));
+        frame.add(new TextureRegion(new Texture("Sprites\\HealthAttacker\\FireballCannon.png"),0,0,137,320));
         CannonDraw=new Animation(0.09f,frame);
         frame.clear();
+    
     }
     
     
@@ -62,10 +63,10 @@ public class Cannons extends Sprite{
     }
     
     
-    if (hercule.b2body.getPosition().x > (this.posX-30)/Main.PPM && hercule.b2body.getPosition().x < (this.posX+100)/Main.PPM && hercule.b2body.getPosition().y>(FirePosY-(hercule.b2body.getPosition().y)+60)/Main.PPM )
+    if (hercule.b2body.getPosition().x > (this.posX-25)/Main.PPM && hercule.b2body.getPosition().x < (this.posX+100)/Main.PPM && hercule.b2body.getPosition().y>(FirePosY-(hercule.b2body.getPosition().y)+60)/Main.PPM )
     {
       counter=0;
-      this.hud.decrease=true;
+      this.hud.FireDecrease=true;
     }
     else this.counter-=3;    
      

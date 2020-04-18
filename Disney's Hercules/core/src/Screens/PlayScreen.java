@@ -57,10 +57,13 @@ public class PlayScreen implements Screen{
     public Swords staticfireballsword;
     private Hercules player; 
     public TallPiller piller;
-    
+    //Coins
     private GoldenCoin gold1,gold2,gold3,gold4,gold5,gold6;
     private SilverCoin silver1,silver2,silver3;
+    //Fireball Cannons
     private Cannons FireBall1,FireBall2,FireBall3,FireBall4;
+    //protected Shield
+    private ProtectedShield Shield;
     
     public PlayScreen(Main game){
         
@@ -93,15 +96,14 @@ public class PlayScreen implements Screen{
         hud=new Hud(player,game.batch);
         
         piller = new TallPiller(world,this , 6660 , 50 );
-            /*Coins*/
       
+        /*Coins*/
         gold1=new GoldenCoin (this,3050,300,player,hud); 
         gold2=new GoldenCoin (this,3150,300,player,hud);
         gold3=new GoldenCoin (this,3250,300,player,hud);
         gold4=new GoldenCoin (this,18520,690,player,hud);
         gold5=new GoldenCoin (this,18670,690,player,hud);
         gold6=new GoldenCoin (this,18820,690,player,hud);
-        
         silver1=new SilverCoin (this,4380,400,player,hud);
         silver2=new SilverCoin (this,4530,350,player,hud);
         silver3=new SilverCoin (this,4680,300,player,hud);
@@ -112,6 +114,9 @@ public class PlayScreen implements Screen{
         FireBall3=new Cannons(11000,950,player,hud);
         FireBall4=new Cannons(16500,950,player,hud);
     
+        //protected Shield
+        Shield=new ProtectedShield(player,hud);
+        
     }
     public TextureAtlas getAtlas(){
         return FlameAtlas;
@@ -247,6 +252,8 @@ public class PlayScreen implements Screen{
         FireBall3.update();
         FireBall4.update();
         
+        Shield.update();
+                
         gameCam.update();
         renderer.setView(gameCam);
     }
@@ -289,6 +296,8 @@ public class PlayScreen implements Screen{
        FireBall2.draw(game.batch);
        FireBall3.draw(game.batch);
        FireBall4.draw(game.batch);
+       
+       Shield.draw(game.batch);
        
        game.batch.end();
        

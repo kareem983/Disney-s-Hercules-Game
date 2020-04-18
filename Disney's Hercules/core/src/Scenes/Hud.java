@@ -32,11 +32,14 @@ public class Hud implements Disposable{
         public Label scoreText;
         public Label scoreLabel;
         public Integer score;
-        public boolean decrease;
+        public boolean FireDecrease;
+        public boolean DecreasePeriod;
         
         public Hud (Hercules herucle,SpriteBatch sb){
                this.herucle=herucle;
-               this.decrease=false;
+               this.FireDecrease=false;
+               this.DecreasePeriod=true;
+               
                 img1= new Texture("sprites\\hud\\healthbar.gif");
                 img2=new Texture("sprites\\hud\\hercules.png");
                 healthlevel=new Texture[4];
@@ -108,7 +111,7 @@ public class Hud implements Disposable{
         scoreLabel.setText(String.format("%3d",score));
     }
     public void hit() {
-        if (/*Gdx.input.justTouched()*/ decrease) {
+        if (FireDecrease && DecreasePeriod) {
             if(i<5){
             i++;
             s2[0]=s2[i];
@@ -127,7 +130,7 @@ public class Hud implements Disposable{
             
             }
         }
-        decrease=false;
+        FireDecrease=false;
     }
     
     @Override
