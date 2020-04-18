@@ -45,7 +45,7 @@ public class GoldenCoin extends Coin{
      }
      
      @Override
-     public void update(float dt){
+     public void update(){
          if (hercule.b2body.getPosition().x > (this.posX-68)/Main.PPM && hercule.b2body.getPosition().x < (this.posX+88)/Main.PPM && hercule.b2body.getPosition().y>this.posY/Main.PPM && hercule.b2body.getPosition().y<(this.posY+50)/Main.PPM)
          {
              setPosition(-50,-50);

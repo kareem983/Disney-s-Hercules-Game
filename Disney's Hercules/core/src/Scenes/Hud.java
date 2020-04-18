@@ -32,9 +32,11 @@ public class Hud implements Disposable{
         public Label scoreText;
         public Label scoreLabel;
         public Integer score;
+        public boolean decrease;
         
         public Hud (Hercules herucle,SpriteBatch sb){
                this.herucle=herucle;
+               this.decrease=false;
                 img1= new Texture("sprites\\hud\\healthbar.gif");
                 img2=new Texture("sprites\\hud\\hercules.png");
                 healthlevel=new Texture[4];
@@ -102,11 +104,11 @@ public class Hud implements Disposable{
         s.setPosition(herucle.b2body.getPosition().x-600/Main.PPM,700/Main.PPM);
         s1[3].setPosition(herucle.b2body.getPosition().x-270/Main.PPM,680/Main.PPM);
         s2[0].setPosition(herucle.b2body.getPosition().x-500/Main.PPM,705/Main.PPM);
-        hit();                  
+        hit();
         scoreLabel.setText(String.format("%3d",score));
     }
     public void hit() {
-        if (Gdx.input.justTouched()) {
+        if (/*Gdx.input.justTouched()*/ decrease) {
             if(i<5){
             i++;
             s2[0]=s2[i];
@@ -125,6 +127,7 @@ public class Hud implements Disposable{
             
             }
         }
+        decrease=false;
     }
     
     @Override

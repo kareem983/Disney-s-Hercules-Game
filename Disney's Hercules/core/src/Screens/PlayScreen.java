@@ -60,7 +60,7 @@ public class PlayScreen implements Screen{
     
     private GoldenCoin gold1,gold2,gold3,gold4,gold5,gold6;
     private SilverCoin silver1,silver2,silver3;
-    
+    private Cannons FireBall1,FireBall2,FireBall3,FireBall4;
     
     public PlayScreen(Main game){
         
@@ -105,8 +105,13 @@ public class PlayScreen implements Screen{
         silver1=new SilverCoin (this,4380,400,player,hud);
         silver2=new SilverCoin (this,4530,350,player,hud);
         silver3=new SilverCoin (this,4680,300,player,hud);
+       
+        //Cannons Fireballs
+        FireBall1=new Cannons(1000,950,player,hud);
+        FireBall2=new Cannons(8000,950,player,hud);
+        FireBall3=new Cannons(11000,950,player,hud);
+        FireBall4=new Cannons(16500,950,player,hud);
     
-
     }
     public TextureAtlas getAtlas(){
         return FlameAtlas;
@@ -227,16 +232,21 @@ public class PlayScreen implements Screen{
         
         piller.update(dt);
         
-        silver1.update(dt);
-        silver2.update(dt);
-        silver3.update(dt);
-        gold1.update(dt);
-        gold2.update(dt);
-        gold3.update(dt);
-        gold4.update(dt);
-        gold5.update(dt);
-        gold6.update(dt); 
-
+        silver1.update();
+        silver2.update();
+        silver3.update();
+        gold1.update();
+        gold2.update();
+        gold3.update();
+        gold4.update();
+        gold5.update();
+        gold6.update(); 
+        
+        FireBall1.update();
+        FireBall2.update();
+        FireBall3.update();
+        FireBall4.update();
+        
         gameCam.update();
         renderer.setView(gameCam);
     }
@@ -274,6 +284,11 @@ public class PlayScreen implements Screen{
        gold4.draw(game.batch);
        gold5.draw(game.batch);
        gold6.draw(game.batch);
+      
+       FireBall1.draw(game.batch);
+       FireBall2.draw(game.batch);
+       FireBall3.draw(game.batch);
+       FireBall4.draw(game.batch);
        
        game.batch.end();
        
