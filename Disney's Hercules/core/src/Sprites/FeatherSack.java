@@ -72,8 +72,31 @@ public class FeatherSack extends Sprite {
        
         setSize(x, y);
         }
-    
-    public int featherCollsoin(Hercules player ){
+     public int featherCollsoin(Hercules player ){
+        Rectangle feather_rec = this.getBoundingRectangle();
+        Rectangle palyer_rec = player.getBoundingRectangle();
+        
+        if(feather_rec.overlaps(palyer_rec) && player.timeSword2 >0){
+            feather_is_collision =true ;
+        }
+        if(feather_is_collision == true ){
+          //  x = 130 ; y = 190 ; 
+            setRegion((TextureRegion)AnimationfeatherDestroyed.getKeyFrame(stateimer, true));
+           stateimer += Gdx.graphics.getDeltaTime();
+        }
+        if(feather_rec.overlaps(palyer_rec) && player.timeSword2 <=0 && feather_is_collision ==false){
+                        return 2 ;
+
+        }
+       else if( stateimer>= 2*0.3 ){
+            return 1 ;
+        }else{
+            return 0 ;
+        }
+        
+        
+    }
+   /* public int featherCollsoin(Hercules player ){
         Rectangle feather_rec = this.getBoundingRectangle();
         Rectangle palyer_rec = player.getBoundingRectangle();
         
@@ -96,6 +119,6 @@ public class FeatherSack extends Sprite {
         }
         
         
-    }
+    }*/
     
 }

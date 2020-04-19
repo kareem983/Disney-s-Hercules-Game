@@ -29,10 +29,11 @@ public class Hercules extends Sprite {
     private float HerculesInitPosX = 2000f;
     private float HerculesInitPosY = 180f;
     public float HerculesMaxSpeed = 1.5f;
-    public float HerculesMaxSpeedHigh = 0.18333331f;
+//    public float HerculesMaxSpeedHigh = 0.18333331f;
+    public float HerculesMaxSpeedHigh = 0.2f;
 
     public enum State {
-        FALLING, JUMPING, STANDING, RUNNING, pushing_hand, pushing_sword, Drink, die, smallPush
+        FALLING, JUMPING, STANDING, RUNNING, pushing_hand, pushing_sword, pushing_sword2, pushing_sword3, Drink, die, smallPush
     };
     public State currentState;
     public State previousState;
@@ -42,6 +43,8 @@ public class Hercules extends Sprite {
     public Animation HerculesPush;
     public Animation HerculesSmallPush;
     public Animation HerculesSword;
+    public Animation HerculesSword2;
+    public Animation HerculesSword3;
     public Animation HerculesDrink;
     public Animation HerculesDie;
     private float stateTimer;
@@ -53,6 +56,11 @@ public class Hercules extends Sprite {
     public float timePush = 0;
     public static boolean hercules_sword = false;
     private float timeSword = 0;
+    public static boolean hercules_sword2 = false;
+    public float timeSword2 = 0;
+    public static boolean hercules_sword3 = false;
+    private float timeSword3 = 0;
+    
     public static boolean hercules_Drink = false;
     private float timeDrink = 0;
     public static boolean hercules_Die = false;
@@ -102,6 +110,9 @@ public class Hercules extends Sprite {
             case pushing_sword:
                 region = (TextureRegion) HerculesSword.getKeyFrame(stateTimer);
                 break;
+            case pushing_sword2:
+                region = (TextureRegion) HerculesSword2.getKeyFrame(stateTimer);
+                break;
             case Drink:
                 region = (TextureRegion) HerculesDrink.getKeyFrame(stateTimer);
                 break;
@@ -150,6 +161,8 @@ public class Hercules extends Sprite {
             return State.pushing_hand;
         } else if (pushing_sword()) {
             return State.pushing_sword;
+        }else if (pushing_sword2()) {
+            return State.pushing_sword2;
         } else if (Hercules_Drink()) {
             return State.Drink;
         } else if (Hercules_Die()) {
@@ -259,6 +272,15 @@ public class Hercules extends Sprite {
         HerculesSword = new Animation(0.1f, frames);
         HerculesSword.setPlayMode(Animation.PlayMode.NORMAL);
         frames.clear();
+        
+         frames.add(new TextureRegion(new Texture("Sprites\\Herclues_sword2\\1.png"), 0, 0, 45, 84));
+        frames.add(new TextureRegion(new Texture("Sprites\\Herclues_sword2\\2.png"), 0, 0, 75, 86));
+        frames.add(new TextureRegion(new Texture("Sprites\\Herclues_sword2\\3.png"), 0, 0, 50, 86));
+
+        HerculesSword2 = new Animation(0.1f, frames);
+        HerculesSword2.setPlayMode(Animation.PlayMode.NORMAL);
+        frames.clear();
+
 
         frames.add(new TextureRegion(new Texture("Sprites\\Hercules_drink\\1.png"), 0, 0, 50, 75));
         frames.add(new TextureRegion(new Texture("Sprites\\Hercules_drink\\2.png"), 0, 0, 50, 75));
@@ -338,6 +360,20 @@ public class Hercules extends Sprite {
             } else {
                 timeSword = 0;
                 hercules_sword = false;
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+    public boolean pushing_sword2() {
+        if (hercules_sword2 == true) {
+            timeSword2 += Gdx.graphics.getDeltaTime();
+            if (timeSword2 < 0.4) {
+                return true;
+            } else {
+                timeSword2 = 0;
+                hercules_sword2 = false;
                 return false;
             }
         } else {

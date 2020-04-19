@@ -192,6 +192,9 @@ public class PlayScreen implements Screen{
                       player.hercules_Die = true ;
               if (Gdx.input.isKeyPressed(Input.Keys.X)) 
                      handleSword();
+              if (Gdx.input.isKeyPressed(Input.Keys.S)) 
+                    player.hercules_sword2 = true ;
+
              if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE))
                       System.exit(0) ;
     }
@@ -368,7 +371,7 @@ public class PlayScreen implements Screen{
               }
                      
             for(int i=0 ;i<MovingfeatherList.size() ; i++){
-                                MovingfeatherList.get(i).Rope.draw(game.batch);
+         if( MovingfeatherList.get(i).order==1        ) MovingfeatherList.get(i).Rope.draw(game.batch);
                                 MovingfeatherList.get(i).featherMoving(player);
           if( MovingfeatherList.get(i).featherCollsoin(player) == 2) { hud.hit(); MovingfeatherList.get(i).draw(game.batch);  }
           
@@ -403,14 +406,16 @@ public class PlayScreen implements Screen{
                 featherList.add(feather4);
     }
     public void define_MovingfeatherSack(){
-        MovingFeather m1 =new MovingFeather(5200/Main.PPM, 550/Main.PPM, world, this);
-        MovingFeather m2 =new MovingFeather(5600/Main.PPM, 550/Main.PPM, world, this);
-        MovingFeather m3 =new MovingFeather(8000/Main.PPM, 550/Main.PPM, world, this);
-        MovingFeather m4 =new MovingFeather(8400/Main.PPM, 550/Main.PPM, world, this);
+        MovingFeather m1 =new MovingFeather(5200/Main.PPM, 550/Main.PPM, world, this,1);
+        MovingFeather m2 =new MovingFeather(5600/Main.PPM, 550/Main.PPM, world, this,1);
+        MovingFeather m3 =new MovingFeather(8000/Main.PPM, 550/Main.PPM, world, this,1);
+        MovingFeather m4 =new MovingFeather(8400/Main.PPM, 550/Main.PPM, world, this,1);
+        MovingFeather m5 =new MovingFeather(9800/Main.PPM, 320/Main.PPM, world, this,2);
         MovingfeatherList.add(m1);
         MovingfeatherList.add(m2);
         MovingfeatherList.add(m3);
         MovingfeatherList.add(m4);
+        MovingfeatherList.add(m5);
     }
 
     public void define_Blocks(){
