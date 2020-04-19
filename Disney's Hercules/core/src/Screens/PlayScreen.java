@@ -284,10 +284,10 @@ public class PlayScreen implements Screen{
         
              for(int i=0 ;i<featherList.size() ; i++)
             featherList.get(i).update(dt);
-//          
-//          for(int i=0 ;i<MovingfeatherList.size() ; i++)
-//            MovingfeatherList.get(i).update(dt);
-//         
+          
+          for(int i=0 ;i<MovingfeatherList.size() ; i++)
+            MovingfeatherList.get(i).update(dt);
+         
           for(int i=0;i<BlockList.size();i++){
                 BlockList.get(i).update(dt);
                 BlockList.get(i).Block_Moving(4);
@@ -367,18 +367,18 @@ public class PlayScreen implements Screen{
               
               }
                      
-//            for(int i=0 ;i<MovingfeatherList.size() ; i++){
-//                                MovingfeatherList.get(i).Rope.draw(game.batch);
-//                                MovingfeatherList.get(i).featherMoving(player);
-//          if( MovingfeatherList.get(i).featherCollsoin(player) == 2) { hud.hit(); MovingfeatherList.get(i).draw(game.batch);  }
-//          
-//          else{ 
-//                if( MovingfeatherList.get(i).featherCollsoin(player) == 1)  MovingfeatherList.remove(i);
-//
-//              else    MovingfeatherList.get(i).draw(game.batch);
-//              } 
-//              
-//              }
+            for(int i=0 ;i<MovingfeatherList.size() ; i++){
+                                MovingfeatherList.get(i).Rope.draw(game.batch);
+                                MovingfeatherList.get(i).featherMoving(player);
+          if( MovingfeatherList.get(i).featherCollsoin(player) == 2) { hud.hit(); MovingfeatherList.get(i).draw(game.batch);  }
+          
+          else{ 
+                if( MovingfeatherList.get(i).featherCollsoin(player) == 1)  MovingfeatherList.remove(i);
+
+              else    MovingfeatherList.get(i).draw(game.batch);
+              } 
+              
+              }
          
               for(int i=0;i<BlockList.size();i++) BlockList.get(i).draw(game.batch);
               
