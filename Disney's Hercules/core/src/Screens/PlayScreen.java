@@ -21,6 +21,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.Hercules.game.Main;
+import java.util.LinkedList;
+import java.util.List;
 
 /* LEVEL ONE SCREEN  */
 public class PlayScreen implements Screen{  
@@ -65,6 +67,14 @@ public class PlayScreen implements Screen{
     //protected Shield
     private ProtectedShield Shield;
     
+    
+    
+        List<FeatherSack> featherList ;
+        List<MovingFeather> MovingfeatherList ;
+        List<Block> BlockList ;
+        
+    
+    
     public PlayScreen(Main game){
         
         this.game = game;
@@ -98,9 +108,9 @@ public class PlayScreen implements Screen{
         piller = new TallPiller(world,this , 6660 , 50 );
       
         /*Coins*/
-        gold1=new GoldenCoin (this,3050,300,player,hud); 
-        gold2=new GoldenCoin (this,3150,300,player,hud);
-        gold3=new GoldenCoin (this,3250,300,player,hud);
+        gold1=new GoldenCoin (this,1050,250,player,hud); 
+        gold2=new GoldenCoin (this,1150,250,player,hud);
+        gold3=new GoldenCoin (this,1250,250,player,hud);
         gold4=new GoldenCoin (this,18520,690,player,hud);
         gold5=new GoldenCoin (this,18670,690,player,hud);
         gold6=new GoldenCoin (this,18820,690,player,hud);
@@ -109,13 +119,26 @@ public class PlayScreen implements Screen{
         silver3=new SilverCoin (this,4680,300,player,hud);
        
         //Cannons Fireballs
-        FireBall1=new Cannons(1000,950,player,hud);
+        FireBall1=new Cannons(800,950,player,hud);
         FireBall2=new Cannons(8000,950,player,hud);
         FireBall3=new Cannons(11000,950,player,hud);
         FireBall4=new Cannons(16500,950,player,hud);
     
         //protected Shield
         Shield=new ProtectedShield(player,hud);
+        
+        
+        
+     featherList = new LinkedList<>();
+     MovingfeatherList = new LinkedList<>();
+     BlockList = new LinkedList<>();
+        define_featherSack();
+        define_MovingfeatherSack();
+
+        define_Blocks();
+    
+        
+        
         
     }
     public TextureAtlas getAtlas(){
@@ -147,7 +170,7 @@ public class PlayScreen implements Screen{
       public void handleInput(float dt){
       
         //control our player using immediate impulses
-             if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && player.b2body.getLinearVelocity().y <= player.HerculesMaxSpeedHigh )
+             if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && player.b2body.getPosition().y <= player.HerculesMaxSpeedHigh )
                   player.b2body.applyLinearImpulse(new Vector2(0 ,2.5f), player.b2body.getWorldCenter(), true);
              if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN))
                    player.b2body.applyLinearImpulse(new Vector2(0 ,-2.5f), player.b2body.getWorldCenter(), true);
@@ -158,6 +181,11 @@ public class PlayScreen implements Screen{
                   player.b2body.applyForceToCenter(new Vector2(-3, 0), true);
              if (Gdx.input.isKeyPressed(Input.Keys.C))
                       handleTallPillarCrash();
+             
+             
+             if (Gdx.input.isKeyPressed(Input.Keys.V)) 
+                      player.hercules_Smallpush = true ;
+            
              if (Gdx.input.isKeyPressed(Input.Keys.Z))
                       player.hercules_Drink = true ;
              if (Gdx.input.isKeyPressed(Input.Keys.D))
@@ -253,6 +281,29 @@ public class PlayScreen implements Screen{
         FireBall4.update();
         
         Shield.update();
+        
+             for(int i=0 ;i<featherList.size() ; i++)
+            featherList.get(i).update(dt);
+//          
+//          for(int i=0 ;i<MovingfeatherList.size() ; i++)
+//            MovingfeatherList.get(i).update(dt);
+//         
+          for(int i=0;i<BlockList.size();i++){
+                BlockList.get(i).update(dt);
+                BlockList.get(i).Block_Moving(4);
+            }
+            
+      for(int i=0;i<BlockList.size();i++) {
+          if (BlockList.get(i).blockDown ==false ){
+              if(BlockList.get(i).blockFinish == false){
+                  world.destroyBody(BlockList.get(i).b2body);
+                  BlockList.get(i).blockFinish =true;
+              }
+              
+          }
+      }
+
+     
                 
         gameCam.update();
         renderer.setView(gameCam);
@@ -299,12 +350,73 @@ public class PlayScreen implements Screen{
        
        Shield.draw(game.batch);
        
+       for(int i=0 ;i<featherList.size() ; i++){
+                  
+          if( featherList.get(i).featherCollsoin(player) == 1) {
+              featherList.remove(i);
+              FeatherSack.Num_of_feather_Destroyed++ ;
+          }
+          
+          
+           else{ 
+              
+              if( featherList.get(i).featherCollsoin(player) == 2) { hud.hit(); featherList.get(i).draw(game.batch);  }
+              else    featherList.get(i).draw(game.batch);
+              } 
+              
+              
+              }
+                     
+//            for(int i=0 ;i<MovingfeatherList.size() ; i++){
+//                                MovingfeatherList.get(i).Rope.draw(game.batch);
+//                                MovingfeatherList.get(i).featherMoving(player);
+//          if( MovingfeatherList.get(i).featherCollsoin(player) == 2) { hud.hit(); MovingfeatherList.get(i).draw(game.batch);  }
+//          
+//          else{ 
+//                if( MovingfeatherList.get(i).featherCollsoin(player) == 1)  MovingfeatherList.remove(i);
+//
+//              else    MovingfeatherList.get(i).draw(game.batch);
+//              } 
+//              
+//              }
+         
+              for(int i=0;i<BlockList.size();i++) BlockList.get(i).draw(game.batch);
+              
+       
+       
        game.batch.end();
        
        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
        hud.stage.draw();
     }
     
+    public void define_featherSack(){
+            FeatherSack feather1 , feather2 , feather3 ,feather4 ,feather5   ;
+               feather1 =new FeatherSack( 1900/Main.PPM , 320/Main.PPM ,world ,this);
+                feather2 =new FeatherSack( 2160/Main.PPM , 350/Main.PPM ,world ,this);
+                feather3 =new FeatherSack( 2690/Main.PPM , 350/Main.PPM ,world ,this);
+                feather4 =new FeatherSack( 2425/Main.PPM , 320/Main.PPM ,world ,this);
+
+                featherList.add(feather1);
+                featherList.add(feather2);
+                featherList.add(feather3);
+                featherList.add(feather4);
+    }
+    public void define_MovingfeatherSack(){
+        MovingFeather m1 =new MovingFeather(5200/Main.PPM, 550/Main.PPM, world, this);
+        MovingFeather m2 =new MovingFeather(5600/Main.PPM, 550/Main.PPM, world, this);
+        MovingFeather m3 =new MovingFeather(8000/Main.PPM, 550/Main.PPM, world, this);
+        MovingFeather m4 =new MovingFeather(8400/Main.PPM, 550/Main.PPM, world, this);
+        MovingfeatherList.add(m1);
+        MovingfeatherList.add(m2);
+        MovingfeatherList.add(m3);
+        MovingfeatherList.add(m4);
+    }
+
+    public void define_Blocks(){
+        Block b1 = new Block(3100 ,60 , world); 
+        BlockList.add(b1);
+    }
     @Override
     public void resize(int width, int height) {
         gamePort.update(width, height);

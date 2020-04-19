@@ -34,7 +34,8 @@ public class Hud implements Disposable{
         public Integer score;
         public boolean FireDecrease;
         public boolean DecreasePeriod;
-        
+                double count =0 ;
+
         public Hud (Hercules herucle,SpriteBatch sb){
                this.herucle=herucle;
                this.FireDecrease=false;
@@ -107,10 +108,35 @@ public class Hud implements Disposable{
         s.setPosition(herucle.b2body.getPosition().x-600/Main.PPM,700/Main.PPM);
         s1[3].setPosition(herucle.b2body.getPosition().x-270/Main.PPM,680/Main.PPM);
         s2[0].setPosition(herucle.b2body.getPosition().x-500/Main.PPM,705/Main.PPM);
-        hit();
+        fire_hit();
         scoreLabel.setText(String.format("%3d",score));
     }
+    
     public void hit() {
+          count++;
+          if ( count > 10000 ) count=0;
+        if (count % 15 ==0) {
+            if(i<5){
+            i++;
+            s2[0]=s2[i];
+            }    
+            else 
+            {
+                 herucle.hercules_Die=true;
+                if(counter>0){
+                i=0;
+                s2[0]=new Sprite(img2,770,310,110,15);
+                s2[0].setBounds(0,0,242/Main.PPM,23/Main.PPM);
+                counter--;
+                s1[3]=s1[counter];
+               
+               }
+            
+            }
+        }
+    }
+    
+    public void fire_hit() {
         if (FireDecrease && DecreasePeriod) {
             if(i<5){
             i++;

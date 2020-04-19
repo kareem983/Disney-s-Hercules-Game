@@ -26,18 +26,19 @@ public class Hercules extends Sprite {
     public Body b2body;
     public boolean pickedlightsword=false,pickedfireballsword=false;
     
-    private float HerculesInitPosX = 800f;
+    private float HerculesInitPosX = 2000f;
     private float HerculesInitPosY = 180f;
     public float HerculesMaxSpeed = 1.5f;
-    public float HerculesMaxSpeedHigh = 0.3f;
+    public float HerculesMaxSpeedHigh = 0.18333331f;
     
- public enum State { FALLING, JUMPING, STANDING, RUNNING, pushing_hand ,pushing_sword , Drink , die };
+ public enum State { FALLING, JUMPING, STANDING, RUNNING, pushing_hand ,pushing_sword , Drink , die , smallPush};
     public State currentState;
     public State previousState;
     private Animation HerculesRun; 
-    private Animation HerculesStand; 
+            private Animation HerculesStand; 
     private Animation HerculesJump;
     public Animation HerculesPush;
+    public Animation HerculesSmallPush;
     public Animation HerculesSword;
     public Animation HerculesDrink;
     public Animation HerculesDie;
@@ -47,13 +48,17 @@ public class Hercules extends Sprite {
 public  BodyDef bdef ;
 
    public  boolean  hercules_push = false ;
-       private float timePush =0 ;
+       public  float timePush =0 ;
    public  static boolean  hercules_sword = false ;
        private float timeSword =0 ;
 public  static boolean  hercules_Drink = false ;
        private float timeDrink =0 ;
 public  static boolean  hercules_Die = false ;
        private float timeDie =0 ;
+       
+       
+   public  boolean  hercules_Smallpush = false ;
+       public  float timeSmallPush =0 ;
 
     public Hercules(World world , PlayScreen screen){
 
@@ -87,6 +92,10 @@ public  static boolean  hercules_Die = false ;
            case pushing_hand:
                 region =  (TextureRegion) HerculesPush.getKeyFrame(stateTimer );
                 break;
+           case smallPush:
+                region =  (TextureRegion) HerculesSmallPush.getKeyFrame(stateTimer );
+                break;
+
            case pushing_sword:
                 region =  (TextureRegion) HerculesSword.getKeyFrame(stateTimer );
                 break;
@@ -142,6 +151,7 @@ public  static boolean  hercules_Die = false ;
        else if(Hercules_Drink()) return State.Drink;
        
        else if(Hercules_Die()) return State.die; 
+       else if(pushing_Smallhand()) return State.smallPush; 
        
       //if Hercules is going positive in Y-Axis he is jumping... or if he just jumped and is falling remain in jump state
         else  if(b2body.getLinearVelocity().y > 0  || ( b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING))
@@ -227,13 +237,13 @@ frames.clear();
                    frames.add(new TextureRegion(new Texture("Sprites\\Hercules_push\\push9.png"),  0, 0, 50, 78));
                    frames.add(new TextureRegion(new Texture("Sprites\\Hercules_push\\push10.png"),  0, 0, 50, 78));
     
-        HerculesPush = new Animation(0.1f, frames);
+        HerculesPush = new Animation(0.09f, frames);
         HerculesPush.setPlayMode(Animation.PlayMode.NORMAL );
 frames.clear();
      
-                   frames.add(new TextureRegion(new Texture("Sprites\\Herclues_sword\\sword1.png"),  0, 0, 50, 80));
-                   frames.add(new TextureRegion(new Texture("Sprites\\Herclues_sword\\sword2.png"),  0, 0, 50, 80));
-                   frames.add(new TextureRegion(new Texture("Sprites\\Herclues_sword\\sword3.png"),  0, 0, 59, 80));
+              //     frames.add(new TextureRegion(new Texture("Sprites\\Herclues_sword\\sword1.png"),  0, 0, 50, 80));
+                 //  frames.add(new TextureRegion(new Texture("Sprites\\Herclues_sword\\sword2.png"),  0, 0, 50, 80));
+                 //  frames.add(new TextureRegion(new Texture("Sprites\\Herclues_sword\\sword3.png"),  0, 0, 59, 80));
                    frames.add(new TextureRegion(new Texture("Sprites\\Herclues_sword\\sword4.png"),  0, 0, 50, 80));
                    frames.add(new TextureRegion(new Texture("Sprites\\Herclues_sword\\sword5.png"),  0, 0, 50, 80));
                    frames.add(new TextureRegion(new Texture("Sprites\\Herclues_sword\\sword6.png"),  0, 0, 50, 80));
@@ -273,14 +283,21 @@ frames.clear();
         HerculesStand.setPlayMode(Animation.PlayMode.LOOP );
 frames.clear();
 
-      
+                   frames.add(new TextureRegion(new Texture("Sprites\\Herclues_sword\\sword1.png"),  0, 0, 50, 80));
+                  frames.add(new TextureRegion(new Texture("Sprites\\Herclues_sword\\sword2.png"),  0, 0, 50, 80));
+                  frames.add(new TextureRegion(new Texture("Sprites\\Herclues_sword\\sword3.png"),  0, 0, 59, 80));
+  
+        HerculesSmallPush = new Animation(0.1f, frames);
+        HerculesSmallPush.setPlayMode(Animation.PlayMode.NORMAL );
+frames.clear();
+     
 
    }
        // this fn return true when Hercures pushing by hand
    public boolean pushing_hand(){
        if  (hercules_push == true){
                              timePush+= Gdx.graphics.getDeltaTime() ;
-          if(timePush<1) return true ;
+          if(timePush<0.9) return true ;
           else{
              timePush =0 ;
              hercules_push = false ;
@@ -289,12 +306,23 @@ frames.clear();
            return false ;
        }
    }
-   
+   public boolean pushing_Smallhand(){
+       if  (hercules_Smallpush == true){
+                             timeSmallPush+= Gdx.graphics.getDeltaTime() ;
+          if(timeSmallPush<0.4) return true ;
+          else{
+             timeSmallPush =0 ;
+             hercules_Smallpush = false ;
+           return false ; 
+         } }else {
+           return false ;
+       }
+   } 
    // this fn return true when Hercures pushing by sword 
    public boolean pushing_sword(){
        if  (hercules_sword == true){
                              timeSword+= Gdx.graphics.getDeltaTime() ;
-           if(timeSword<1) return true ;
+           if(timeSword<0.7) return true ;
            else{
              timeSword =0 ;
              hercules_sword = false ;
