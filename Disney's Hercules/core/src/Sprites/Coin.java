@@ -27,7 +27,7 @@ public abstract class Coin extends Sprite{
     protected float stateTimer;
     public Hercules hercule;
     protected Hud hud; 
-    boolean isfound=true; 
+    boolean isfound; 
     
      public Coin(PlayScreen screen ,int startX,int startY,int width,int height,int posX,int posY){
          this.startX=startX;
@@ -37,11 +37,13 @@ public abstract class Coin extends Sprite{
          this.posX=posX;
          this.posY=posY;
          this.stateTimer=0;
+         this.isfound=true;
+         
          setBounds(0,0,45/Main.PPM,50/Main.PPM);
          DefineAnimation();
      }
      
-     public abstract void update(float dt);
+     public abstract void update();
      
      public abstract void DefineAnimation();
      

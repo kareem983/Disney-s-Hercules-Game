@@ -29,23 +29,23 @@ public class GoldenCoin extends Coin{
      
      Array<TextureRegion> frames=new Array<TextureRegion>();    
      
-     frames.add(new TextureRegion(new Texture("Sprites\\Gold_1.png"),this.startX,this.startY,this.width,this.height));
-     frames.add(new TextureRegion(new Texture("Sprites\\Gold_2.png"),this.startX,this.startY,559,this.height));
-     frames.add(new TextureRegion(new Texture("Sprites\\Gold_3.png"),this.startX,this.startY,504,this.height));
-     frames.add(new TextureRegion(new Texture("Sprites\\Gold_4.png"),this.startX,this.startY,428,565));
-     frames.add(new TextureRegion(new Texture("Sprites\\Gold_5.png"),this.startX,this.startY,262,this.height));
-     frames.add(new TextureRegion(new Texture("Sprites\\Gold_6.png"),this.startX,this.startY,108,this.height));
-     frames.add(new TextureRegion(new Texture("Sprites\\Gold_7.png"),this.startX,this.startY,262,this.height));
-     frames.add(new TextureRegion(new Texture("Sprites\\Gold_8.png"),this.startX,this.startY,428,565));
-     frames.add(new TextureRegion(new Texture("Sprites\\Gold_9.png"),this.startX,this.startY,503,this.height));
-     frames.add(new TextureRegion(new Texture("Sprites\\Gold_10.png"),this.startX,this.startY,559,this.height));
+     frames.add(new TextureRegion(new Texture("Sprites\\Coins\\Gold_1.png"),this.startX,this.startY,this.width,this.height));
+     frames.add(new TextureRegion(new Texture("Sprites\\Coins\\Gold_2.png"),this.startX,this.startY,559,this.height));
+     frames.add(new TextureRegion(new Texture("Sprites\\Coins\\Gold_3.png"),this.startX,this.startY,504,this.height));
+     frames.add(new TextureRegion(new Texture("Sprites\\Coins\\Gold_4.png"),this.startX,this.startY,428,565));
+     frames.add(new TextureRegion(new Texture("Sprites\\Coins\\Gold_5.png"),this.startX,this.startY,262,this.height));
+     frames.add(new TextureRegion(new Texture("Sprites\\Coins\\Gold_6.png"),this.startX,this.startY,108,this.height));
+     frames.add(new TextureRegion(new Texture("Sprites\\Coins\\Gold_7.png"),this.startX,this.startY,262,this.height));
+     frames.add(new TextureRegion(new Texture("Sprites\\Coins\\Gold_8.png"),this.startX,this.startY,428,565));
+     frames.add(new TextureRegion(new Texture("Sprites\\Coins\\Gold_9.png"),this.startX,this.startY,503,this.height));
+     frames.add(new TextureRegion(new Texture("Sprites\\Coins\\Gold_10.png"),this.startX,this.startY,559,this.height));
      
         CoinDraw=new Animation(0.09f,frames);
         frames.clear();
      }
      
      @Override
-     public void update(float dt){
+     public void update(){
          if (hercule.b2body.getPosition().x > (this.posX-68)/Main.PPM && hercule.b2body.getPosition().x < (this.posX+88)/Main.PPM && hercule.b2body.getPosition().y>this.posY/Main.PPM && hercule.b2body.getPosition().y<(this.posY+50)/Main.PPM)
          {
              setPosition(-50,-50);
