@@ -1,0 +1,47 @@
+
+Enemies and Bosses.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Monster2
+  rotate: false
+  xy: 0, 252
+  size: 422, 206
+  orig: 422, 206
+  offset: 0, 0
+  index: -1
+Monster1
+  rotate: false
+  xy: 0, 64
+  size: 297, 188
+  orig: 297, 188
+  offset: 0, 0
+  index: -1
+Monster3
+  rotate: false
+  xy: 422, 360
+  size: 326, 98
+  orig: 326, 98
+  offset: 0, 0
+  index: -1
+Shark
+  rotate: false
+  xy: 422, 260
+  size: 311, 100
+  orig: 311, 100
+  offset: 0, 0
+  index: -1
+Circular Wooden Monsters
+  rotate: false
+  xy: 0, 0
+  size: 307, 64
+  orig: 307, 64
+  offset: 0, 0
+  index: -1
+Carried Stone
+  rotate: false
+  xy: 748, 401
+  size: 142, 57
+  orig: 142, 57
+  offset: 0, 0
+  index: -1
