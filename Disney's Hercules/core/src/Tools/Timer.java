@@ -2,7 +2,7 @@
 package Tools;
 
 import Scenes.Hud;
-import Sprites.Hercules;
+import MovingObjects.Hercules;
 import com.badlogic.gdx.Gdx;
 
 public class Timer {

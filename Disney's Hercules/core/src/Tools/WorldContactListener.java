@@ -2,7 +2,7 @@
 package Tools;
 
 import HealthAttacker.Enemy;
-import Sprites.Hercules;
+import MovingObjects.Hercules;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -20,14 +20,15 @@ public class WorldContactListener implements ContactListener{
         int collisionDefinition = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
         switch (collisionDefinition){
             case Main.HERCULES_BORDER_BIT | Main.ENEMY_BIT:
-                if (fixA.getFilterData().categoryBits == Main.ENEMY_BIT && Hercules.hercules_sword)
+                if (fixA.getFilterData().categoryBits == Main.ENEMY_BIT && Hercules.hercules_sword2)
                     ((Enemy)fixA.getUserData()).Stap();
-                else if (Hercules.hercules_sword)
-                    ((Enemy)fixB.getUserData()).Stap(); /*      Damaging of The Baby Dragon To Hercules
+                else if (Hercules.hercules_sword2)
+                    ((Enemy)fixB.getUserData()).Stap(); 
+                //      Damaging of The Baby Dragon To Hercules
                 else if (fixA.getFilterData().categoryBits == Main.ENEMY_BIT)
-                    ((Hercules)fixA.getUserData()).babyDragonDamage();
+                    ((Enemy)fixA.getUserData()).attackHercules();
                 else if (fixB.getFilterData().categoryBits == Main.ENEMY_BIT)
-                    ((Hercules)fixB.getUserData()).babyDragonDamage();  */
+                    ((Enemy)fixB.getUserData()).attackHercules();  
                 break;
             case Main.ENEMY_BIT | Main.SKY_BORDER_BIT:
                 if (fixA.getFilterData().categoryBits == Main.ENEMY_BIT && Hercules.hercules_sword)

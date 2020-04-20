@@ -1,6 +1,7 @@
 
 package Sprites;
 
+import HealthAttacker.FeatherSack;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -26,7 +27,7 @@ public class Block extends Sprite {
         this.posx =posx ;
         this.posy =posy;
         this.world = world ;
-        setRegion(new Texture("Map\\Hock.png"));
+        setRegion(new Texture("Maps\\Level One\\Hock.png"));
         setBounds(0, 0, 546/ Main.PPM, 722/ Main.PPM);
         setPosition(posx/Main.PPM, posy/Main.PPM);
         blockDown = true ; blockFinish = false ;

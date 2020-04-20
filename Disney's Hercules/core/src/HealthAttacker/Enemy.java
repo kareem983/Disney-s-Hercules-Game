@@ -22,6 +22,7 @@ public abstract class Enemy extends Sprite{
     }
     
     protected abstract void defineEnemy();
+    public abstract void attackHercules();
     public abstract void update (float dt);
     public  abstract void Stap();
     
