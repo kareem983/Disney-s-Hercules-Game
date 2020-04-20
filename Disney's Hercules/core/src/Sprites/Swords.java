@@ -1,5 +1,6 @@
 package Sprites;
 
+import MovingObjects.Hercules;
 import Screens.PlayScreen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;

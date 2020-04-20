@@ -1,16 +1,15 @@
 
 package HealthAttacker;
 
+import Scenes.Hud;
 import Screens.PlayScreen;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
 public class BabyDragon extends Enemy{
@@ -28,12 +27,12 @@ public class BabyDragon extends Enemy{
         
         frames = new Array<TextureRegion>();
         for (int i =0; i < 6; ++i)
-            frames.add(new TextureRegion(screen.getTotalAtlas().findRegion("Birds"), i*90, 60, 90, 60));
+            frames.add(new TextureRegion(screen.getTotalAtlas().findRegion("BabyDragons"), i*90, 60, 90, 60));
         flyAnimation = new Animation(0.2f, frames);
         frames.clear();
         
         for (int i =6; i < 9; ++i)
-            frames.add(new TextureRegion(screen.getTotalAtlas().findRegion("Birds"), i*90, 60, 90, 60));
+            frames.add(new TextureRegion(screen.getTotalAtlas().findRegion("BabyDragons"), i*90, 60, 90, 60));
         dieAnimation = new Animation(.2f, frames);
         
         stateTime = 0;
@@ -41,7 +40,24 @@ public class BabyDragon extends Enemy{
         setToDestroy = false;
         destroyed = false;
     }
-
+    
+  @Override
+    protected void defineEnemy() {
+             BodyDef bdef = new BodyDef();
+             bdef.position.set(getX(),getY());
+             bdef.type = BodyDef.BodyType.DynamicBody ;
+             body =world.createBody(bdef) ;
+             
+             FixtureDef fdef = new FixtureDef();
+             CircleShape shape = new CircleShape();
+             shape.setRadius(20 / Main.PPM);
+             
+             fdef.filter.categoryBits = Main.ENEMY_BIT;
+             fdef.filter.maskBits = Main.BABYDRAGONS_SURFACE_BIT | Main.SKY_BORDER_BIT |Main.HERCULES_BORDER_BIT; 
+                     
+             fdef.shape = shape ;
+             body.createFixture(fdef).setUserData(this); 
+    }
     public void update (float dt){
         stateTime+=dt;
         if (setToDestroy && !destroyed){
@@ -71,27 +87,15 @@ public class BabyDragon extends Enemy{
         if(!destroyed || stateTime < 2)
             super.draw(batch);
     }
-    
-    @Override
-    protected void defineEnemy() {
-             BodyDef bdef = new BodyDef();
-             bdef.position.set(getX(),getY());
-             bdef.type = BodyDef.BodyType.DynamicBody ;
-             body =world.createBody(bdef) ;
-             
-             FixtureDef fdef = new FixtureDef();
-             CircleShape shape = new CircleShape();
-             shape.setRadius(20 / Main.PPM);
-             
-             fdef.filter.categoryBits = Main.ENEMY_BIT;
-             fdef.filter.maskBits = Main.BIRD_SURFACE_BIT | Main.SKY_BORDER_BIT |Main.HERCULES_BORDER_BIT; 
-                     
-             fdef.shape = shape ;
-             body.createFixture(fdef).setUserData(this); 
-    }
 
     @Override
     public void Stap() {
       setToDestroy = true;
     }
+
+    @Override
+    public void attackHercules() {
+        Hud.hit();
+    }
+    
 }

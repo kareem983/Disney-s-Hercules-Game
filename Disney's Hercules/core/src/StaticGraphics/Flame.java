@@ -3,13 +3,9 @@ package StaticGraphics;
 
 import Screens.PlayScreen;
 import com.Hercules.game.Main;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
 public class Flame extends Sprite{
@@ -18,7 +14,7 @@ public class Flame extends Sprite{
     private float elapsedTime;
     
     public Flame(PlayScreen screen, float x, float y) {
-        super(screen.getAtlas().findRegion("Flame"));
+        super(screen.getFlameAtlas().findRegion("Flame"));
         
         setPosition(x, y);
         Array <TextureRegion> frames = new Array<TextureRegion>();

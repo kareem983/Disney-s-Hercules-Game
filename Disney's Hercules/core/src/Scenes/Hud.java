@@ -1,7 +1,7 @@
 
 package Scenes;
 
-import Sprites.Hercules;
+import MovingObjects.Hercules;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -19,14 +19,14 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Hud implements Disposable{
-        public int i=0,counter=3;
-        public Texture img1,img2;
+        public static int i=0,counter=3;
+        public static Texture img1,img2;
         public Texture [] healthlevel;
         public TextureRegion[] t;
-        public Sprite s;
-        public Sprite []s1;
-        public Sprite []s2;
-        public Hercules herucle; 
+        public static Sprite s;
+        public static Sprite []s1;
+        public static Sprite []s2;
+        public static Hercules herucle; 
         public Stage stage;
         public Viewport viewport;
         public Label scoreText;
@@ -34,7 +34,10 @@ public class Hud implements Disposable{
         public Integer score;
         public boolean FireDecrease;
         public boolean DecreasePeriod;
-                double count =0 ;
+                static double count =0 ;
+                public Label swordtimertext;
+    public Label swordtimerlabel;
+    public Float swordtimer;
 
         public Hud (Hercules herucle,SpriteBatch sb){
                this.herucle=herucle;
@@ -84,6 +87,7 @@ public class Hud implements Disposable{
                 s2[5].setBounds(0,0,0/Main.PPM,23/Main.PPM);
                //
                score=0;
+               swordtimer=0f;
                viewport=new FitViewport(Main.WIDTH,Main.HEIGHT, new OrthographicCamera());
                stage=new Stage(viewport, sb);
                
@@ -91,17 +95,27 @@ public class Hud implements Disposable{
                table.top();
                table.setFillParent(true);
          
-               scoreText=new Label("SCORE",new Label.LabelStyle(new BitmapFont(),Color.GOLD));
-               scoreText.setFontScale(2f);
-               scoreLabel=new Label(String.format("%3d",score),new Label.LabelStyle(new BitmapFont(),Color.GOLD));
-               scoreLabel.setFontScale(2f);
-               scoreLabel.setWidth(150);
-               scoreLabel.setHeight(150);
-               table.add(scoreText).expandX();
-               table.row();
-               table.add(scoreLabel).expandX();
-               stage.addActor(table);  
-               
+               scoreText = new Label("SCORE", new Label.LabelStyle(new BitmapFont(), Color.GOLD));
+        scoreText.setFontScale(2.5f);
+        scoreLabel = new Label(String.format("%3d", score), new Label.LabelStyle(new BitmapFont(), Color.GOLD));
+        scoreLabel.setFontScale(2.5f);
+        swordtimertext = new Label("Sword Timer", new Label.LabelStyle(new BitmapFont(), Color.CYAN));
+        swordtimertext.setFontScale(2.5f);
+        swordtimerlabel = new Label(String.format("%.0f", swordtimer), new Label.LabelStyle(new BitmapFont(), Color.CYAN));
+        swordtimerlabel.setFontScale(2.5f);
+          table.add().expandX().padTop(20);
+        table.add(scoreText).expandX().padTop(20);
+        table.add(swordtimertext).expandX().padTop(20);
+        table.row();
+        table.add().expandX().padTop(20);
+        table.add(scoreLabel).expandX().padTop(20);
+        table.add(swordtimerlabel).expandX().padTop(20);
+        
+        stage.addActor(table);
+        //
+            i=0;
+            counter=0;
+        //    
       }
     public void update()
     {
@@ -112,50 +126,34 @@ public class Hud implements Disposable{
         scoreLabel.setText(String.format("%3d",score));
     }
     
-    public void hit() {
-          count++;
-          if ( count > 10000 ) count=0;
-        if (count % 15 ==0) {
-            if(i<5){
+    public static void hit(){
+        if(i<5){
             i++;
             s2[0]=s2[i];
             }    
             else 
             {
-                 herucle.hercules_Die=true;
+                herucle.hercules_Die=true;
                 if(counter>0){
                 i=0;
                 s2[0]=new Sprite(img2,770,310,110,15);
                 s2[0].setBounds(0,0,242/Main.PPM,23/Main.PPM);
                 counter--;
-                s1[3]=s1[counter];
-               
+                s1[3]=s1[counter]; 
                }
-            
             }
-        }
+    }
+    
+    public static void featherHit() {
+          count++;
+          if ( count > 10000 ) count=0;
+        if (count % 15 ==0)
+            hit();
     }
     
     public void fire_hit() {
-        if (FireDecrease && DecreasePeriod) {
-            if(i<5){
-            i++;
-            s2[0]=s2[i];
-            }    
-            else 
-            {
-                 herucle.hercules_Die=true;
-                if(counter>0){
-                i=0;
-                s2[0]=new Sprite(img2,770,310,110,15);
-                s2[0].setBounds(0,0,242/Main.PPM,23/Main.PPM);
-                counter--;
-                s1[3]=s1[counter];
-               
-               }
-            
-            }
-        }
+        if (FireDecrease && DecreasePeriod) 
+            hit();
         FireDecrease=false;
     }
     

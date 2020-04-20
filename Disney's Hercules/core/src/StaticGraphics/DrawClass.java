@@ -21,7 +21,7 @@ public class DrawClass {
         
         flames = new Array<Flame>();
         
-        for (MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
+        for (MapObject object : map.getLayers().get("Fire On").getObjects().getByType(RectangleMapObject.class)){
              Rectangle rect = ((RectangleMapObject) object).getRectangle();
              
              flames.add(new Flame(screen, rect.getX() / Main.PPM, rect.getY() / Main.PPM ));

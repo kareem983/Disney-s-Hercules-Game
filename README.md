@@ -12,3 +12,13 @@
 6-TallPiller (Osama)
 
 7-Coins (Kareem)
+
+8-FeatherSack & Block (Omar)
+
+9-Herculad & GradedStairs (Osama)
+
+10-SwordsCollision (Youssef)
+
+11-FireballCannons (Kareem)
+
+12-MovingCharacters & GameOver (Kareem)

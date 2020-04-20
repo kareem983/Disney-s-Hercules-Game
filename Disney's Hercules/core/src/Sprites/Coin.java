@@ -1,5 +1,6 @@
 package Sprites;
 
+import MovingObjects.Hercules;
 import Scenes.Hud;
 import Screens.PlayScreen;
 import com.Hercules.game.Main;
