@@ -6,6 +6,8 @@ import Screens.PlayScreen;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -17,7 +19,6 @@ import com.badlogic.gdx.utils.Array;
 
 public class GoldenCoin extends Coin{
     
-   
    public GoldenCoin(PlayScreen screen,int posX,int posY,Hercules hercule,Hud hud){
       super(screen,0,0,563,564,posX,posY);  
       this.hercule=hercule;
@@ -45,13 +46,22 @@ public class GoldenCoin extends Coin{
         frames.clear();
      }
      
+     
+     
      @Override
      public void update(){
-         if (hercule.b2body.getPosition().x > (this.posX-68)/Main.PPM && hercule.b2body.getPosition().x < (this.posX+88)/Main.PPM && hercule.b2body.getPosition().y>this.posY/Main.PPM && hercule.b2body.getPosition().y<(this.posY+50)/Main.PPM)
+         if (hercule.b2body.getPosition().x > (this.posX-68)/Main.PPM && hercule.b2body.getPosition().x < (this.posX+88)/Main.PPM && hercule.b2body.getPosition().y>(this.posY-120)/Main.PPM && hercule.b2body.getPosition().y<(this.posY+50)/Main.PPM)
          {
              setPosition(-50,-50);
              if(this.isfound){
              this.hud.score+=10;
+             manager=new AssetManager();
+             manager.load("Audio/Hercules - Voices/Hercules/coin.wav",Music.class);
+             manager.finishLoading();
+             music = manager.get("Audio/Hercules - Voices/Hercules/coin.wav", Music.class);
+             music.setLooping(false);
+             music.setVolume(0.5f);
+             music.play();
              }
              this.isfound=false;
          }

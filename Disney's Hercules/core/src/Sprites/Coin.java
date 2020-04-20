@@ -6,6 +6,8 @@ import Screens.PlayScreen;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -28,7 +30,9 @@ public abstract class Coin extends Sprite{
     protected float stateTimer;
     public Hercules hercule;
     protected Hud hud; 
-    boolean isfound; 
+    protected boolean isfound; 
+    protected AssetManager manager;
+    protected Music music;
     
      public Coin(PlayScreen screen ,int startX,int startY,int width,int height,int posX,int posY){
          this.startX=startX;

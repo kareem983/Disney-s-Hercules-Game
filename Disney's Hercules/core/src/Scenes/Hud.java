@@ -33,11 +33,11 @@ public class Hud implements Disposable{
         public Label scoreLabel;
         public Integer score;
         public boolean FireDecrease;
-        public boolean DecreasePeriod;
-                static double count =0 ;
-                public Label swordtimertext;
-    public Label swordtimerlabel;
-    public Float swordtimer;
+        public static boolean DecreasePeriod;
+        static double count =0 ;
+        public Label swordtimertext;
+        public Label swordtimerlabel;
+        public Float swordtimer;
 
         public Hud (Hercules herucle,SpriteBatch sb){
                this.herucle=herucle;
@@ -127,6 +127,7 @@ public class Hud implements Disposable{
     }
     
     public static void hit(){
+       if(DecreasePeriod){
         if(i<5){
             i++;
             s2[0]=s2[i];
@@ -142,6 +143,7 @@ public class Hud implements Disposable{
                 s1[3]=s1[counter]; 
                }
             }
+       }
     }
     
     public static void featherHit() {
@@ -149,10 +151,11 @@ public class Hud implements Disposable{
           if ( count > 10000 ) count=0;
         if (count % 15 ==0)
             hit();
+            
     }
     
     public void fire_hit() {
-        if (FireDecrease && DecreasePeriod) 
+        if (FireDecrease)
             hit();
         FireDecrease=false;
     }

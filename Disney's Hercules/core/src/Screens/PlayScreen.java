@@ -113,15 +113,15 @@ public class PlayScreen implements Screen{
         piller = new TallPiller(world,this , 6660 , 50 );
         
         /*Coins*/
-        gold1=new GoldenCoin (this,1050,250,player,hud); 
-        gold2=new GoldenCoin (this,1150,250,player,hud);
-        gold3=new GoldenCoin (this,1250,250,player,hud);
+        gold1=new GoldenCoin (this,1850,250,player,hud); 
+        gold2=new GoldenCoin (this,1850,330,player,hud);
+        gold3=new GoldenCoin (this,1850,410,player,hud);
         gold4=new GoldenCoin (this,18520,750,player,hud);
         gold5=new GoldenCoin (this,18670,750,player,hud);
         gold6=new GoldenCoin (this,18820,750,player,hud);
-        silver1=new SilverCoin (this,4380,400,player,hud);
-        silver2=new SilverCoin (this,4530,350,player,hud);
-        silver3=new SilverCoin (this,4680,300,player,hud);
+        silver1=new SilverCoin (this,7380,400,player,hud);
+        silver2=new SilverCoin (this,7530,350,player,hud);
+        silver3=new SilverCoin (this,7680,300,player,hud);
        
         //Cannons Fireballs
         FireBall1=new Cannons(800,950,player,hud);
