@@ -21,6 +21,7 @@ public class Main extends Game {            // Class Game: Is A class Build By L
     public static final short SKY_BORDER_BIT = 32;
     public static final short CHARACTERS_GROUND_BIT = 64;
     public static final short BIRDS_GROUND_BIT = 128;
+    public static final short HERCULES_SENSOR_BIT = 128;
     public static SpriteBatch batch;  // Container That Holds All The Sprites In The Whole Project
     
     @Override
