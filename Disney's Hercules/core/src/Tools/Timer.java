@@ -1,15 +1,15 @@
 
 package Tools;
 
-import Scenes.Hud;
+import Scenes.HUD;
 import MovingObjects.Hercules;
 import com.badlogic.gdx.Gdx;
 
 public class Timer {
     public Hercules herucle;
-    public Hud hud;
+    public HUD hud;
     public float statetimer1=10,statetimer2=8,statetimer3=6;
-    public Timer(Hercules herucle,Hud hud) 
+    public Timer(Hercules herucle,HUD hud) 
     {
         this.herucle=herucle;
         this.hud=hud;

@@ -1,0 +1,33 @@
+
+Lifes.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+health0
+  rotate: false
+  xy: 1, 1
+  size: 100, 95
+  orig: 100, 95
+  offset: 0, 0
+  index: -1
+health1
+  rotate: false
+  xy: 103, 1
+  size: 100, 95
+  orig: 100, 95
+  offset: 0, 0
+  index: -1
+health2
+  rotate: false
+  xy: 205, 1
+  size: 100, 95
+  orig: 100, 95
+  offset: 0, 0
+  index: -1
+health3
+  rotate: false
+  xy: 307, 1
+  size: 100, 95
+  orig: 100, 95
+  offset: 0, 0
+  index: -1

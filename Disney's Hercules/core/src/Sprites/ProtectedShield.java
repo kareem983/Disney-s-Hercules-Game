@@ -1,45 +1,40 @@
 package Sprites;
 
-import Scenes.Hud;
-import Screens.PlayScreen;
+import Scenes.HUD;
 import MovingObjects.Hercules;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Array;
-
 
 public class ProtectedShield extends Sprite{
   
   private int posX;
-  private int posY;  
+  private int posY;
   private Animation ShieldDraw;
   private int stateTimer;
   private Hercules hercule;
-  private Hud hud;
-  private int timer;
+  private static HUD hud;
+  private static float timer;
+  private static float state;
+  private static int shieldTimer;
   private boolean isFound;
   private boolean isplayed;
-  private AssetManager manager;
   private Music music;
   
-  public ProtectedShield(Hercules hercule,Hud hud){
-     this.posX=10000;
-     this.posY=300;
+  public ProtectedShield(Hercules hercule,HUD hud){
+     this.posX=4512;
+     this.posY=176;
      this.hercule=hercule;
      this.hud=hud;
      this.stateTimer=0;
      this.timer=0;
+     this.shieldTimer=14;
      this.isFound=true;
      this.isplayed=true;
      
@@ -58,27 +53,19 @@ public class ProtectedShield extends Sprite{
       
   }
 
-
-  public void update(){
-      
-    //Timer 17 sec
+  public void update(float dt){
+    //Timer 15 sec
     if(!this.hud.DecreasePeriod){
-        this.timer+=1;
-        if(this.timer>1000){
+        this.timer += dt;
+        if(this.timer>15){
             this.timer=0;
             this.hud.DecreasePeriod=true;
         }
     }
-      
     
     if (this.isplayed && hercule.b2body.getPosition().x > (this.posX-950)/Main.PPM && hercule.b2body.getPosition().x < (this.posX+120)/Main.PPM )
-    {    
-            manager=new AssetManager();
-            manager.load("Audio/Hercules - Voices/Hercules/A Gift from the gods.wav",Music.class);
-            manager.finishLoading();
-            music = manager.get("Audio/Hercules - Voices/Hercules/A Gift from the gods.wav", Music.class);
-            music.setLooping(false);
-            music.play();
+    {             
+            Main.manager.get("Audio//Hercules - Voices//Hercules//A Gift from the gods.wav", Music.class).play();
            this.isplayed=false;
     }
     
@@ -90,11 +77,7 @@ public class ProtectedShield extends Sprite{
             this.hud.DecreasePeriod=false;
             
             //Shield sounds
-            manager=new AssetManager();
-            manager.load("Audio/Hercules - Voices/Hercules/Helmet.wav",Music.class);
-            manager.finishLoading();
-            music = manager.get("Audio/Hercules - Voices/Hercules/Helmet.wav", Music.class);
-            music.setLooping(false);
+            music = Main.manager.get("Audio//Hercules - Voices//Hercules//Helmet.wav", Music.class);
             music.play();
        }
        this.isFound=false;
@@ -106,5 +89,19 @@ public class ProtectedShield extends Sprite{
       if(stateTimer>1)stateTimer=0;   
   
   }
+
+    public static void ShowShieldTimer(Label label, Label timeCounter, float dt) {
+        if(!hud.DecreasePeriod){
+            state += dt;
+            label.setText("SHIELD TIMER");
+            if (state > 1){
+                state = 0;
+                shieldTimer-=1;
+                timeCounter.setText(String.valueOf(shieldTimer));
+            }
+        }
+        else 
+            label.setText("SWORD TIMER");
+    }
 
 }

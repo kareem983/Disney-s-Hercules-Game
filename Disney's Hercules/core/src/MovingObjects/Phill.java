@@ -3,6 +3,8 @@ package MovingObjects;
 
 import Screens.PlayScreen;
 import com.Hercules.game.Main;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -14,9 +16,12 @@ public class Phill extends SecondaryCharacter{
     private float stateTime;
     private float motionTime;
     private boolean once;
+    private boolean played95, played96;
+    private static Hercules player;
     private Animation walkingAnimation;
     private TextureRegion currentRegion;
     private Array<TextureRegion> frames;
+    private Sound Rule95, Rule96;
     
     public Phill(PlayScreen screen, float x, float y){
         super (screen, x, y);
@@ -28,10 +33,13 @@ public class Phill extends SecondaryCharacter{
         walkingAnimation = new Animation(0.2f, frames);
         frames.clear();
         velocity.x = -0.5f;
-        stateTime = 0;
-        motionTime = 0;
-        once =false;
+        stateTime = motionTime = 0;
+        played95 = played96 = once = false;
         setBounds(getX(), getY(), 120/Main.PPM, 120/Main.PPM);
+        
+        player = new Hercules(screen.getWorld(), screen);
+        Rule95 = Main.manager.get("Audio//Hercules - Voices//Phil//Rule number 95.wav", Sound.class);
+        Rule96 = Main.manager.get("Audio//Hercules - Voices//Phil//Rule number 96.wav", Sound.class);
     }
 
     @Override
@@ -74,8 +82,17 @@ public class Phill extends SecondaryCharacter{
         if (velocity.x> 0 && currentRegion.isFlipX())
             currentRegion.flip(true, false);
         else if (velocity.x < 0 && !currentRegion.isFlipX())
-            currentRegion.flip(true, false);
+            currentRegion.flip(true, false); 
+        
+        if (stateTime > 3 && !played95){
+            Rule95.play();
+            played95=true;
+        }
+        else if (player.b2body.getPosition().x >11000/Main.PPM && (!played96)){
+            Rule96.play();
+            played96=true;
+        }
         
     }
-
+        
 }

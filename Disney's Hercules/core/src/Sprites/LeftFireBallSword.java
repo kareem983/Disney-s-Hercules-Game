@@ -3,7 +3,6 @@ package Sprites;
 import MovingObjects.Hercules;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -19,18 +18,14 @@ public class LeftFireBallSword extends Swords {
 
     public LeftFireBallSword(float x, float y, Hercules herucle) {
         this.herucle = herucle;this.x=x;this.y=y;
-         manager=new AssetManager();
-             manager.load("Audio/Hercules - sounds/Fireball Sword.wav",Music.class);
-             manager.finishLoading();
-             music = manager.get("Audio/Hercules - sounds/Fireball Sword.wav", Music.class);
+             music = Main.manager.get("Audio//Hercules - sounds//Fireball Sword.wav",Music.class);
              music.setLooping(false);
              music.setVolume(0.5f); 
              soundsword=0;
-        Tsword = new Texture("Sprites\\fireball2.png");
-        frame.add(new TextureRegion(Tsword, 26, 184, 202, 80));
-        frame.add(new TextureRegion(Tsword, 232, 183, 206, 77));
-        frame.add(new TextureRegion(Tsword, 15, 326, 198, 79));
-        frame.add(new TextureRegion(Tsword, 227, 322, 222, 80));
+        frame.add(new TextureRegion(Msword, 26, 184, 202, 80));
+        frame.add(new TextureRegion(Msword, 232, 183, 206, 77));
+        frame.add(new TextureRegion(Msword, 15, 326, 198, 79));
+        frame.add(new TextureRegion(Msword ,227, 322, 222, 80));
         Asword = new Animation(1f / Main.PPM, frame);
         setBounds(0, 0, 222 / Main.PPM, 80 / Main.PPM);
         directionx = herucle.b2body.getPosition().x;
@@ -42,7 +37,7 @@ public class LeftFireBallSword extends Swords {
          if (soundsword==0)
        {   
            soundsword++ ;
-           music.play();
+            music.play();
        }
         statetimer += Gdx.graphics.getDeltaTime();
         region = new TextureRegion((TextureRegion) Asword.getKeyFrame(statetimer, true));
@@ -53,8 +48,6 @@ public class LeftFireBallSword extends Swords {
         if (statetimer > 1) {
             setBounds(0, 0, 0, 0);
         }
-      
-
     }
       public boolean Finish(){
         return (statetimer > 1) ;

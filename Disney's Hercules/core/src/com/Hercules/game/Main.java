@@ -8,11 +8,11 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Main extends Game {            // Class Game: Is A class Build By LibGDX that Contains The Main Game Loop
+public class Main extends Game {
     
-    public static final int WIDTH = 2000;    // Window Screen Width             2000
-    public static final int HEIGHT = 800;   // Window Screen Height            800
-    public static final float PPM = 800;       // Pixels Per Meter   ---> And Responsiple For The Game Loop Speed
+    public static final int WIDTH = 2000;   
+    public static final int HEIGHT = 800;   
+    public static final float PPM = 800f;      
     public static final short GROUND_BIT = 1;
     public static final short HERCULES_BIT = 2;
     public static final short HERCULES_BORDER_BIT = 4;
@@ -22,12 +22,36 @@ public class Main extends Game {            // Class Game: Is A class Build By L
     public static final short CHARACTERS_GROUND_BIT = 64;
     public static final short BIRDS_GROUND_BIT = 128;
     public static final short HERCULES_SENSOR_BIT = 256;
-    public static SpriteBatch batch;  // Container That Holds All The Sprites In The Whole Project
+    public static SpriteBatch batch; 
+    public static AssetManager manager;
     
     @Override
     public void create() {
              batch = new SpriteBatch();
-            
+            manager = new AssetManager();
+            manager.load("Audio//Hercules - sounds//Tall pillar Cracked.wav", Music.class);
+            manager.load("Audio//Hercules - Voices//Phil//Excellenty.wav", Sound.class);
+            manager.load("Audio//Hercules - sounds//Game Over.mp3", Music.class);
+            manager.load("Audio//Hercules - Voices//Hercules//Herculad.wav" , Music.class);
+            manager.load("Audio//Hercules - Voices//Hercules//HerculadToken.wav", Music.class);
+            manager.load("Audio//Hercules - Voices//Hercules//A Gift from the gods.wav",Music.class);
+            manager.load("Audio//Hercules - Voices//Hercules//Helmet.wav",Music.class);
+            manager.load("Audio//Hercules - sounds//Water Sound.wav",Music.class);
+            manager.load("Audio//Hercules - sounds//Coin.wav",Music.class);
+            manager.load("Audio//Hercules - sounds//Hercules_Atacked.wav",Music.class);
+            manager.load("Audio//Hercules - Voices//Hercules/Oh boy.wav",Music.class);
+            manager.load("Audio//Hercules - sounds//Lightening Sword.wav",Music.class);
+            manager.load("Audio//Hercules - sounds//Fireball Sword.wav",Music.class);
+            manager.load("Audio//Hercules - Voices//Hercules//Sandal.wav", Sound.class);
+            manager.load("Audio//Hercules - Voices//Hercules//LighteningSword.wav", Music.class);
+            manager.load("Audio//Hercules - Voices//Hercules//FireballSword.wav", Music.class);
+            manager.load("Audio//Hercules - sounds//Nature Sound.wav", Music.class);    // NATURE
+            manager.load("Audio//Hercules - Voices//Phil//Concentrate.wav", Music.class); // CONCENTRATE KID
+            manager.load("Audio//Hercules - Voices//Phil//Get your sword.wav", Music.class); // GET YOUR SWORD
+            manager.load("Audio//Hercules - Voices//Hercules//BabyDragon.wav", Music.class); //KILLING BABY DRAGONS
+            manager.load("Audio//Hercules - Voices//Phil//Rule number 95.wav", Sound.class); //STARTING GAME
+            manager.load("Audio//Hercules - Voices//Phil//Rule number 96.wav", Sound.class); // SHOOTING RANGE
+            manager.finishLoading();
             setScreen(new PlayScreen(this));
             //setScreen(new PlayScreen2(this));
     }
@@ -40,7 +64,7 @@ public class Main extends Game {            // Class Game: Is A class Build By L
     @Override
     public void dispose() {
         super.dispose();
-   //     manager.dispose();
+        manager.dispose();
         batch.dispose();
     }
     

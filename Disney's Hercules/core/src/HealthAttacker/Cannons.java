@@ -1,6 +1,6 @@
 package HealthAttacker;
 
-import Scenes.Hud;
+import Scenes.HUD;
 import Screens.PlayScreen;
 import MovingObjects.Hercules;
 import com.Hercules.game.Main;
@@ -25,9 +25,9 @@ public class Cannons extends Sprite{
     private int stateTimer;
     private int counter;
     private Hercules hercule;
-    private Hud hud;
+    private HUD hud;
     
-    public Cannons(int posX, int posY,Hercules hercule,Hud hud){
+    public Cannons(int posX, int posY,Hercules hercule,HUD hud){
         this.posX=posX;
         this.posY=posY;
         this.stateTimer=0;

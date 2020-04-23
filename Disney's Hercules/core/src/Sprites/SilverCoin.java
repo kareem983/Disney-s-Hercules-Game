@@ -1,20 +1,14 @@
 package Sprites;
 
 import MovingObjects.Hercules;
-import Scenes.Hud;
+import Scenes.HUD;
 import Screens.PlayScreen;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
 public class SilverCoin extends Coin{
@@ -22,7 +16,7 @@ public class SilverCoin extends Coin{
     private boolean PoolSoundIsPlayed;
     private int PoolPosX;
 
-   public SilverCoin(PlayScreen screen,int posX, int posY,Hercules hercule,Hud hud){
+   public SilverCoin(PlayScreen screen,int posX, int posY,Hercules hercule,HUD hud){
       super(screen,0,0,563,564,posX,posY);  
       this.hercule=hercule;
       this.hud=hud;
@@ -61,26 +55,18 @@ public class SilverCoin extends Coin{
           
          if (this.PoolSoundIsPlayed && hercule.b2body.getPosition().x > (this.PoolPosX-950)/Main.PPM && hercule.b2body.getPosition().x < (this.PoolPosX+120)/Main.PPM )
          {
-             manager=new AssetManager();
-             manager.load("Audio/Hercules - sounds/Water Sound.wav",Music.class);
-             manager.finishLoading();
-             music = manager.get("Audio/Hercules - sounds/Water Sound.wav", Music.class);
+             music = Main.manager.get("Audio//Hercules - sounds//Water Sound.wav", Music.class);
              music.setLooping(false);
              music.play();
              this.PoolSoundIsPlayed=false;
          }
-         
-         
          
          if (hercule.b2body.getPosition().x > (this.posX-68)/Main.PPM && hercule.b2body.getPosition().x < (this.posX+88)/Main.PPM && hercule.b2body.getPosition().y>(this.posY-120)/Main.PPM && hercule.b2body.getPosition().y<(this.posY+50)/Main.PPM)
          {
              setPosition(-50,-50); 
              if(this.isfound){
              this.hud.score+=5;
-             manager=new AssetManager();
-             manager.load("Audio/Hercules - Voices/Hercules/coin.wav",Music.class);
-             manager.finishLoading();
-             music = manager.get("Audio/Hercules - Voices/Hercules/coin.wav", Music.class);
+             music = Main.manager.get("Audio//Hercules - sounds//Coin.wav", Music.class);
              music.setLooping(false);
              music.setVolume(0.5f);
              music.play();

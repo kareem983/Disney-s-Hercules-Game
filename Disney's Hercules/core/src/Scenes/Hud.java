@@ -2,7 +2,8 @@
 package Scenes;
 
 import MovingObjects.Hercules;
-import com.badlogic.gdx.graphics.Color;
+import Sprites.Herculad;
+import Sprites.ProtectedShield;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,14 +15,15 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
-public class Hud implements Disposable{
-        public static int i=0,counter=3;
+public class HUD implements Disposable{
+        public static int i,lifeCounter;
         public static Texture img1,img2;
         public Texture [] healthlevel;
         public TextureRegion[] t;
@@ -40,139 +42,118 @@ public class Hud implements Disposable{
         public Label swordtimertext;
         public Label swordtimerlabel;
         public Float swordtimer;
-public static AssetManager manager;
-     public static Music music;
-        public Hud (Hercules herucle,SpriteBatch sb){
+        private static Music music;
+        /******** KAREEM  *************/
+        private static Image image, image2;
+        private TextureRegion region, region2;
+        private static String healthPath, lifesPath;
+        private static int X[], Y[], X2[], Y2[];
+        
+        private BitmapFont FONT, FONT2;
+        private Label.LabelStyle font, font2;
+        
+        private static Music concentrate;
+        /***************************/
+    
+        public HUD (Hercules herucle,SpriteBatch sb){
                this.herucle=herucle;
                this.FireDecrease=false;
                this.DecreasePeriod=true;
-              
-                img1= new Texture("sprites\\hud\\healthbar.gif");
-                img2=new Texture("sprites\\hud\\hercules.png");
-                healthlevel=new Texture[4];
-                healthlevel[0]=new Texture("sprites\\hud\\health0.png");
-                healthlevel[1]=new Texture("sprites\\hud\\health1.png");
-                healthlevel[2]=new Texture("sprites\\hud\\health2.png");       
-                healthlevel[3]=new Texture("sprites\\hud\\health3.png");
-                t=new TextureRegion[6];
-                t[0]=new TextureRegion(img2,770,310,110,15);
-                t[1]=new TextureRegion(img2,770,310,90,15);
-                t[2]=new TextureRegion(img2,770,310,70,15);
-                t[3]=new TextureRegion(img2,770,310,50,15);
-                t[4]=new TextureRegion(img2,770,310,30,15);
-                t[5]=new TextureRegion(img2,770,310,15,15);
-               //
-                s=new Sprite(img1);
-                s.setBounds(0,0,350/Main.PPM,60/Main.PPM);
-                //
-                s1=new Sprite[4];
-                s1[0]=new Sprite(healthlevel[0]);
-                s1[0].setBounds(0, 0,100/Main.PPM , 95/Main.PPM);
-                s1[1]=new Sprite(healthlevel[1]);
-                s1[1].setBounds(0, 0,100/Main.PPM , 95/Main.PPM);
-                s1[2]=new Sprite(healthlevel[2]);
-                s1[2].setBounds(0, 0,100/Main.PPM , 95/Main.PPM);
-                s1[3]=new Sprite(healthlevel[3]);
-                s1[3].setBounds(0, 0,100/Main.PPM , 95/Main.PPM);
-                //
-                s2=new Sprite[6];
-                s2[0]=new Sprite(t[0]);
-                s2[0].setBounds(0,0,242/Main.PPM,23/Main.PPM);
-                s2[1]=new Sprite(t[1]);
-                s2[1].setBounds(0,0,195/Main.PPM,23/Main.PPM);
-                s2[2]=new Sprite(t[2]);
-                s2[2].setBounds(0,0,145/Main.PPM,23/Main.PPM);
-                s2[3]=new Sprite(t[3]);
-                s2[3].setBounds(0,0,95/Main.PPM,23/Main.PPM);
-                s2[4]=new Sprite(t[4]);
-                s2[4].setBounds(0,0,55/Main.PPM,23/Main.PPM);
-                s2[5]=new Sprite(t[5]);
-                s2[5].setBounds(0,0,0/Main.PPM,23/Main.PPM);
-               //
                score=0;
                swordtimer=0f;
+               lifeCounter=3;
                viewport=new FitViewport(Main.WIDTH,Main.HEIGHT, new OrthographicCamera());
                stage=new Stage(viewport, sb);
                
                Table table=new Table();
                table.top();
                table.setFillParent(true);
+               concentrate = Main.manager.get("Audio//Hercules - Voices//Phil//Concentrate.wav", Music.class);
+         /*********************** KAREEM ***********************************/
+        image = new Image(); 
+        image2 = new Image();
+        i = 1;
+        healthPath = "sprites\\hud\\Healthbar.png"; lifesPath="sprites\\hud\\Lifes.png";
+        X = new int [] {1, 1, 361, 1, 361, 361}; Y = new int [] {271, 136, 271, 1, 136, 1};
+        X2 = new int [] {307, 205, 103, 1}; Y2 = new int [] {1, 1, 1, 1};
+        region=new TextureRegion(new Texture(healthPath),X[0],Y[0],358,133);
+        image.setDrawable(new TextureRegionDrawable(region)); 
+        region2=new TextureRegion(new Texture(lifesPath),X2[0],Y2[0],100,95);
+        image2.setDrawable(new TextureRegionDrawable(region2)); 
+        
+        FONT= new BitmapFont(Gdx.files.internal("Fonts\\HUD.fnt"));
+        font = new Label.LabelStyle(FONT, null);
+        FONT2= new BitmapFont(Gdx.files.internal("Fonts\\HUD2.fnt"));
+        font2 = new Label.LabelStyle(FONT2, null);
+         /******************************************************************/
          
-               scoreText = new Label("SCORE", new Label.LabelStyle(new BitmapFont(), Color.GOLD));
-        scoreText.setFontScale(2.5f);
-        scoreLabel = new Label(String.format("%3d", score), new Label.LabelStyle(new BitmapFont(), Color.GOLD));
-        scoreLabel.setFontScale(2.5f);
-        swordtimertext = new Label("Sword Timer", new Label.LabelStyle(new BitmapFont(), Color.CYAN));
-        swordtimertext.setFontScale(2.5f);
-        swordtimerlabel = new Label(String.format("%.0f", swordtimer), new Label.LabelStyle(new BitmapFont(), Color.CYAN));
-        swordtimerlabel.setFontScale(2.5f);
-          table.add().expandX().padTop(20);
-        table.add(scoreText).expandX().padTop(20);
-        table.add(swordtimertext).expandX().padTop(20);
+        scoreText = new Label("SCORE", font);
+        scoreText.setFontScale(0.7f);
+        scoreLabel = new Label(String.format("%3d", score),font);
+        scoreLabel.setFontScale(0.7f);
+        swordtimertext = new Label("SWORD TIMER", font2);
+        swordtimertext.setFontScale(0.7f);
+        swordtimerlabel = new Label(String.format("%.0f", swordtimer), font2);
+        swordtimerlabel.setFontScale(0.7f);
+        //
+        table.add(image).padTop(10f);
+        table.add(image2).padTop(15f).padLeft(-750f);
+        table.add(scoreText).expandX().padTop(10).padLeft(-700);
+        table.add(swordtimertext).expandX().padTop(10).padLeft(-500);
         table.row();
-        table.add().expandX().padTop(20);
-        table.add(scoreLabel).expandX().padTop(20);
-        table.add(swordtimerlabel).expandX().padTop(20);
+        table.add().expandX();
+        table.add().expandX();
+        table.add(scoreLabel).expandX().padTop(-50).padLeft(-730);
+        table.add(swordtimerlabel).expandX().padTop(-50).padLeft(-470);
         
         stage.addActor(table);
-        //
-            i=0;
-            counter=0;
-        //    
       }
-    public void update()
-    {
-        s.setPosition(herucle.b2body.getPosition().x-600/Main.PPM,700/Main.PPM);
-        s1[3].setPosition(herucle.b2body.getPosition().x-270/Main.PPM,680/Main.PPM);
-        s2[0].setPosition(herucle.b2body.getPosition().x-500/Main.PPM,705/Main.PPM);
+        
+    public void update(float dt)
+    {   
         fire_hit();
+        ProtectedShield.ShowShieldTimer(swordtimertext, swordtimerlabel, dt);
+        if (Herculad.Catch){
+            i=1;
+            image.setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture(healthPath), X[0], Y[0], 358, 133)));
+        }
         scoreLabel.setText(String.format("%3d",score));
     }
     
+    /******************KAREEM*********************/
     public static void hit(){
-       if(DecreasePeriod){
-        if(i<5){
-            i++;
-            s2[0]=s2[i];
-             manager = new AssetManager();
-             manager.load("Audio/Hercules - sounds/Hercules_Atacked.wav",Music.class);
-             manager.finishLoading();
-        music = manager.get("Audio/Hercules - sounds/Hercules_Atacked.wav", Music.class);
-             music.setLooping(false);
-             music.setVolume(0.5f); 
-             music.play();
-            }    
-            else 
-            {
-                herucle.hercules_Die=true;
-                manager = new AssetManager();
-             manager.load("Audio/Hercules - Voices/Hercules/Oh boy.wav",Music.class);
-             manager.finishLoading();
-        music = manager.get("Audio/Hercules - Voices/Hercules/Oh boy.wav", Music.class);
-             music.setLooping(false);
-             music.setVolume(0.5f); 
-             music.play();
-                if(counter>0){
-                i=0;
-                s2[0]=new Sprite(img2,770,310,110,15);
-                s2[0].setBounds(0,0,242/Main.PPM,23/Main.PPM);
-                counter--;
-                s1[3]=s1[counter]; 
-               }
+        if(DecreasePeriod){
+            if(i<6){//KAREEM
+                image.setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture(healthPath), X[i], Y[i++], 358, 133)));
+                music = Main.manager.get("Audio//Hercules - sounds//Hercules_Atacked.wav",Music.class);
+                music.setVolume(0.5f); 
+                music.play();
+                if (i==5 && !concentrate.isPlaying())
+                    concentrate.play();
             }
-       }
+                 
+            else {
+                herucle.hercules_Die=true;
+                music = Main.manager.get("Audio//Hercules - Voices//Hercules/Oh boy.wav",Music.class);
+                music.play();
+                if(lifeCounter>0){
+                    i=0; lifeCounter--;
+                    image2.setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture(lifesPath), X2[3-lifeCounter], Y2[3-lifeCounter], 100, 95)));
+                }
+                concentrate.stop();
+            }
+        }
     }
-    
+    /*******************************************/
     public static void featherHit() {
           count++;
           if ( count > 10000 ) count=0;
         if (count % 15 ==0)
             hit();
-            
     }
     
     public void fire_hit() {
-        if (FireDecrease)
+        if (FireDecrease && DecreasePeriod) 
             hit();
         FireDecrease=false;
     }

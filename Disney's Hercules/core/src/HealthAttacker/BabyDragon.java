@@ -1,9 +1,11 @@
 
 package HealthAttacker;
 
-import Scenes.Hud;
+import Scenes.HUD;
 import Screens.PlayScreen;
 import com.Hercules.game.Main;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -21,6 +23,7 @@ public class BabyDragon extends Enemy{
     private Array<TextureRegion> frames;
     private boolean setToDestroy;
     private boolean destroyed;
+    private Music sound;
     
     public BabyDragon(PlayScreen screen, float x, float y) {
         super(screen, x, y);
@@ -39,6 +42,8 @@ public class BabyDragon extends Enemy{
         setBounds(getX(), getY(), 100/Main.PPM, 100/Main.PPM);
         setToDestroy = false;
         destroyed = false;
+        
+        sound = Main.manager.get("Audio//Hercules - Voices//Hercules//BabyDragon.wav", Music.class);
     }
     
   @Override
@@ -91,11 +96,13 @@ public class BabyDragon extends Enemy{
     @Override
     public void Stap() {
       setToDestroy = true;
+      if (!sound.isPlaying())
+      sound.play();
     }
 
     @Override
     public void attackHercules() {
-        Hud.hit();
+        HUD.hit();
     }
     
 }

@@ -1,19 +1,12 @@
 package Sprites;
 
 import MovingObjects.Hercules;
-import Screens.PlayScreen;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
 public class LightiningSword extends Swords {
@@ -22,10 +15,7 @@ public class LightiningSword extends Swords {
    int soundsword;
     public LightiningSword(float x, float y, Hercules herucle) {
         this.herucle = herucle;this.x=x;this.y=y;
-        manager=new AssetManager();
-             manager.load("Audio/Hercules - sounds/Lightening Sword.wav",Music.class);
-             manager.finishLoading();
-             music = manager.get("Audio/Hercules - sounds/Lightening Sword.wav", Music.class);
+             music = Main.manager.get("Audio//Hercules - sounds//Lightening Sword.wav",Music.class);
              music.setLooping(false);
              music.setVolume(0.5f); 
              soundsword=0;
@@ -46,7 +36,7 @@ public class LightiningSword extends Swords {
        if (soundsword==0)
        {   
            soundsword++ ;
-           music.play();
+             music.play();
        }
         if (!herucle.isRunningRight())
         {

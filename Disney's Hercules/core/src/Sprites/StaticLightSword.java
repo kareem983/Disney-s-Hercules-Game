@@ -3,7 +3,6 @@ package Sprites;
 import MovingObjects.Hercules;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -15,12 +14,6 @@ public class StaticLightSword extends Swords{
     
     public StaticLightSword(float x, float y, Hercules herucle) {
         this.herucle = herucle;this.x=x;this.y=y;
-            manager=new AssetManager();
-             manager.load("Audio/Hercules - Voices/Hercules/Lightening Sword.wav",Music.class);
-             manager.finishLoading();
-             music = manager.get("Audio/Hercules - Voices/Hercules/Lightening Sword.wav", Music.class);
-             music.setLooping(false);
-             music.setVolume(0.5f); 
         Tsword = new Texture("Sprites\\lightsword.png");
         Array<TextureRegion> frame= new Array<TextureRegion>();
         for (int i = 0; i < 3; i++) {
@@ -32,12 +25,12 @@ public class StaticLightSword extends Swords{
         counter=0;soundcounter=0;
         setBounds(0, 0, 76 * 3 / Main.PPM, 215 / Main.PPM);
         setPosition(x, y);
+        music = Main.manager.get("Audio//Hercules - Voices//Hercules//LighteningSword.wav", Music.class);
     }
      @Override
     public void update() {
         if (herucle.b2body.getPosition().x > x-(940/Main.PPM) && soundcounter==0)
         {
-                  
              music.play();
              soundcounter++; 
         }

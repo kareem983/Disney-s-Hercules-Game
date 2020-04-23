@@ -3,10 +3,7 @@ package MovingObjects;
 import Screens.PlayScreen;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -23,7 +20,7 @@ import com.badlogic.gdx.utils.Array;
 public class Hercules extends Sprite {
 
     public World world;
-    public Body b2body;
+    public static Body b2body;
     public boolean pickedlightsword = false, pickedfireballsword = false,pickedsonicsword=false;
 
     private float HerculesInitPosX = 750f;
@@ -31,7 +28,7 @@ public class Hercules extends Sprite {
     public float HerculesMaxSpeed = 1.5f;
 //    public float HerculesMaxSpeedHigh = 0.18333331f;
     public float HerculesMaxSpeedHigh = 0.8f;
-
+    
     public enum State {
         FALLING, JUMPING, STANDING, RUNNING, pushing_hand, pushing_sword, pushing_sword2, pushing_sword3, Drink, die, smallPush
     };
@@ -68,7 +65,10 @@ public class Hercules extends Sprite {
 
     public boolean hercules_Smallpush = false;
     public float timeSmallPush = 0;
-
+    
+    private Music sound;
+    private static float soundTimer;
+    
     public Hercules(World world, PlayScreen screen) {
 
         this.world = world;
@@ -76,11 +76,12 @@ public class Hercules extends Sprite {
 
         currentState = State.STANDING;
         previousState = State.STANDING;
-        stateTimer = 0;
+        stateTimer = soundTimer=0;
         runningRight = true;
         setBounds(0, 0, 50 * 3 / Main.PPM, 75 * 3 / Main.PPM);
         defineAnimation(screen);
-
+        
+        sound = Main.manager.get("Audio//Hercules - Voices//Phil//Get your sword.wav", Music.class);
     }
 
     public boolean isRunningRight() {
@@ -90,6 +91,7 @@ public class Hercules extends Sprite {
     public void update(float dt) {
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2 + 50 / Main.PPM);
         setRegion(getFrame(dt));
+        getYourSword(dt);
     }
 
     // this fn return which animation that will draw now 
@@ -433,5 +435,17 @@ public class Hercules extends Sprite {
    public float getStateTimer(){
        return stateTimer;
    }
+   
+    private void getYourSword(float dt){
+        if (b2body.getLinearVelocity().x==0 && b2body.getLinearVelocity().y==0){
+            soundTimer += dt;
+            if (soundTimer > 8 && soundTimer != 0){
+                soundTimer=0;
+                if (!sound.isPlaying())
+                    sound.play();
+            }
+        }
+        else soundTimer=0;
+    }
    //
 }

@@ -1,23 +1,12 @@
 package Sprites;
 
 import MovingObjects.Hercules;
-import Scenes.Hud;
+import Scenes.HUD;
 import Screens.PlayScreen;
 import com.Hercules.game.Main;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Array;
-
 
 public abstract class Coin extends Sprite{
     protected int startX;
@@ -29,9 +18,8 @@ public abstract class Coin extends Sprite{
     protected Animation CoinDraw;
     protected float stateTimer;
     public Hercules hercule;
-    protected Hud hud; 
+    protected HUD hud; 
     protected boolean isfound; 
-    protected AssetManager manager;
     protected Music music;
     
      public Coin(PlayScreen screen ,int startX,int startY,int width,int height,int posX,int posY){

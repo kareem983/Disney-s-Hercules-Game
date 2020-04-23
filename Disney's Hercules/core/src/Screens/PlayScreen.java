@@ -23,6 +23,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.Hercules.game.Main;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import java.util.LinkedList;
@@ -41,7 +42,7 @@ public class PlayScreen implements Screen{
     //Basic PlayScreen Variables
     private OrthographicCamera gameCam;
     private Viewport gamePort;
-    private Hud hud;
+    private HUD hud;
     
     //Tiled Map Variables
     private TmxMapLoader mapLoader;
@@ -61,6 +62,10 @@ public class PlayScreen implements Screen{
     private B2WorldCreator creator;
     public  WorldContactListener worldContactListener;
     
+    //Sounds Variables
+    private Music Game, GameOver  , Pillarmusic;
+    private Sound sound;
+    
     //Sprites
     private DrawClass staticGraphics;
     public Swords staticlightiningsword;
@@ -70,7 +75,7 @@ public class PlayScreen implements Screen{
     public TallPiller piller;
     private GoldenCoin gold1,gold2,gold3,gold4,gold5,gold6;
     private SilverCoin silver1,silver2,silver3;
-    private Cannons FireBall1,FireBall2,FireBall3,FireBall4;
+    private Cannons FireBall1,FireBall2,FireBall3,FireBall4, FireBall5, FireBall6, FireBall7, FireBall8, FireBall9, FireBall10, FireBall11, FireBall12;
     private ProtectedShield Shield;
     List<HealthAttacker.FeatherSack> featherList ;
     List<MovingFeather> MovingfeatherList ;
@@ -102,32 +107,39 @@ public class PlayScreen implements Screen{
         creator = new B2WorldCreator(this);
         
         player= new Hercules(world , this);
-        staticlightiningsword = new StaticLightSword(11000f / Main.PPM, 300f / Main.PPM, player);
-        staticfireballsword = new StaticFireBallSword(10555f / Main.PPM, 300f / Main.PPM, player); 
+        staticlightiningsword = new StaticLightSword(15555f / Main.PPM, 300f / Main.PPM, player);
+        staticfireballsword = new StaticFireBallSword(10400f / Main.PPM, 300f / Main.PPM, player); 
         leftfirball=rightfireball=staticfireballsword;
-        staticsonicsword = new StaticSonicSword(9000f / Main.PPM, 300f / Main.PPM, player);
+        staticsonicsword = new StaticSonicSword(20112f / Main.PPM, 336f / Main.PPM, player);
         sonicsword = new SonicSword(0, 0, player);
         lightningsword =staticsonicsword;
-        hud=new Hud(player,game.batch);
-        
+        hud=new HUD(player,game.batch);
         piller = new TallPiller(world,this , 6660 , 50 );
         
         /*Coins*/
-        gold1=new GoldenCoin (this,1850,250,player,hud); 
-        gold2=new GoldenCoin (this,1850,330,player,hud);
-        gold3=new GoldenCoin (this,1850,410,player,hud);
+        gold1=new GoldenCoin (this,2192,288,player,hud); 
+        gold2=new GoldenCoin (this,2240,336,player,hud);
+        gold3=new GoldenCoin (this,2288,384,player,hud);
         gold4=new GoldenCoin (this,18520,750,player,hud);
         gold5=new GoldenCoin (this,18670,750,player,hud);
         gold6=new GoldenCoin (this,18820,750,player,hud);
-        silver1=new SilverCoin (this,7380,400,player,hud);
-        silver2=new SilverCoin (this,7530,350,player,hud);
-        silver3=new SilverCoin (this,7680,300,player,hud);
+        silver1=new SilverCoin (this,13120,272,player,hud);
+        silver2=new SilverCoin (this,13120,352,player,hud);
+        silver3=new SilverCoin (this,13120,416,player,hud);
        
         //Cannons Fireballs
-        FireBall1=new Cannons(800,950,player,hud);
-        FireBall2=new Cannons(8000,950,player,hud);
-        FireBall3=new Cannons(11000,950,player,hud);
-        FireBall4=new Cannons(16500,950,player,hud);
+        FireBall1=new Cannons(2256,1104,player,hud);
+        FireBall2=new Cannons(13120,1050,player,hud);
+        FireBall3=new Cannons(20448,680,player,hud);
+        FireBall4=new Cannons(20720,700,player,hud);
+        FireBall5=new Cannons(20976,730,player,hud);
+        FireBall6=new Cannons(21248,750,player,hud);
+        FireBall7=new Cannons(21456,790,player,hud);
+        FireBall8=new Cannons(21728,810,player,hud);
+        FireBall9=new Cannons(21888,890,player,hud);
+        FireBall10=new Cannons(22160,920,player,hud);
+        FireBall11=new Cannons(21888,980,player,hud);
+        FireBall12=new Cannons(22160,1104,player,hud);
     
         //Protected Shield
         Shield=new ProtectedShield(player,hud);
@@ -140,11 +152,18 @@ public class PlayScreen implements Screen{
         define_Blocks();
 
         hill =  new Hill(world , this , this.map);
-        juice = new Herculad(world,this,2500,100);
+        juice = new Herculad(world,this,18080,432);
         normalcounter  = 0;
         c = v = false;
         timer = new Timer(player, hud);
         sandal = new Sandal(new Texture("sprites\\sandal.png"), 6000 / Main.PPM, 300 / Main.PPM, player);
+        
+         Pillarmusic= game.manager.get("Audio//Hercules - sounds//Tall pillar Cracked.wav");
+         sound = game.manager.get("Audio//Hercules - Voices//Phil//Excellenty.wav",Sound.class );
+         GameOver = game.manager.get("Audio//Hercules - sounds//Game Over.mp3",Music.class);
+         Game = game.manager.get("Audio//Hercules - sounds//Nature Sound.wav", Music.class);
+         Game.setLooping(true);
+         Game.play();
     }
     
     public TextureAtlas getFlameAtlas(){
@@ -154,7 +173,7 @@ public class PlayScreen implements Screen{
         return TotalAtlas;
     }
     public TextureAtlas getAtlas_pillar(){return atlas_pillar;}
-    
+    public Hercules getPlayer() {return player;}
     public TextureAtlas getAtlas_Run(){
         return atlas_run;
     }
@@ -175,20 +194,21 @@ public class PlayScreen implements Screen{
         //control our player using immediate impulses
              if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && player.b2body.getLinearVelocity().y <= player.HerculesMaxSpeedHigh )
                   player.b2body.applyLinearImpulse(new Vector2(0 ,2.5f), player.b2body.getWorldCenter(), true);
-             if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN))
+             else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN))
                    player.b2body.applyLinearImpulse(new Vector2(0 ,-2.5f), player.b2body.getWorldCenter(), true);
 
-             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= player.HerculesMaxSpeed)
+             else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= player.HerculesMaxSpeed)
                   player.b2body.applyForceToCenter(new Vector2(3, 0), true);
-             if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -1 * player.HerculesMaxSpeed)
+             else if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -1 * player.HerculesMaxSpeed)
                   player.b2body.applyForceToCenter(new Vector2(-3, 0), true);
              
-             if (Gdx.input.isKeyPressed(Input.Keys.V)){player.hercules_push = true; c = true;handleTallPillarCrash();}
-             if (Gdx.input.isKeyPressed(Input.Keys.C)) {v = true; player.hercules_Smallpush = true; handleTallPillarCrash();}
+             if (Gdx.input.isKeyJustPressed(Input.Keys.V)){player.hercules_push = true; c = true;handleTallPillarCrash();}
+             else if (Gdx.input.isKeyJustPressed(Input.Keys.C)) {v = true; player.hercules_Smallpush = true; handleTallPillarCrash();}
 
-              if (Gdx.input.isKeyPressed(Input.Keys.Z)) 
+             else if (Gdx.input.isKeyPressed(Input.Keys.Z)) 
                      handleSword();
-             if (Gdx.input.isKeyJustPressed(Input.Keys.X)) {v=true;player.hercules_sword2 = true;handleTallPillarCrash();}
+             else if (Gdx.input.isKeyJustPressed(Input.Keys.X)) {v=true;player.hercules_sword2 = true;handleTallPillarCrash();}
+             
              if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE))
                       System.exit(0) ;
              
@@ -230,8 +250,6 @@ public class PlayScreen implements Screen{
             if (timer.statetimer1 >0) {
                 player.hercules_sword = true;
            lightningsword = new LightiningSword(0, 0, player);
-          
-
             }
 
         } else if (player.pickedfireballsword == true) {
@@ -253,15 +271,22 @@ public class PlayScreen implements Screen{
             player.hercules_sword = true;
         }
       }
+      
       private void handleTallPillarCrash(){
-
-        //Allow Crash Animation to start-------------------------------------
+        
+        /*******Allow Crash Animation to start********/
         if (piller.crashed == false) {
             if (  piller.getBoundingRectangle().overlaps(player.getBoundingRectangle()) )
             {
+                Pillarmusic.setVolume(0.5f);
+                Pillarmusic.setLooping(false);
+                Pillarmusic.play();
+                
                 if (c == true || (v == true && normalcounter == 3) ) {
+                    
+                    sound.play();
+                    
                     piller.STATE = true;
-
                     world.destroyBody(piller.b2body);
                     piller.crashed = true;
                 }
@@ -285,7 +310,7 @@ public class PlayScreen implements Screen{
         }
 
     }
-      private void updateCoins(float dt){
+      private void updateCoins(){
         silver1.update();
         silver2.update();
         silver3.update();
@@ -309,7 +334,7 @@ public class PlayScreen implements Screen{
             for(Enemy enemy : creator.getBabyDragons())
                 enemy.update(dt);
       }
-      private void updateSwords(float dt){
+      private void updateSwords(){
         staticlightiningsword.update();
         lightningsword.update();
         staticfireballsword.update();
@@ -317,10 +342,20 @@ public class PlayScreen implements Screen{
         rightfireball.update();
         staticsonicsword.update();
         sonicsword.update();
-        FireBall1.update();
+      }
+      private void updateFireBalls(){
+          FireBall1.update();
         FireBall2.update();
         FireBall3.update();
         FireBall4.update();
+        FireBall5.update();
+        FireBall6.update();
+        FireBall7.update();
+        FireBall8.update();
+        FireBall9.update();
+        FireBall10.update();
+        FireBall11.update();
+        FireBall12.update();
       }
       private void FeathersAndBlock(float dt){
           for(int i=0 ;i<featherList.size() ; i++)
@@ -367,16 +402,17 @@ public class PlayScreen implements Screen{
         }
     }
       public boolean gameOver(){
-          if (player.currentState == Hercules.State.die && player.getStateTimer() > 1.4)
+          if (player.currentState == Hercules.State.die && player.getStateTimer() > 1.4){
+              GameOver.play();
               return true;
-       
+          }
           return false;
       }
       /***************************************/
       
      public void update(float dt){
          handleInput(dt);
-         hud.update();
+         hud.update(dt);
          world.step(1/60f, 6, 2);  
        
         updateCharacters(dt);
@@ -386,11 +422,12 @@ public class PlayScreen implements Screen{
         timer.update();
         
         player.update(dt);
-        updateSwords(dt);
+        updateSwords();
+        updateFireBalls();
         piller.update(dt);
-        updateCoins(dt);
+        updateCoins();
         juice.update(dt);
-        Shield.update();
+        Shield.update(dt);
         
         FeathersAndBlock(dt);
         
@@ -416,21 +453,22 @@ public class PlayScreen implements Screen{
        
        game.batch.begin();
        renderCharacters();
-       renderHUD(); 
        player.draw(game.batch);
        piller.draw(game.batch);
-       renderSwords();
-       rederCoinsAndFire();
-       renderFeatherSacks();
        juice.draw(game.batch);
        sandal.draw(game.batch);
        Shield.draw(game.batch);
+       renderSwords();
+       rederCoinsAndFire();
+       renderFeatherSacks();
+       
        game.batch.end();
        
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
         
         if(gameOver()){
+            Game.stop();
             game.setScreen(new GameOver(game));
             dispose();
         }
@@ -450,11 +488,6 @@ public class PlayScreen implements Screen{
         for(Enemy enemy : creator.getBabyDragons())
             enemy.draw(game.batch);
         
-    }
-    private void renderHUD() {
-       hud.s.draw(game.batch);
-       hud.s1[3].draw(game.batch);
-       hud.s2[0].draw(game.batch);
     }
     private void renderSwords() {
         staticlightiningsword.draw(game.batch);
@@ -482,6 +515,14 @@ public class PlayScreen implements Screen{
        FireBall2.draw(game.batch);
        FireBall3.draw(game.batch);
        FireBall4.draw(game.batch);
+       FireBall5.draw(game.batch);
+       FireBall6.draw(game.batch);
+       FireBall7.draw(game.batch);
+       FireBall8.draw(game.batch);
+       FireBall9.draw(game.batch);
+       FireBall10.draw(game.batch);
+       FireBall11.draw(game.batch);
+       FireBall12.draw(game.batch);
     }
     private void renderFeatherSacks() {
         
