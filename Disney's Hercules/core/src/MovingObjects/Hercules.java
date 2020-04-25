@@ -218,21 +218,6 @@ public class Hercules extends Sprite {
         fdef.isSensor = true;
         b2body.createFixture(fdef);
         
-         // CREATE SENSOR FOR UPCOMING OBJECTS
-        PolygonShape limit = new PolygonShape();
-        Vector2[] vertices = new Vector2[4];
-        vertices[0] = new Vector2(-50, 300).scl(1 / Main.PPM);
-        vertices[1] = new Vector2(1000, 300).scl(1 / Main.PPM);
-        vertices[2] = new Vector2(-50, -30).scl(1 / Main.PPM);
-        vertices[3] = new Vector2(1000, -30).scl(1 / Main.PPM);
-        limit.set(vertices);
-        
-        FixtureDef fdef3 = new FixtureDef();
-        fdef3.shape = limit;
-        fdef3.filter.categoryBits = Main.HERCULES_SENSOR_BIT;
-        //fdef3.filter.maskBits = Main.GROUND_BIT;
-        fdef3.isSensor = true;
-        b2body.createFixture(fdef3);
     }
 
     private void defineAnimation(PlayScreen screen) {

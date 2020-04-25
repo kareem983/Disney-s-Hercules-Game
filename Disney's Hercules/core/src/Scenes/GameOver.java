@@ -7,7 +7,6 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -18,13 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import java.awt.Desktop;
-import java.awt.GridLayout;
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
 
 public class GameOver implements Screen{
     private Viewport viewport;
@@ -52,7 +44,7 @@ public class GameOver implements Screen{
         
         table.add(gameOverLabel).expandX().padTop(300f);
         table.row();
-        table.add(toMainMenuLabel).expandX().padTop(-80f);;
+        table.add(toMainMenuLabel).expandX().padTop(-50f);;
         
         stage.addActor(table);
         //playVideo();

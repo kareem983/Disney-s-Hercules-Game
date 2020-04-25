@@ -1,6 +1,7 @@
-package Sprites;
+package StaticGraphics;
 
 import MovingObjects.Hercules;
+import Sprites.Swords;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;

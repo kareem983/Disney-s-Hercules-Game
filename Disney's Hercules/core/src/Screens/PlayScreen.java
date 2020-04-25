@@ -1,5 +1,8 @@
 package Screens;
 
+import StaticGraphics.StaticLightSword;
+import StaticGraphics.StaticSonicSword;
+import StaticGraphics.StaticFireBallSword;
 import MovingObjects.Hercules;
 import Sprites.*;
 import Scenes.*;

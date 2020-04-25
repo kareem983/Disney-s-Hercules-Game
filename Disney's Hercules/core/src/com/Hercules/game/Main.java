@@ -1,5 +1,7 @@
 package com.Hercules.game;
 
+import Intro.StartMenu;
+import Scenes.IntroScenes;
 import Screens.PlayScreen;
 import Screens.PlayScreen2;
 import com.badlogic.gdx.Game;
@@ -51,8 +53,13 @@ public class Main extends Game {
             manager.load("Audio//Hercules - Voices//Hercules//BabyDragon.wav", Music.class); //KILLING BABY DRAGONS
             manager.load("Audio//Hercules - Voices//Phil//Rule number 95.wav", Sound.class); //STARTING GAME
             manager.load("Audio//Hercules - Voices//Phil//Rule number 96.wav", Sound.class); // SHOOTING RANGE
+            manager.load("Audio//Hercules - sounds//IntroMainMenu.mp3", Music.class); // Main Menu Soundtrack
             manager.finishLoading();
-            setScreen(new PlayScreen(this));
+            
+            // TOGGLE SCREENS
+            setScreen(new IntroScenes(this));
+            //setScreen(new StartMenu(this));
+            //setScreen(new PlayScreen(this));
             //setScreen(new PlayScreen2(this));
     }
     
