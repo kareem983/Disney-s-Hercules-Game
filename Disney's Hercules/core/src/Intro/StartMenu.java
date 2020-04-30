@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+
 public class StartMenu implements Screen{
     
     private Main game;
@@ -28,6 +29,7 @@ public class StartMenu implements Screen{
     
     public StartMenu(Main game) {
         music = game.manager.get("Audio//Hercules - sounds//IntroMainMenu.mp3", Music.class);
+        music.setLooping(true);
         music.play();
         this.game = game;
         background = new Texture(Gdx.files.internal("Intros\\0.jpg"));
@@ -69,7 +71,9 @@ public class StartMenu implements Screen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 game.setScreen(new Username(game, music));
+                
             }
+            
         });
         stage.addActor(startGame);
         

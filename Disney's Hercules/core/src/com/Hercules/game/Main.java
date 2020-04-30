@@ -1,5 +1,6 @@
 package com.Hercules.game;
 
+import Intro.GameInstruction;
 import Intro.StartMenu;
 import Scenes.IntroScenes;
 import Screens.PlayScreen;
@@ -13,7 +14,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Main extends Game {
     
     public static final int WIDTH = 2000;   
-    public static final int HEIGHT = 800;   
+    public static final int HEIGHT = 800;
     public static final float PPM = 800f;      
     public static final short GROUND_BIT = 1;
     public static final short HERCULES_BIT = 2;
@@ -57,8 +58,8 @@ public class Main extends Game {
             manager.finishLoading();
             
             // TOGGLE SCREENS
-            setScreen(new IntroScenes(this));
-            //setScreen(new StartMenu(this));
+            //setScreen(new IntroScenes(this));
+            setScreen(new StartMenu(this));            
             //setScreen(new PlayScreen(this));
             //setScreen(new PlayScreen2(this));
     }
