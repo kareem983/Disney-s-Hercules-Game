@@ -71,9 +71,8 @@ public class StartMenu implements Screen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 game.setScreen(new Username(game, music));
-                
+                returnClass().dispose();
             }
-            
         });
         stage.addActor(startGame);
         
@@ -83,6 +82,7 @@ public class StartMenu implements Screen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 game.setScreen(new GameInstruction(game));
+                returnClass().dispose();
             }
         });
         stage.addActor(gameInstructions);
@@ -93,6 +93,7 @@ public class StartMenu implements Screen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 game.setScreen(new ScoreBoard(game));
+                returnClass().dispose();
             }
         });
         stage.addActor(scoreBoard);
@@ -103,6 +104,7 @@ public class StartMenu implements Screen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 game.setScreen(new LevelPassword(game));
+                returnClass().dispose();
             }
         });
         stage.addActor(levelPassword);
@@ -113,6 +115,7 @@ public class StartMenu implements Screen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 game.setScreen(new Setting(game, music));
+                returnClass().dispose();
             }
         });
         stage.addActor(settings);
@@ -123,9 +126,14 @@ public class StartMenu implements Screen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 System.exit(0);
+                returnClass().dispose();
             }
         });
         stage.addActor(exit);
+    }
+    
+    private StartMenu returnClass(){
+        return this;
     }
     
     @Override
@@ -162,6 +170,7 @@ public class StartMenu implements Screen{
     @Override
     public void dispose() {
         stage.dispose();
+        skin.dispose();
     }
     
 }
