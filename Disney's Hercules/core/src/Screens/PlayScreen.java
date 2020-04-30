@@ -29,6 +29,7 @@ import com.Hercules.game.Main;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -76,9 +77,11 @@ public class PlayScreen implements Screen{
     public Swords staticsonicsword, sonicsword, lightningsword;
     private Hercules player;
     public TallPiller piller;
-    private GoldenCoin gold1,gold2,gold3,gold4,gold5,gold6;
-    private SilverCoin silver1,silver2,silver3;
-    private Cannons FireBall1,FireBall2,FireBall3,FireBall4, FireBall5, FireBall6, FireBall7, FireBall8, FireBall9, FireBall10, FireBall11, FireBall12;
+   
+    private ArrayList<GoldenCoin> goldcoin=new ArrayList<>();
+    private ArrayList<SilverCoin> silvercoin=new ArrayList<>();
+    private ArrayList<Cannons> filreball=new ArrayList<>();
+    
     private ProtectedShield Shield;
     List<HealthAttacker.FeatherSack> featherList ;
     List<MovingFeather> MovingfeatherList ;
@@ -120,29 +123,31 @@ public class PlayScreen implements Screen{
         piller = new TallPiller(world,this , 6660 , 50 );
         
         /*Coins*/
-        gold1=new GoldenCoin (this,2192,288,player,hud); 
-        gold2=new GoldenCoin (this,2240,336,player,hud);
-        gold3=new GoldenCoin (this,2288,384,player,hud);
-        gold4=new GoldenCoin (this,18520,750,player,hud);
-        gold5=new GoldenCoin (this,18670,750,player,hud);
-        gold6=new GoldenCoin (this,18820,750,player,hud);
-        silver1=new SilverCoin (this,13120,272,player,hud);
-        silver2=new SilverCoin (this,13120,352,player,hud);
-        silver3=new SilverCoin (this,13120,416,player,hud);
+        goldcoin.add(new GoldenCoin (this,2192,288,player,hud));
+        goldcoin.add(new GoldenCoin (this,2240,336,player,hud));
+        goldcoin.add(new GoldenCoin (this,2288,384,player,hud));
+        goldcoin.add(new GoldenCoin (this,18520,750,player,hud));
+        goldcoin.add(new GoldenCoin (this,18670,750,player,hud));
+        goldcoin.add(new GoldenCoin (this,18820,750,player,hud));
+        
+        silvercoin.add(new SilverCoin (this,13120,272,player,hud));
+        silvercoin.add(new SilverCoin (this,13120,352,player,hud));
+        silvercoin.add(new SilverCoin (this,13120,416,player,hud));
        
+        
         //Cannons Fireballs
-        FireBall1=new Cannons(2256,1104,player,hud);
-        FireBall2=new Cannons(13120,1050,player,hud);
-        FireBall3=new Cannons(20448,680,player,hud);
-        FireBall4=new Cannons(20720,700,player,hud);
-        FireBall5=new Cannons(20976,730,player,hud);
-        FireBall6=new Cannons(21248,750,player,hud);
-        FireBall7=new Cannons(21456,790,player,hud);
-        FireBall8=new Cannons(21728,810,player,hud);
-        FireBall9=new Cannons(21888,890,player,hud);
-        FireBall10=new Cannons(22160,920,player,hud);
-        FireBall11=new Cannons(21888,980,player,hud);
-        FireBall12=new Cannons(22160,1104,player,hud);
+        filreball.add(new Cannons(2256,1104,player,hud));
+        filreball.add(new Cannons(13120,1050,player,hud));
+        filreball.add(new Cannons(20448,680,player,hud));
+        filreball.add(new Cannons(20720,700,player,hud));
+        filreball.add(new Cannons(20976,730,player,hud));
+        filreball.add(new Cannons(21248,750,player,hud));
+        filreball.add(new Cannons(21456,790,player,hud));
+        filreball.add(new Cannons(21728,810,player,hud));
+        filreball.add(new Cannons(21888,890,player,hud));
+        filreball.add(new Cannons(22160,920,player,hud));
+        filreball.add(new Cannons(21888,980,player,hud));
+        filreball.add(new Cannons(22160,1104,player,hud));
     
         //Protected Shield
         Shield=new ProtectedShield(player,hud);
@@ -314,15 +319,15 @@ public class PlayScreen implements Screen{
 
     }
       private void updateCoins(){
-        silver1.update();
-        silver2.update();
-        silver3.update();
-        gold1.update();
-        gold2.update();
-        gold3.update();
-        gold4.update();
-        gold5.update();
-        gold6.update();
+        //golden coins
+        for(int i=0;i<goldcoin.size();i++){
+            goldcoin.get(i).update();
+        }
+        //silver coins
+        for(int i=0;i<silvercoin.size();i++){
+            silvercoin.get(i).update();
+        }
+        
       }
       private void updateCharacters(float dt){
             creator.getPhill().update(dt);
@@ -347,18 +352,9 @@ public class PlayScreen implements Screen{
         sonicsword.update();
       }
       private void updateFireBalls(){
-          FireBall1.update();
-        FireBall2.update();
-        FireBall3.update();
-        FireBall4.update();
-        FireBall5.update();
-        FireBall6.update();
-        FireBall7.update();
-        FireBall8.update();
-        FireBall9.update();
-        FireBall10.update();
-        FireBall11.update();
-        FireBall12.update();
+        for(int i=0;i<filreball.size();i++){
+            filreball.get(i).update();
+        }
       }
       private void FeathersAndBlock(float dt){
           for(int i=0 ;i<featherList.size() ; i++)
@@ -504,28 +500,18 @@ public class PlayScreen implements Screen{
         sonicsword.upsonic.draw(game.batch);
     }
     private void rederCoinsAndFire() {
-       silver1.draw(game.batch);
-       silver2.draw(game.batch);
-       silver3.draw(game.batch);
-       gold1.draw(game.batch);
-       gold2.draw(game.batch);
-       gold3.draw(game.batch);
-       gold4.draw(game.batch);
-       gold5.draw(game.batch);
-       gold6.draw(game.batch);
-        
-       FireBall1.draw(game.batch);
-       FireBall2.draw(game.batch);
-       FireBall3.draw(game.batch);
-       FireBall4.draw(game.batch);
-       FireBall5.draw(game.batch);
-       FireBall6.draw(game.batch);
-       FireBall7.draw(game.batch);
-       FireBall8.draw(game.batch);
-       FireBall9.draw(game.batch);
-       FireBall10.draw(game.batch);
-       FireBall11.draw(game.batch);
-       FireBall12.draw(game.batch);
+       //golden coins
+        for(int i=0;i<goldcoin.size();i++){
+            goldcoin.get(i).draw(game.batch);
+        }
+       //silver coins
+        for(int i=0;i<silvercoin.size();i++){
+            silvercoin.get(i).draw(game.batch);
+        }
+       //Cannons fireballs 
+        for(int i=0;i<filreball.size();i++){
+            filreball.get(i).draw(game.batch);
+        }
     }
     private void renderFeatherSacks() {
         
@@ -547,7 +533,7 @@ public class PlayScreen implements Screen{
               }
                      
             for(int i=0 ;i<MovingfeatherList.size() ; i++){
-         if( MovingfeatherList.get(i).order==1        ) MovingfeatherList.get(i).Rope.draw(game.batch);
+         if( MovingfeatherList.get(i).order==1) MovingfeatherList.get(i).Rope.draw(game.batch);
                                 MovingfeatherList.get(i).featherMoving(player);
           if( MovingfeatherList.get(i).featherCollsoin(player) == 2) { hud.featherHit(); MovingfeatherList.get(i).draw(game.batch);  }
           
