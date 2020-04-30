@@ -56,6 +56,7 @@ public class Username implements Screen{
             public void clicked(InputEvent event, float x, float y){
                 music.stop();
                 game.setScreen(new PlayScreen(game));
+                getObjectClass().dispose();
             }
         });
         stage.addActor(play);
@@ -64,6 +65,11 @@ public class Username implements Screen{
         back.setPosition(Gdx.graphics.getWidth()/2-enter.getWidth()/2+25, Gdx.graphics.getHeight()/2 - 200);
         back.setSize(300, 50);
         stage.addActor(back);
+    }
+    
+    
+    private Username getObjectClass(){
+        return this;
     }
     
     @Override

@@ -403,12 +403,27 @@ public class GameInstruction implements Screen{
     }
     
     
-    
-    
     @Override
     public void render(float dt) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        
+        //handle camera positions
+         if (Gdx.input.isKeyPressed(Input.Keys.UP) &&gameCam.position.y<375){
+              gameCam.position.y+=5;}
+         else if (Gdx.input.isKeyPressed(Input.Keys.DOWN) &&gameCam.position.y>-1900){
+                  gameCam.position.y-=5;}
+
+        //Handle to Exit
+         else if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+             gameCam.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2 , 0);
+             game.setScreen(new StartMenu(game));
+             this.dispose();
+       }
+        
+        gameCam.update();
+        game.batch.setProjectionMatrix(gameCam.combined);
+        
         game.batch.begin();
         //******************************background******************************
         sprite[0].draw(game.batch);
@@ -432,21 +447,10 @@ public class GameInstruction implements Screen{
         sprite[15].draw(game.batch);
         //**********************************************************************
 
-        game.batch.setProjectionMatrix(gameCam.combined);
         game.batch.end();
+        game.batch.setProjectionMatrix(stage.getCamera().combined);
         stage.draw();
         
-        //handle camera positions
-         if (Gdx.input.isKeyPressed(Input.Keys.UP) &&gameCam.position.y<375){
-              gameCam.position.y+=5;}
-         else if (Gdx.input.isKeyPressed(Input.Keys.DOWN) &&gameCam.position.y>-1900){
-                  gameCam.position.y-=5;}
-
-        //Handle to Exit
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
-           game.setScreen(new StartMenu(game));
-           this.dispose();
-       }
     }
 
     @Override
@@ -472,6 +476,8 @@ public class GameInstruction implements Screen{
     @Override
     public void dispose() {
          stage.dispose();
+         for (int i = 0; i < 13; ++i)
+             texture[i].dispose();
     }
     
 }

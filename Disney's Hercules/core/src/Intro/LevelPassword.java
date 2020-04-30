@@ -13,7 +13,7 @@ public class LevelPassword implements Screen{
     
     public LevelPassword( Main game) {
         this.game = game;
-       
+        this.dispose();
     }
     
     @Override

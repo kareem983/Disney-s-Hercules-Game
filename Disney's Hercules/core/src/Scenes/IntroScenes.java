@@ -26,27 +26,21 @@ public class IntroScenes implements Screen{
         /******************/
     }
     private void loadImages(){
-        texture = new Texture[6];
-        texture[0] = new Texture (Gdx.files.internal("Intros\\0.jpg"));
-        texture[1] = new Texture (Gdx.files.internal("Intros\\1.jpg"));
-        texture[2] = new Texture (Gdx.files.internal("Intros\\2.jpg"));
-        texture[3] = new Texture (Gdx.files.internal("Intros\\3.jpg"));
-        texture[4] = new Texture (Gdx.files.internal("Intros\\4.jpg"));
-        texture[5] = new Texture (Gdx.files.internal("Intros\\5.jpg"));
-        sprite = new Sprite[6];
-        sprite[0] = new Sprite(texture[0], 0, 0, 1349, 1055);
-        sprite[1] = new Sprite(texture[1], 0, 0, 1000, 562);
-        sprite[2] = new Sprite(texture[2], 0, 0, 1432, 864);
-        sprite[3] = new Sprite(texture[3], 0, 0, 1920, 1080);
-        sprite[4] = new Sprite(texture[4], 0, 0, 413, 310);
-        sprite[5] = new Sprite(texture[5], 0, 0, 728, 546);
+        texture = new Texture[4];
+        texture[0] = new Texture (Gdx.files.internal("Intros\\1.jpg"));
+        texture[1] = new Texture (Gdx.files.internal("Intros\\2.jpg"));
+        texture[2] = new Texture (Gdx.files.internal("Intros\\3.jpg"));
+        texture[3] = new Texture (Gdx.files.internal("Intros\\4.jpg"));
+        sprite = new Sprite[4];
+        sprite[0] = new Sprite(texture[0], 0, 0, 1000, 562);
+        sprite[1] = new Sprite(texture[1], 0, 0, 1432, 864);
+        sprite[2] = new Sprite(texture[2], 0, 0, 1920, 1080);
+        sprite[3] = new Sprite(texture[3], 0, 0, 728, 546);
         
         sprite[0].setSize(Main.WIDTH-620, Main.HEIGHT-50);
         sprite[1].setSize(Main.WIDTH-620, Main.HEIGHT-50);
         sprite[2].setSize(Main.WIDTH-620, Main.HEIGHT-50);
         sprite[3].setSize(Main.WIDTH-620, Main.HEIGHT-50);
-        sprite[4].setSize(Main.WIDTH-620, Main.HEIGHT-50);
-        sprite[5].setSize(Main.WIDTH-620, Main.HEIGHT-50);
     }
     
     @Override
@@ -57,28 +51,28 @@ public class IntroScenes implements Screen{
        /********** TIME CONTROLLER **************/
        stateTimer += dt;
        
-        if (stateTimer < 3.95f)   //FADE IN
+        if (stateTimer < 2f)   //FADE IN
             alpha += (1f / 60f) / 2;
-       else if (stateTimer > 6){ //FADE OUT
+       else if (stateTimer > 4){ //FADE OUT
            alpha -= (1f / 60f) /2;
-           if(stateTimer>9.5f){
+           if(stateTimer>5.47f){
             stateTimer=0;
             alpha=0;
             cnt++;
            }
        }
         /*****************************************/
-        if (cnt==6){     // INTROS FINISHED 
+        if (cnt==4){     // INTROS FINISHED 
             game.setScreen(new StartMenu(game));
             this.dispose();
             safe = true;
         }
         if (safe)cnt=7;
-        if (cnt<6)
+        if (cnt<4)
             sprite[cnt].setAlpha(alpha);
        
        game.batch.begin();
-       if (cnt<6)
+       if (cnt<4)
            sprite[cnt].draw(game.batch);
        game.batch.end();
       
@@ -110,8 +104,6 @@ public class IntroScenes implements Screen{
         texture[1].dispose();
         texture[2].dispose();
         texture[3].dispose();
-        texture[4].dispose();
-        texture[5].dispose();
     }
     
     

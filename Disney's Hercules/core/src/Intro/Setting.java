@@ -26,6 +26,7 @@ public class Setting  implements Screen{
        
        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
            game.setScreen(new StartMenu(game));
+           this.dispose();
        }
     }
 
