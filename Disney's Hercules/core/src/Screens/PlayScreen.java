@@ -585,7 +585,7 @@ public class PlayScreen implements Screen {
         for (int i = 0; i < featherList.size(); i++) {
 
             if (featherList.get(i).featherCollsoin(player) == 1) {
-                HerculesActionSound("Audio//Hercules - sounds//featherFinish.wav");
+           //     HerculesActionSound("Audio//Hercules - sounds//featherFinish.wav");
                 /* SilverCoin     silver3 = new SilverCoin (this,featherList.get(i).getX() *Main.PPM -100  ,featherList.get(i).getY() *Main.PPM +100 ,player,hud); silver3.move=true;
                 silvercoin.add(silver3);*/
                 featherList.remove(i);
@@ -614,12 +614,12 @@ public class PlayScreen implements Screen {
                 MovingfeatherList.get(i).draw(game.batch);
             } else {
                 if (MovingfeatherList.get(i).featherCollsoin(player) == 1) {
-                                    HerculesActionSound("Audio//Hercules - sounds//featherFinish.wav");
+                                    //HerculesActionSound("Audio//Hercules - sounds//featherFinish.wav");
          
              SilverCoin     silver3 = new SilverCoin (this,MovingfeatherList.get(i).getX() *Main.PPM -100  ,MovingfeatherList.get(i).getY() *Main.PPM +200 ,player,hud); silver3.move=true;
                 silvercoin.add(silver3);
                 MovingfeatherList.remove(i);
-                                    hud.score+=10;
+                                    hud.score+=15;
 
                 } else {
                     MovingfeatherList.get(i).draw(game.batch);

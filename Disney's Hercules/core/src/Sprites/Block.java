@@ -46,7 +46,7 @@ public class Block extends Sprite {
         }
    public void Block_Moving(int numOf_feathersack_destoyrd_to_open){
        if(FeatherSack.Num_of_feather_Destroyed >=numOf_feathersack_destoyrd_to_open){
-           if(posy/Main.PPM<400/Main.PPM) posy+= 1 ;
+           if(posy/Main.PPM<400/Main.PPM) posy+= 2 ;
        }
    }
         public void defineT_satic_Block(){

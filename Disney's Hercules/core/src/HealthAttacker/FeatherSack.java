@@ -5,6 +5,7 @@ import Screens.PlayScreen;
 import MovingObjects.Hercules;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -22,7 +23,8 @@ public class FeatherSack extends Sprite {
     private float x , y ; private boolean x_ ,y_;
     boolean feather_is_collision , finish ;
     public static int Num_of_feather_Destroyed = 0;
-    
+    private int fristcollion ;
+            private  Music m;
     public FeatherSack(float posx  , float posy ,World world , PlayScreen screen){
         this.posx =posx ;
         this.posy =posy ;
@@ -40,7 +42,7 @@ public class FeatherSack extends Sprite {
                    frames.add(new TextureRegion(new Texture("Sprites\\f1.png") , 0 , 0 , 67 , 56  ));
                    frames.add(new TextureRegion(new Texture("Sprites\\F2.png") , 0 , 0 , 67 , 56  ));
                    AnimationfeatherDestroyed  =new Animation(0.3f ,frames);
-                   
+                   fristcollion =0;
                 
 
     }
@@ -71,6 +73,8 @@ public class FeatherSack extends Sprite {
         
        
         setSize(x, y);
+        
+     
         }
      public int featherCollsoin(Hercules player ){
         Rectangle feather_rec = this.getBoundingRectangle();
@@ -78,6 +82,14 @@ public class FeatherSack extends Sprite {
         
         if(feather_rec.overlaps(palyer_rec) && player.timeSword2 >0){
             feather_is_collision =true ;
+            fristcollion++ ;
+               if(fristcollion ==1 ){
+            
+            
+         m = Main.manager.get("Audio//Hercules - sounds//featherFinish.wav",Music.class);
+                m.setVolume(1f); 
+                m.play();
+    }
         }
         if(feather_is_collision == true ){
           //  x = 130 ; y = 190 ; 
@@ -96,29 +108,6 @@ public class FeatherSack extends Sprite {
         
         
     }
-   /* public int featherCollsoin(Hercules player ){
-        Rectangle feather_rec = this.getBoundingRectangle();
-        Rectangle palyer_rec = player.getBoundingRectangle();
-        
-        if(feather_rec.overlaps(palyer_rec) && player.timePush >0.5){
-            feather_is_collision =true ;
-        }
-        if(feather_is_collision == true ){
-          //  x = 130 ; y = 190 ; 
-            setRegion((TextureRegion)AnimationfeatherDestroyed.getKeyFrame(stateimer, true));
-           stateimer += Gdx.graphics.getDeltaTime();
-        }
-        if(feather_rec.overlaps(palyer_rec) && player.timePush <=0 && feather_is_collision ==false){
-                        return 2 ;
-
-        }
-       else if( stateimer>= 2*0.3 ){
-            return 1 ;
-        }else{
-            return 0 ;
-        }
-        
-        
-    }*/
+   
     
 }
