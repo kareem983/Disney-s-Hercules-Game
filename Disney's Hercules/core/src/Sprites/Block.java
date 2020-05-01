@@ -50,24 +50,16 @@ public class Block extends Sprite {
        }
    }
         public void defineT_satic_Block(){
-          /*  Rectangle rec = this.getBoundingRectangle();
-                bdef.type = BodyDef.BodyType.StaticBody ;
-                bdef.position.set((rec.getX() + rec.getWidth() /2) / Main.PPM  , (rec.getY()+ rec.getHeight()/2) / Main.PPM  ) ;
-                body =world.createBody(bdef) ;
-                shape.setAsBox( (rec.getWidth()/2 ) / Main.PPM , (rec.getHeight() /2) / Main.PPM );
-                fdef.filter.categoryBits = Main.GROUND_BIT;
-                fdef.shape =shape ;
-                body.createFixture(fdef ) ;
-            */
+         
           
                   bdef = new BodyDef();
-        bdef.position.set( ((posx+105)/ Main.PPM) ,( (posy+150) / Main.PPM));
+        bdef.position.set( ((posx+275)/ Main.PPM) ,( (posy+150) / Main.PPM));
         bdef.type = BodyDef.BodyType.StaticBody ;
         b2body =world.createBody(bdef) ;
 
         fdef = new FixtureDef();
         PolygonShape polygon = new PolygonShape();
-        polygon.setAsBox(113/Main.PPM, 300  / Main.PPM);
+        polygon.setAsBox(283/Main.PPM, 300  / Main.PPM);
     fdef.shape=polygon;
         b2body.createFixture(fdef);
 

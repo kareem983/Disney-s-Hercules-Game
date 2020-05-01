@@ -9,11 +9,12 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
 public class GoldenCoin extends Coin{
     
-   public GoldenCoin(PlayScreen screen,int posX,int posY,Hercules hercule,HUD hud){
+   public GoldenCoin(PlayScreen screen,float posX,float posY,Hercules hercule,HUD hud){
       super(screen,0,0,563,564,posX,posY);  
       this.hercule=hercule;
       this.hud=hud;
@@ -41,9 +42,14 @@ public class GoldenCoin extends Coin{
      }
      
      @Override
-     public void update(){
+     public void update(Hercules player){
+         
+         
+        Rectangle coin_rec = this.getBoundingRectangle();
+        Rectangle palyer_rec = player.getBoundingRectangle();
          if (hercule.b2body.getPosition().x > (this.posX-68)/Main.PPM && hercule.b2body.getPosition().x < (this.posX+88)/Main.PPM && hercule.b2body.getPosition().y>(this.posY-120)/Main.PPM && hercule.b2body.getPosition().y<(this.posY+50)/Main.PPM)
-         {
+        //if(coin_rec.overlaps(palyer_rec))
+        {
              setPosition(-50,-50);
              if(this.isfound){
              this.hud.score+=10;
@@ -58,6 +64,6 @@ public class GoldenCoin extends Coin{
          stateTimer+=Gdx.graphics.getDeltaTime();
          setRegion((TextureRegion) CoinDraw.getKeyFrame(stateTimer,true ));
          if(stateTimer>10)stateTimer=0;
-     
+        moving();
      }
 }

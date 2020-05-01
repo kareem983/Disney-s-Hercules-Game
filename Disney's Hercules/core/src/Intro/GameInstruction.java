@@ -16,6 +16,10 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 
+//import com.sun.prism.paint.Color;
+
+
+
 public class GameInstruction implements Screen{
     
     private Main game;
@@ -85,9 +89,8 @@ public class GameInstruction implements Screen{
         sprite[2].setSize( game.WIDTH-620, game.HEIGHT-50);
         
         sprite[3]=new Sprite(texture[0]);
-        sprite[3].setPosition(0, -2250);
-        sprite[3].setSize( game.WIDTH-620, game.HEIGHT-50);
-        
+          sprite[3].setPosition(0, -2520);
+        sprite[3].setSize( game.WIDTH-620, 1039);
         
         //characters
         sprite[4]=new Sprite(texture[1]);

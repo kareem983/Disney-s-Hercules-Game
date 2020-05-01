@@ -27,7 +27,8 @@ public class Hercules extends Sprite {
     private float HerculesInitPosY = 180f;
     public float HerculesMaxSpeed = 1.5f;
 //    public float HerculesMaxSpeedHigh = 0.18333331f;
-    public float HerculesMaxSpeedHigh = 0.8f;
+    public float HerculesMaxSpeedHigh = 0.19f;
+  //  public float HerculesMaxSpeedHigh = 0.8f;
     
     public enum State {
         FALLING, JUMPING, STANDING, RUNNING, pushing_hand, pushing_sword, pushing_sword2, pushing_sword3, Drink, die, smallPush
@@ -89,6 +90,8 @@ public class Hercules extends Sprite {
     }
 
     public void update(float dt) {
+        if(b2body.getPosition().x > 17580/Main.PPM && b2body.getPosition().x < 19280/Main.PPM ) HerculesMaxSpeedHigh = 0.9f ;
+        else if(b2body.getPosition().x > 19280/Main.PPM) HerculesMaxSpeedHigh = 0.25f;
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2 + 50 / Main.PPM);
         setRegion(getFrame(dt));
         getYourSword(dt);

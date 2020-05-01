@@ -55,6 +55,17 @@ public class Main extends Game {
             manager.load("Audio//Hercules - Voices//Phil//Rule number 95.wav", Sound.class); //STARTING GAME
             manager.load("Audio//Hercules - Voices//Phil//Rule number 96.wav", Sound.class); // SHOOTING RANGE
             manager.load("Audio//Hercules - sounds//IntroMainMenu.mp3", Music.class); // Main Menu Soundtrack
+            
+            
+            manager.load("Audio//Hercules - sounds//Punch.wav", Music.class); 
+            manager.load("Audio//Hercules - sounds//sword.wav", Music.class); 
+            manager.load("Audio//Hercules - sounds//featherFinish.wav", Music.class);
+            manager.load("Audio//Hercules - sounds//a3.wav", Music.class); 
+            manager.load("Audio//Hercules - sounds//a2.wav", Music.class); 
+            
+                        manager.load("Audio//Hercules - Voices//Hercules//Jumb2.wav", Music.class);
+
+            
             manager.finishLoading();
             
             // TOGGLE SCREENS

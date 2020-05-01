@@ -62,8 +62,7 @@ public class Cannons extends Sprite{
        counter=0; 
     }
     
-    
-    if (hercule.b2body.getPosition().x > (this.posX-25)/Main.PPM && hercule.b2body.getPosition().x < (this.posX+100)/Main.PPM && hercule.b2body.getPosition().y>(FirePosY-(hercule.b2body.getPosition().y)+60)/Main.PPM )
+        if (hercule.b2body.getPosition().x > (this.posX-25)/Main.PPM && hercule.b2body.getPosition().x < (this.posX+100)/Main.PPM && hercule.b2body.getPosition().y>(this.FirePosY+20)/Main.PPM && hercule.b2body.getPosition().y<(this.FirePosY+250)/Main.PPM)
     {
       counter=0;
       this.hud.FireDecrease=true;

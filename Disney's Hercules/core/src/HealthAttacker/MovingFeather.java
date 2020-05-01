@@ -32,7 +32,7 @@ public class MovingFeather extends FeatherSack {
         Rope = new Sprite();
         Rope.setRegion(new Texture("Sprites\\Rope.png"));
         Rope.setBounds(0, 0, 30 / Main.PPM, 300 / Main.PPM);
-        Rope.setPosition(pposx + (40 / Main.PPM), pposy + (150 / Main.PPM));
+        Rope.setPosition(x + (40 / Main.PPM), y + (150 / Main.PPM));
         move = false; right = true;
     }
 
@@ -49,6 +49,7 @@ public class MovingFeather extends FeatherSack {
             }
 
         }
+
     }
         else if(order == 2){
             
@@ -60,7 +61,8 @@ public class MovingFeather extends FeatherSack {
               x-= 5/Main.PPM ;
               if(x<=xcopy) right=true;
         }
-        
+                        Rope.setPosition(x + (27 / Main.PPM), y + (90 / Main.PPM));
+
         }
         
                     setPosition(x, y);
