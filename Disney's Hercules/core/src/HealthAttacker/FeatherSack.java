@@ -87,7 +87,7 @@ public class FeatherSack extends Sprite {
             
             
          m = Main.manager.get("Audio//Hercules - sounds//featherFinish.wav",Music.class);
-                m.setVolume(1f); 
+                m.setVolume(Main.vol); 
                 m.play();
     }
         }

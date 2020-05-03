@@ -50,7 +50,7 @@ public class Herculad extends Sprite {
         if ( (posx/Main.PPM-screen.getPlayer().b2body.getPosition().x )  <=  (1.148f) && drink)  {
             m = Main.manager.get("Audio//Hercules - Voices//Hercules//Herculad.wav" , Music.class);
             m.setLooping(false);
-            m.setVolume(2f);
+            m.setVolume(Main.vol);
             m.play();
             drink = false;
         }
@@ -62,7 +62,7 @@ public class Herculad extends Sprite {
             if (!played) {
                 music = Main.manager.get("Audio//Hercules - Voices//Hercules//HerculadToken.wav", Music.class);
                 music.setLooping(false);
-                music.setVolume(2f);
+                music.setVolume(Main.vol);
                 music.play();
                 played = true;
             }

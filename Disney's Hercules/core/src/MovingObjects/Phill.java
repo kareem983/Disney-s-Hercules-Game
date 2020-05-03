@@ -4,7 +4,7 @@ package MovingObjects;
 import Screens.PlayScreen;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -21,7 +21,7 @@ public class Phill extends SecondaryCharacter{
     private Animation walkingAnimation;
     private TextureRegion currentRegion;
     private Array<TextureRegion> frames;
-    private Sound Rule95, Rule96;
+    private Music Rule95, Rule96;
     
     public Phill(PlayScreen screen, float x, float y){
         super (screen, x, y);
@@ -38,8 +38,8 @@ public class Phill extends SecondaryCharacter{
         setBounds(getX(), getY(), 120/Main.PPM, 120/Main.PPM);
         
         player = new Hercules(screen.getWorld(), screen);
-        Rule95 = Main.manager.get("Audio//Hercules - Voices//Phil//Rule number 95.wav", Sound.class);
-        Rule96 = Main.manager.get("Audio//Hercules - Voices//Phil//Rule number 96.wav", Sound.class);
+        Rule95 = Main.manager.get("Audio//Hercules - Voices//Phil//Rule number 95.wav", Music.class);
+        Rule96 = Main.manager.get("Audio//Hercules - Voices//Phil//Rule number 96.wav", Music.class);
     }
 
     @Override
@@ -85,10 +85,12 @@ public class Phill extends SecondaryCharacter{
             currentRegion.flip(true, false); 
         
         if (stateTime > 3 && !played95){
+            Rule95.setVolume(Main.vol);
             Rule95.play();
             played95=true;
         }
         else if (player.b2body.getPosition().x >11000/Main.PPM && (!played96)){
+             Rule96.setVolume(Main.vol);
             Rule96.play();
             played96=true;
         }

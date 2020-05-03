@@ -7,7 +7,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -15,6 +18,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class Username implements Screen{
     
@@ -26,11 +32,15 @@ public class Username implements Screen{
     private TextButton play;
     private Label back;
     private Music music;
+    private Viewport viewport;
+    private Texture background;
     
     public Username( Main game, Music music) {
         this.game = game;
         this.music = music;
-        stage = new Stage();
+        background = new Texture(Gdx.files.internal("Intros\\0.jpg"));
+        viewport = new StretchViewport(Main.WIDTH, Main.HEIGHT,  new OrthographicCamera());
+        stage = new Stage(viewport, ((Main) game).batch);
         Gdx.input.setInputProcessor(stage);
         createWidgets();
     }
@@ -39,18 +49,22 @@ public class Username implements Screen{
         skin = new Skin(Gdx.files.internal("Fonts\\uiskin.json"));
         
         enter = new Label("Please Enter Your Name !", skin);
-        enter.setPosition(Gdx.graphics.getWidth()/2-enter.getWidth()/2+15, 400);
-        enter.setSize(300, 50);
+        enter.setSize(400, 50);
+        enter.setPosition(game.WIDTH/2-enter.getWidth()/2 + 100, game.HEIGHT/2+60);
+        
         stage.addActor(enter);
         
         username = new TextField("", skin);
-        username.setPosition(Gdx.graphics.getWidth()/2-username.getWidth()/2-55, 350);
-        username.setSize(300, 50);
+        username.setSize(400, 50);
+        username.setAlignment(Align.center);
+        username.setPosition(game.WIDTH/2-username.getWidth()/2, game.HEIGHT/2 + 0);
+        
         stage.addActor(username);
         
         play = new TextButton("Play", skin);
-        play.setPosition(Gdx.graphics.getWidth()/2-play.getWidth()/2 - 110, Gdx.graphics.getHeight()/2 -100);
-        play.setSize(300, 50);
+        play.setSize(400, 50);
+        play.setPosition(game.WIDTH/2-play.getWidth()/2, game.HEIGHT/2 - 60);
+        
         play.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -62,8 +76,9 @@ public class Username implements Screen{
         stage.addActor(play);
         
         back = new Label("Press Escape To Return To Main Menu...", skin);
-        back.setPosition(Gdx.graphics.getWidth()/2-enter.getWidth()/2+25, Gdx.graphics.getHeight()/2 - 200);
-        back.setSize(300, 50);
+        
+        back.setPosition(game.WIDTH/2-enter.getWidth()/2 + 50, game.HEIGHT/2 - 120);
+        back.setSize(400, 50);
         stage.addActor(back);
     }
     
@@ -80,6 +95,10 @@ public class Username implements Screen{
        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
            game.setScreen(new StartMenu(game));
        }
+       
+       game.batch.begin();
+        game.batch.draw(background, 0, 0, Main.WIDTH, Main.HEIGHT);
+       game.batch.end();
        
        stage.act();
        stage.draw();

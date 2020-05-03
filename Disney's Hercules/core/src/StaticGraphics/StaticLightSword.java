@@ -31,7 +31,7 @@ public class StaticLightSword extends Swords{
      @Override
     public void update() {
         if (herucle.b2body.getPosition().x > x-(940/Main.PPM) && soundcounter==0)
-        {
+        {music.setVolume(Main.vol);
              music.play();
              soundcounter++; 
         }

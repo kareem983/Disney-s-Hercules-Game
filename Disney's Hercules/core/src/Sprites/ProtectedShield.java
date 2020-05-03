@@ -65,7 +65,9 @@ public class ProtectedShield extends Sprite{
     
     if (this.isplayed && hercule.b2body.getPosition().x > (this.posX-950)/Main.PPM && hercule.b2body.getPosition().x < (this.posX+120)/Main.PPM )
     {
-            Main.manager.get("Audio//Hercules - Voices//Hercules//A Gift from the gods.wav", Music.class).play();
+           music= Main.manager.get("Audio//Hercules - Voices//Hercules//A Gift from the gods.wav", Music.class);
+           music.setVolume(Main.vol);
+           music.play();
            this.isplayed=false;
     }
     
@@ -78,6 +80,7 @@ public class ProtectedShield extends Sprite{
             
             //Shield sounds
             music = Main.manager.get("Audio//Hercules - Voices//Hercules//Helmet.wav", Music.class);
+            music.setVolume(Main.vol);
             music.play();
        }
        this.isFound=false;

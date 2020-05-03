@@ -20,7 +20,7 @@ public class LeftFireBallSword extends Swords {
         this.herucle = herucle;this.x=x;this.y=y;
              music = Main.manager.get("Audio//Hercules - sounds//Fireball Sword.wav",Music.class);
              music.setLooping(false);
-             music.setVolume(0.5f); 
+             music.setVolume(Main.vol); 
              soundsword=0;
         frame.add(new TextureRegion(Msword, 26, 184, 202, 80));
         frame.add(new TextureRegion(Msword, 232, 183, 206, 77));

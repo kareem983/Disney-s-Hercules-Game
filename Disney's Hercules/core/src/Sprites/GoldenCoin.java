@@ -54,7 +54,7 @@ public class GoldenCoin extends Coin {
                 this.hud.score += 10;
                 music = Main.manager.get("Audio//Hercules - sounds//Coin.wav", Music.class);
                 music.setLooping(false);
-                music.setVolume(0.5f);
+                music.setVolume(Main.vol);
                 music.play();
             }
             this.isfound = false;

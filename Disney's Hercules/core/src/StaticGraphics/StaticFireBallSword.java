@@ -19,8 +19,6 @@ public class StaticFireBallSword extends Swords{
         frame.add(new TextureRegion(Lsword,323,18,73,225));
         frame.add(new TextureRegion(Lsword,185,236,79,211));
         frame.add(new TextureRegion(Lsword,329,259,77,198));
-        
-        music = Main.manager.get("Audio//Hercules - sounds//Fireball Sword.wav",Music.class);
         Asword = new Animation(0.1f, frame);
         Asword.setPlayMode(Animation.PlayMode.LOOP);
         frame.clear();
@@ -32,7 +30,7 @@ public class StaticFireBallSword extends Swords{
      @Override
     public void update() {
        if (herucle.b2body.getPosition().x > x-(960/Main.PPM) && soundcounter==0)
-        {        
+        {        music.setVolume(Main.vol);
              music.play();
              soundcounter++; 
         }

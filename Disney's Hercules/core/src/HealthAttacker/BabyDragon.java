@@ -97,6 +97,7 @@ public class BabyDragon extends Enemy{
     public void Stap() {
       setToDestroy = true;
       if (!sound.isPlaying())
+          sound.setVolume(Main.vol);
       sound.play();
     }
 

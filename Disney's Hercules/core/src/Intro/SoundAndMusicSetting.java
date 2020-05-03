@@ -12,47 +12,44 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class StartMenu implements Screen {
+public class SoundAndMusicSetting implements Screen {
 
     private Main game;
-    private int buttonOffset;
-    private int verticalPos;
+    private Texture background;
     public Stage stage;
     private Skin skin;
-    private Texture background;
-    private Music music;
     private Viewport viewport;
-    public StartMenu(Main game) {
-        music = game.manager.get("Audio//Hercules - sounds//IntroMainMenu.mp3", Music.class);
-        music.setVolume(Main.vol);        
-        music.play();
+    private BitmapFont FONT;
+    private Label.LabelStyle font;
+    public CheckBox cb;
+
+    public SoundAndMusicSetting(Main game) {
+        cb = new CheckBox("Mute", new Skin(Gdx.files.internal("Fonts\\uiskin.json")));
         this.game = game;
         background = new Texture(Gdx.files.internal("Intros\\0.jpg"));
-        buttonOffset = 20;
-        verticalPos = 40;
         viewport = new StretchViewport(Main.WIDTH, Main.HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, ((Main) game).batch);
         Gdx.input.setInputProcessor(stage);   // MAKE THE STAGE ACCEPTS EVENTS
-
+        FONT = new BitmapFont(Gdx.files.internal("Fonts\\HUD.fnt"));
+        font = new Label.LabelStyle(FONT, null);
+        if (Main.vol == 0) {
+            cb.setChecked(true);
+        } else {
+            cb.setChecked(false);
+        }
         createBasicSkin();
-        createActions();
-        
+        Buttons();
     }
 
     private void createBasicSkin() {
@@ -76,79 +73,91 @@ public class StartMenu implements Screen {
         skin.add("default", textButtonStyle);
     }
 
-    private void createActions() {
-        TextButton startGame = new TextButton("Start Game", skin);
-        startGame.setPosition(Gdx.graphics.getWidth() / 2 +150+Main.x, Gdx.graphics.getHeight() / 2 +180+Main.y);
-        startGame.addListener(new ClickListener() {
+    void Buttons() {
+        Label MusicAndSound = new Label("Music And Sound Volume", font);
+        MusicAndSound.setPosition(Gdx.graphics.getWidth() / 2 +150+ Main.x, Gdx.graphics.getHeight() / 2 + 180 + Main.y);
+        stage.addActor(MusicAndSound);
+
+        final TextButton volumeup = new TextButton("volume up", skin);
+        final TextButton volumedown = new TextButton("volume down", skin);
+        volumeup.setPosition(MusicAndSound.getX(), MusicAndSound.getY() - 100);
+        volumeup.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new Username(game, music));
+                if (Main.vol < 1) {
+                    Main.vol += 0.1f;
+                    volumedown.setText("volume down");
+                    volumedown.setTouchable(Touchable.enabled);
+                } else {
+                    volumeup.setText("Maximum volume");
+                    volumeup.setTouchable(Touchable.disabled);
+                }
+
             }
         });
-        stage.addActor(startGame);
+        stage.addActor(volumeup);
 
-        TextButton gameInstructions = new TextButton("Game Instructions", skin);
-        gameInstructions.setPosition(startGame.getX() , startGame.getY()-100);
-        gameInstructions.addListener(new ClickListener() {
+        volumedown.setPosition(MusicAndSound.getX() + 400, MusicAndSound.getY() - 100);
+        volumedown.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new GameInstruction(game));
+                if (Main.vol > 0.2f) {
+                    Main.vol -= 0.1f;
+                    volumeup.setText("volume up");
+                    volumeup.setTouchable(Touchable.enabled);
+                } else {
+                    volumedown.setText("Minimum volume");
+                    volumedown.setTouchable(Touchable.disabled);
+                }
+
             }
         });
-        stage.addActor(gameInstructions);
+        stage.addActor(volumedown);
 
-        TextButton scoreBoard = new TextButton("Score Board", skin);
-        scoreBoard.setPosition(gameInstructions.getX() ,gameInstructions.getY()-100);
-        scoreBoard.addListener(new ClickListener() {
+        cb.setPosition(volumeup.getX(), volumeup.getY() - 100);
+        cb.setSize(300, 50);
+        cb.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new ScoreBoard(game));
+                if (cb.isChecked()) {
+                    Main.vol = 0;
+                } else {
+                    Main.vol = 1;
+                }
             }
         });
-        stage.addActor(scoreBoard);
 
-        TextButton levelPassword = new TextButton("Level Password", skin);
-        levelPassword.setPosition(scoreBoard.getX() , scoreBoard.getY()-100);
-        levelPassword.addListener(new ClickListener() {
+        stage.addActor(cb);
+        TextButton save = new TextButton("Save", skin);
+        save.setPosition(cb.getX(), cb.getY() - 100);
+        save.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new LevelPassword(game));
+                game.setScreen(new StartMenu(game));
             }
         });
-        stage.addActor(levelPassword);
+        stage.addActor(save);
+        TextButton back = new TextButton("Back", skin);
+        back.setPosition(save.getX(), save.getY() - 100);
 
-        TextButton settings = new TextButton("Settings", skin);
-        settings.setPosition(levelPassword.getX() ,levelPassword.getY()-100);
-        settings.addListener(new ClickListener() {
+        back.addListener(new ClickListener() {  // RESET DEFAULT
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(new Setting(game));
             }
         });
-        stage.addActor(settings);
-
-        TextButton exit = new TextButton("Exit", skin);
-        exit.setPosition(settings.getX() , settings.getY()-100);
-        exit.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                System.exit(0);
-            }
-        });
-        stage.addActor(exit);
+        stage.addActor(back);
     }
 
     @Override
-    public void render(float arg0) {
-        music.setVolume(Main.vol);
+    public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Main.batch.begin();
-            game.batch.draw(background, 0, 0, Main.WIDTH, Main.HEIGHT);
+        Main.batch.draw(background, 0, 0, Main.WIDTH, Main.HEIGHT);
         Main.batch.end();
         stage.act();
         stage.draw();
-
     }
 
     @Override
@@ -156,7 +165,7 @@ public class StartMenu implements Screen {
     }
 
     @Override
-    public void resize(int arg0, int arg1) {
+    public void resize(int width, int height) {
     }
 
     @Override
@@ -173,7 +182,6 @@ public class StartMenu implements Screen {
 
     @Override
     public void dispose() {
-        stage.dispose();
     }
 
 }

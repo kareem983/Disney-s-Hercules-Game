@@ -2,6 +2,7 @@ package Sprites;
 
 import MovingObjects.Hercules;
 import com.Hercules.game.Main;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -12,7 +13,7 @@ public class Sandal extends Sprite{
     public float x,y;
     public int counter;
     public Hercules herucle;
-    Sound sound = Main.manager.get("Audio//Hercules - Voices//Hercules//Sandal.wav", Sound.class );
+    public Music sound = Main.manager.get("Audio//Hercules - Voices//Hercules//Sandal.wav", Music.class );
     public Sandal(Texture texture,float x,float y,Hercules herucle) {
         super(texture);
         this.x=x;this.y=y;this.herucle=herucle;
@@ -24,6 +25,7 @@ public class Sandal extends Sprite{
     public void update() {
           if(herucle.b2body.getPosition().x >x &&herucle.b2body.getPosition().x <x+100/Main.PPM && herucle.b2body.getPosition().y>y&&herucle.b2body.getPosition().y<y+180/Main.PPM && counter==0)
         { counter++;
+        sound.setVolume(Main.vol);
             sound.play();
             setBounds(0,0,0,0);
             if(herucle.isRunningRight()){
