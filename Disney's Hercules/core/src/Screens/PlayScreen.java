@@ -26,20 +26,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.Hercules.game.Main;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import static java.lang.String.valueOf;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -231,30 +219,44 @@ public class PlayScreen implements Screen {
      */
     private void handleInput(float dt) {
         //control our player using immediate impulses
-             if (Gdx.input.isKeyJustPressed(game.up) && player.b2body.getLinearVelocity().y <= player.HerculesMaxSpeedHigh )
-                  player.b2body.applyLinearImpulse(new Vector2(0 ,2.5f), player.b2body.getWorldCenter(), true);
-             else if (Gdx.input.isKeyJustPressed(game.down))
-                   player.b2body.applyLinearImpulse(new Vector2(0 ,-2.5f), player.b2body.getWorldCenter(), true);
+              if (Gdx.input.isKeyJustPressed(game.up) && player.b2body.getPosition().y <= player.HerculesMaxSpeedHigh) {
+            player.b2body.applyLinearImpulse(new Vector2(0, 2.5f), player.b2body.getWorldCenter(), true);
+                    HerculesActionSound("Audio//Hercules - Voices//Hercules//Jumb2.wav");
+ 
+        } else if (Gdx.input.isKeyJustPressed(game.down)) {
+            player.b2body.applyLinearImpulse(new Vector2(0, -2.5f), player.b2body.getWorldCenter(), true);
+        } else if (Gdx.input.isKeyPressed(game.right) && player.b2body.getLinearVelocity().x <= player.HerculesMaxSpeed) {
+            player.b2body.applyForceToCenter(new Vector2(3, 0), true);
+        } else if (Gdx.input.isKeyPressed(game.left) && player.b2body.getLinearVelocity().x >= -1 * player.HerculesMaxSpeed) {
+            player.b2body.applyForceToCenter(new Vector2(-3, 0), true);
+        }
 
-             else if (Gdx.input.isKeyPressed(game.right) && player.b2body.getLinearVelocity().x <= player.HerculesMaxSpeed){
-                  player.b2body.applyForceToCenter(new Vector2(3, 0), true);
-             }
-                 
-             else if (Gdx.input.isKeyPressed(game.left) && player.b2body.getLinearVelocity().x >= -1 * player.HerculesMaxSpeed)
-                  player.b2body.applyForceToCenter(new Vector2(-3, 0), true);
-             
-             if (Gdx.input.isKeyJustPressed(game.powerPunch)){player.hercules_push = true; c = true;handleTallPillarCrash();}
-             else if (Gdx.input.isKeyJustPressed(game.normalPunch)) {v = true; player.hercules_Smallpush = true; handleTallPillarCrash();}
+        if (Gdx.input.isKeyJustPressed(game.powerPunch)) {
+            player.hercules_push = true;
+            c = true;
+            handleTallPillarCrash();
+            HerculesActionSound("Audio//Hercules - sounds//a2.wav");
 
-             else if (Gdx.input.isKeyPressed(game.sword2)) 
-                     handleSword();
-             else if (Gdx.input.isKeyJustPressed(game.sword1)) {v=true;player.hercules_sword2 = true;handleTallPillarCrash();}
-             
-             if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE))
-                      System.exit(0) ;
-             
-            handleJuice();
-            v = c = false;
+        } else if (Gdx.input.isKeyJustPressed(game.normalPunch)) {
+            v = true;
+            player.hercules_Smallpush = true;
+            handleTallPillarCrash();
+                HerculesActionSound("Audio//Hercules - sounds//Punch.wav");
+        } else if (Gdx.input.isKeyPressed(game.sword2)) {
+            handleSword();
+        } else if (Gdx.input.isKeyJustPressed(game.sword1)) {
+            v = true;
+            player.hercules_sword2 = true;
+            handleTallPillarCrash();
+                        HerculesActionSound("Audio//Hercules - sounds//sword.wav");            
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            System.exit(0);
+        }
+
+        handleJuice();
+        v = c = false;
     }
 
     public void define_featherSack() {
@@ -318,10 +320,8 @@ public class PlayScreen implements Screen {
     }
 
     private void handleTallPillarCrash() {
-
-        /**
-         * *****Allow Crash Animation to start*******
-         */
+        //Allow Crash Animation to start
+         
         if (piller.crashed == false) {
             if (piller.getBoundingRectangle().overlaps(player.getBoundingRectangle())) {
                 Pillarmusic.setVolume(Main.vol);

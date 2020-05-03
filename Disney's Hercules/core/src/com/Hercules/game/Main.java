@@ -1,7 +1,5 @@
 package com.Hercules.game;
 
-import Intro.ControlerSetting;
-import Intro.GameInstruction;
 import Intro.StartMenu;
 import Scenes.IntroScenes;
 import Screens.PlayScreen;
@@ -72,7 +70,6 @@ public class Main extends Game {
         // TOGGLE SCREENS
         //setScreen(new IntroScenes(this));
         setScreen(new StartMenu(this));
-        //setScreen(new ControlerSetting(this));
         //setScreen(new PlayScreen(this));
         //setScreen(new PlayScreen2(this));
     }

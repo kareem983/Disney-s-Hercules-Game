@@ -26,3 +26,9 @@
 13- Sound Adding (ALL)
 
 14- Intro & Game Main Menu (Kareem)
+
+15- Game Instructions (Kareem)
+
+16- Sounds And Jumping (Omar)
+
+17- Settings (Youssef)

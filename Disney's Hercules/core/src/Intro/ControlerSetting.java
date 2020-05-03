@@ -1,12 +1,9 @@
 package Intro;
 
-import Screens.PlayScreen;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -16,8 +13,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -26,6 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import javax.swing.JOptionPane;
 
 public class ControlerSetting implements Screen {
 
@@ -123,7 +119,7 @@ public class ControlerSetting implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 
                 if ((field[0].getText().isEmpty() || field[1].getText().isEmpty() || field[2].getText().isEmpty() || field[3].getText().isEmpty() || field[4].getText().isEmpty() || field[5].getText().isEmpty() || field[6].getText().isEmpty() || field[7].getText().isEmpty())) {
-                   
+                   JOptionPane.showMessageDialog(null, "Please Fill The Empty Fields..");
                 } 
                 else {
                      

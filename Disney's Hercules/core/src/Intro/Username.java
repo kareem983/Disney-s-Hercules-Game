@@ -50,20 +50,21 @@ public class Username implements Screen{
         
         enter = new Label("Please Enter Your Name !", skin);
         enter.setSize(400, 50);
-        enter.setPosition(game.WIDTH/2-enter.getWidth()/2 + 100, game.HEIGHT/2+60);
+        enter.setPosition(game.WIDTH/2-enter.getWidth()/2 + 90, game.HEIGHT/2+60);
+        enter.setFontScale(1.4f);
         
         stage.addActor(enter);
         
         username = new TextField("", skin);
         username.setSize(400, 50);
         username.setAlignment(Align.center);
-        username.setPosition(game.WIDTH/2-username.getWidth()/2, game.HEIGHT/2 + 0);
+        username.setPosition(game.WIDTH/2-username.getWidth()/2 + 20, game.HEIGHT/2 + 0);
         
         stage.addActor(username);
         
         play = new TextButton("Play", skin);
         play.setSize(400, 50);
-        play.setPosition(game.WIDTH/2-play.getWidth()/2, game.HEIGHT/2 - 60);
+        play.setPosition(game.WIDTH/2-play.getWidth()/2 + 20, game.HEIGHT/2 - 60);
         
         play.addListener(new ClickListener() {
             @Override
@@ -77,7 +78,7 @@ public class Username implements Screen{
         
         back = new Label("Press Escape To Return To Main Menu...", skin);
         
-        back.setPosition(game.WIDTH/2-enter.getWidth()/2 + 50, game.HEIGHT/2 - 120);
+        back.setPosition(game.WIDTH/2-enter.getWidth()/2 + 70, game.HEIGHT/2 - 120);
         back.setSize(400, 50);
         stage.addActor(back);
     }
@@ -97,7 +98,7 @@ public class Username implements Screen{
        }
        
        game.batch.begin();
-        game.batch.draw(background, 0, 0, Main.WIDTH, Main.HEIGHT);
+       // game.batch.draw(background, 0, 0, Main.WIDTH, Main.HEIGHT);
        game.batch.end();
        
        stage.act();
