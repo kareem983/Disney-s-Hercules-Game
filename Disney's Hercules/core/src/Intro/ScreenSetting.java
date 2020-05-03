@@ -1,4 +1,4 @@
-package Intro;
+    package Intro;
 
 import com.Hercules.game.Main;
 import com.badlogic.gdx.Gdx;
@@ -61,8 +61,8 @@ public class ScreenSetting implements Screen {
     void Buttons() {
 
         final SelectBox<String> selectBox = new SelectBox<String>(skin1);
-        selectBox.setSize(200, 80);
-        selectBox.setPosition(Gdx.graphics.getWidth() / 2 +150+Main.x, Gdx.graphics.getHeight() / 2 +180+Main.y );
+        selectBox.setSize(340, 80);
+        selectBox.setPosition(Gdx.graphics.getWidth() / 2 +150+Main.x, Gdx.graphics.getHeight() / 2 +120+Main.y );
         selectBox.setItems("1280x768", "1024x600", "800x340","Default","Full Screen");
         stage.addActor(selectBox);
         TextButton save = new TextButton("Save", skin2);

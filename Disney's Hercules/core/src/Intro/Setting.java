@@ -61,8 +61,8 @@ public class Setting  implements Screen{
     void Buttons()
     {
         
-        TextButton controlerkeys  = new TextButton("controler keys",skin);
-        controlerkeys.setPosition(Gdx.graphics.getWidth() / 2 +150+Main.x, Gdx.graphics.getHeight() / 2 +180+Main.y);
+        TextButton controlerkeys  = new TextButton("Controller keys",skin);
+        controlerkeys.setPosition(Gdx.graphics.getWidth() / 2 +150+Main.x, Gdx.graphics.getHeight() / 2 +150+Main.y);
         controlerkeys.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -80,7 +80,7 @@ public class Setting  implements Screen{
         });
         stage.addActor(MusicandSound);
         
-        TextButton screendisplay  = new TextButton("screen display", skin);
+        TextButton screendisplay  = new TextButton("Screen Display", skin);
         screendisplay.setPosition(MusicandSound.getX() ,MusicandSound.getY()-100);
         screendisplay.addListener(new ClickListener() {
             @Override

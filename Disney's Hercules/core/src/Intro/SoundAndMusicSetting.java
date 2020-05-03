@@ -75,7 +75,7 @@ public class SoundAndMusicSetting implements Screen {
 
     void Buttons() {
         Label MusicAndSound = new Label("Music And Sound Volume", font);
-        MusicAndSound.setPosition(Gdx.graphics.getWidth() / 2 +150+ Main.x, Gdx.graphics.getHeight() / 2 + 180 + Main.y);
+        MusicAndSound.setPosition(Gdx.graphics.getWidth() / 2 -50+ Main.x, Gdx.graphics.getHeight() / 2 + 180 + Main.y);
         stage.addActor(MusicAndSound);
 
         final TextButton volumeup = new TextButton("volume up", skin);
@@ -114,8 +114,9 @@ public class SoundAndMusicSetting implements Screen {
         });
         stage.addActor(volumedown);
 
-        cb.setPosition(volumeup.getX(), volumeup.getY() - 100);
+        cb.setPosition(volumeup.getX() + 220, volumeup.getY() - 100);
         cb.setSize(300, 50);
+        cb.scaleBy(2f);
         cb.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -129,7 +130,7 @@ public class SoundAndMusicSetting implements Screen {
 
         stage.addActor(cb);
         TextButton save = new TextButton("Save", skin);
-        save.setPosition(cb.getX(), cb.getY() - 100);
+        save.setPosition(MusicAndSound.getX(), cb.getY() - 100);
         save.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -138,7 +139,7 @@ public class SoundAndMusicSetting implements Screen {
         });
         stage.addActor(save);
         TextButton back = new TextButton("Back", skin);
-        back.setPosition(save.getX(), save.getY() - 100);
+        back.setPosition(MusicAndSound.getX() + 400,  cb.getY() - 100);
 
         back.addListener(new ClickListener() {  // RESET DEFAULT
             @Override
