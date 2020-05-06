@@ -236,32 +236,32 @@ public class Hercules extends Sprite {
 
         frames.clear();
 
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_jump\\jump1.png"), 0, 0, 50, 96));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_jump\\jump2.png"), 0, 0, 50, 96));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_jump\\jump3.png"), 0, 0, 45, 96));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_jump\\jump4.png"), 0, 0, 45, 96));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_jump\\jump5.png"), 0, 0, 50, 96));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_jump\\jump6.png"), 0, 0, 50, 96));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_jump\\jump7.png"), 0, 0, 50, 96));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_jump\\jump8.png"), 0, 0, 50, 96));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_jump\\jump9.png"), 0, 0, 50, 96));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_jump\\jump10.png"), 0, 0, 50, 96));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_jump\\jump11.png"), 0, 0, 50, 96));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_jump\\jump12.png"), 0, 0, 50, 96));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_jump\\jump1.png"), 0, 0, 50, 96));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_jump\\jump2.png"), 0, 0, 50, 96));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_jump\\jump3.png"), 0, 0, 45, 96));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_jump\\jump4.png"), 0, 0, 45, 96));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_jump\\jump5.png"), 0, 0, 50, 96));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_jump\\jump6.png"), 0, 0, 50, 96));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_jump\\jump7.png"), 0, 0, 50, 96));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_jump\\jump8.png"), 0, 0, 50, 96));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_jump\\jump9.png"), 0, 0, 50, 96));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_jump\\jump10.png"), 0, 0, 50, 96));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_jump\\jump11.png"), 0, 0, 50, 96));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_jump\\jump12.png"), 0, 0, 50, 96));
 
         HerculesJump = new Animation(0.04f, frames);
         frames.clear();
 
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_push\\push1.png"), 0, 0, 50, 78));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_push\\push2.png"), 0, 0, 50, 78));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_push\\push3.png"), 0, 0, 50, 78));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_push\\push4.png"), 0, 0, 50, 78));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_push\\push5.png"), 0, 0, 50, 78));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_push\\push6.png"), 0, 0, 50, 78));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_push\\push7.png"), 0, 0, 50, 78));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_push\\push8.png"), 0, 0, 50, 78));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_push\\push9.png"), 0, 0, 50, 78));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_push\\push10.png"), 0, 0, 50, 78));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_push\\push1.png"), 0, 0, 50, 78));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_push\\push2.png"), 0, 0, 50, 78));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_push\\push3.png"), 0, 0, 50, 78));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_push\\push4.png"), 0, 0, 50, 78));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_push\\push5.png"), 0, 0, 50, 78));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_push\\push6.png"), 0, 0, 50, 78));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_push\\push7.png"), 0, 0, 50, 78));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_push\\push8.png"), 0, 0, 50, 78));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_push\\push9.png"), 0, 0, 50, 78));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_push\\push10.png"), 0, 0, 50, 78));
 
         HerculesPush = new Animation(0.09f, frames);
         HerculesPush.setPlayMode(Animation.PlayMode.NORMAL);
@@ -270,57 +270,57 @@ public class Hercules extends Sprite {
         //     frames.add(new TextureRegion(new Texture("Sprites\\Herclues_sword\\sword1.png"),  0, 0, 50, 80));
         //  frames.add(new TextureRegion(new Texture("Sprites\\Herclues_sword\\sword2.png"),  0, 0, 50, 80));
         //  frames.add(new TextureRegion(new Texture("Sprites\\Herclues_sword\\sword3.png"),  0, 0, 59, 80));
-        frames.add(new TextureRegion(new Texture("Sprites\\Herclues_sword\\sword4.png"), 0, 0, 50, 80));
-        frames.add(new TextureRegion(new Texture("Sprites\\Herclues_sword\\sword5.png"), 0, 0, 50, 80));
-        frames.add(new TextureRegion(new Texture("Sprites\\Herclues_sword\\sword6.png"), 0, 0, 50, 80));
-        frames.add(new TextureRegion(new Texture("Sprites\\Herclues_sword\\sword7.png"), 0, 0, 50, 80));
-        frames.add(new TextureRegion(new Texture("Sprites\\Herclues_sword\\sword8.png"), 0, 0, 60, 80));
-        frames.add(new TextureRegion(new Texture("Sprites\\Herclues_sword\\sword9.png"), 0, 0, 60, 80));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Herclues_sword\\sword4.png"), 0, 0, 50, 80));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Herclues_sword\\sword5.png"), 0, 0, 50, 80));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Herclues_sword\\sword6.png"), 0, 0, 50, 80));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Herclues_sword\\sword7.png"), 0, 0, 50, 80));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Herclues_sword\\sword8.png"), 0, 0, 60, 80));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Herclues_sword\\sword9.png"), 0, 0, 60, 80));
 
         HerculesSword = new Animation(0.1f, frames);
         HerculesSword.setPlayMode(Animation.PlayMode.NORMAL);
         frames.clear();
         
-         frames.add(new TextureRegion(new Texture("Sprites\\Herclues_sword2\\1.png"), 0, 0, 45, 84));
-        frames.add(new TextureRegion(new Texture("Sprites\\Herclues_sword2\\2.png"), 0, 0, 75, 86));
-        frames.add(new TextureRegion(new Texture("Sprites\\Herclues_sword2\\3.png"), 0, 0, 50, 86));
+         frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Herclues_sword2\\1.png"), 0, 0, 45, 84));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Herclues_sword2\\2.png"), 0, 0, 75, 86));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Herclues_sword2\\3.png"), 0, 0, 50, 86));
 
         HerculesSword2 = new Animation(0.1f, frames);
         HerculesSword2.setPlayMode(Animation.PlayMode.NORMAL);
         frames.clear();
 
 
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_drink\\1.png"), 0, 0, 50, 75));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_drink\\2.png"), 0, 0, 50, 75));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_drink\\3.png"), 0, 0, 45, 75));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_drink\\4.png"), 0, 0, 45, 75));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_drink\\5.png"), 0, 0, 45, 75));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_drink\\1.png"), 0, 0, 50, 75));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_drink\\2.png"), 0, 0, 50, 75));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_drink\\3.png"), 0, 0, 45, 75));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_drink\\4.png"), 0, 0, 45, 75));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_drink\\5.png"), 0, 0, 45, 75));
 
         HerculesDrink = new Animation(0.1f, frames);
         HerculesDrink.setPlayMode(Animation.PlayMode.NORMAL);
         frames.clear();
 
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_die\\1.png"), 0, 0, 45, 75));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_die\\2.png"), 0, 0, 50, 75));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_die\\3.png"), 0, 0, 50, 75));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_die\\4.png"), 0, 0, 35, 75));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_die\\5.png"), 0, 0, 35, 75));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_die\\6.png"), 0, 0, 50, 75));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_die\\7.png"), 0, 0, 50, 75));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_die\\1.png"), 0, 0, 45, 75));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_die\\2.png"), 0, 0, 50, 75));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_die\\3.png"), 0, 0, 50, 75));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_die\\4.png"), 0, 0, 35, 75));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_die\\5.png"), 0, 0, 35, 75));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_die\\6.png"), 0, 0, 50, 75));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_die\\7.png"), 0, 0, 50, 75));
         HerculesDie = new Animation(0.15f, frames);
         HerculesDie.setPlayMode(Animation.PlayMode.NORMAL);
         frames.clear();
 
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_stand\\1.png"), 0, 0, 45, 75));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_stand\\2.png"), 0, 0, 45, 75));
-        frames.add(new TextureRegion(new Texture("Sprites\\Hercules_stand\\3.png"), 0, 0, 45, 75));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_stand\\1.png"), 0, 0, 45, 75));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_stand\\2.png"), 0, 0, 45, 75));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Hercules_stand\\3.png"), 0, 0, 45, 75));
         HerculesStand = new Animation(0.15f, frames);
         HerculesStand.setPlayMode(Animation.PlayMode.LOOP);
         frames.clear();
 
-        frames.add(new TextureRegion(new Texture("Sprites\\Herclues_sword\\sword1.png"), 0, 0, 50, 80));
-        frames.add(new TextureRegion(new Texture("Sprites\\Herclues_sword\\sword2.png"), 0, 0, 50, 80));
-        frames.add(new TextureRegion(new Texture("Sprites\\Herclues_sword\\sword3.png"), 0, 0, 59, 80));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Herclues_sword\\sword1.png"), 0, 0, 50, 80));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Herclues_sword\\sword2.png"), 0, 0, 50, 80));
+        frames.add(new TextureRegion(new Texture("Sprites\\HERCULES\\Herclues_sword\\sword3.png"), 0, 0, 59, 80));
 
         HerculesSmallPush = new Animation(0.1f, frames);
         HerculesSmallPush.setPlayMode(Animation.PlayMode.NORMAL);

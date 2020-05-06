@@ -2,7 +2,6 @@
 
 import com.Hercules.game.Main;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
@@ -28,7 +27,7 @@ public class ScreenSetting implements Screen {
     private Viewport viewport;
     public ScreenSetting(Main game) {
         this.game = game;
-        background = new Texture(Gdx.files.internal("Intros\\0.jpg"));
+        background = new Texture(Gdx.files.internal("Intros\\000.jpg"));
          viewport = new StretchViewport(Main.WIDTH, Main.HEIGHT,  new OrthographicCamera());
         stage = new Stage(viewport, ((Main) game).batch);
         Gdx.input.setInputProcessor(stage);   // MAKE THE STAGE ACCEPTS EVENTS

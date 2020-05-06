@@ -284,6 +284,8 @@ int counter=0 , prevcounter = 0,tmpCounter=0,wrongCounter=0;
      }
      
      if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+         start.stop();vaseup.stop();vasedown.stop();
+         pass.stop();wrongpassword.stop();time.stop();
          game.setScreen(new StartMenu(game));
          this.dispose();
      }

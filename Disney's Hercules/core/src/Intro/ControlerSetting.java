@@ -36,7 +36,7 @@ public class ControlerSetting implements Screen {
     
     public ControlerSetting(Main game) {
         this.game = game;
-        background = new Texture(Gdx.files.internal("Intros\\0.jpg"));
+        background = new Texture(Gdx.files.internal("Intros\\000.jpg"));
         viewport = new StretchViewport(Main.WIDTH, Main.HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, ((Main) game).batch);
         Gdx.input.setInputProcessor(stage);

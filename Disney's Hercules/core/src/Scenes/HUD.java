@@ -35,7 +35,7 @@ public class HUD implements Disposable{
         public Viewport viewport;
         public Label scoreText;
         public Label scoreLabel;
-        public Integer score;
+        public static Integer score;
         public boolean FireDecrease;
         public static boolean DecreasePeriod;
         static double count =0 ;

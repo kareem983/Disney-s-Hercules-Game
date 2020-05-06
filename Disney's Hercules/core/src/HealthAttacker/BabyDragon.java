@@ -99,6 +99,7 @@ public class BabyDragon extends Enemy{
       if (!sound.isPlaying())
           sound.setVolume(Main.vol);
       sound.play();
+      HUD.score += 15;
     }
 
     @Override

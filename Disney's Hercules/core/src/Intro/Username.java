@@ -4,10 +4,10 @@ package Intro;
 import Screens.PlayScreen;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics.DisplayMode;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -21,6 +21,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class Username implements Screen{
     
@@ -38,8 +40,8 @@ public class Username implements Screen{
     public Username( Main game, Music music) {
         this.game = game;
         this.music = music;
-        background = new Texture(Gdx.files.internal("Intros\\0.jpg"));
-        viewport = new StretchViewport(Main.WIDTH, Main.HEIGHT,  new OrthographicCamera());
+        background = new Texture(Gdx.files.internal("Intros\\0000.jpg"));
+        viewport = new StretchViewport(game.WIDTH, game.HEIGHT,  new OrthographicCamera());
         stage = new Stage(viewport, ((Main) game).batch);
         Gdx.input.setInputProcessor(stage);
         createWidgets();
@@ -69,9 +71,15 @@ public class Username implements Screen{
         play.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y){
-                music.stop();
-                game.setScreen(new PlayScreen(game));
-                getObjectClass().dispose();
+                if (username.getText().length() < 3)
+                    JOptionPane.showInternalConfirmDialog(null, "Are You Even Trying ?!\nPlease Enter A Real Name.");
+                    
+                else {
+                    music.stop();
+                    game.username = username.getText();
+                    game.setScreen(new PlayScreen(game));
+                    getObjectClass().dispose();    
+                }
             }
         });
         stage.addActor(play);
@@ -82,7 +90,6 @@ public class Username implements Screen{
         back.setSize(400, 50);
         stage.addActor(back);
     }
-    
     
     private Username getObjectClass(){
         return this;
@@ -98,7 +105,7 @@ public class Username implements Screen{
        }
        
        game.batch.begin();
-       // game.batch.draw(background, 0, 0, Main.WIDTH, Main.HEIGHT);
+        game.batch.draw(background, 0, 0, game.WIDTH, game.HEIGHT);
        game.batch.end();
        
        stage.act();

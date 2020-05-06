@@ -37,7 +37,7 @@ public class SoundAndMusicSetting implements Screen {
     public SoundAndMusicSetting(Main game) {
         cb = new CheckBox("Mute", new Skin(Gdx.files.internal("Fonts\\uiskin.json")));
         this.game = game;
-        background = new Texture(Gdx.files.internal("Intros\\0.jpg"));
+        background = new Texture(Gdx.files.internal("Intros\\000.jpg"));
         viewport = new StretchViewport(Main.WIDTH, Main.HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, ((Main) game).batch);
         Gdx.input.setInputProcessor(stage);   // MAKE THE STAGE ACCEPTS EVENTS

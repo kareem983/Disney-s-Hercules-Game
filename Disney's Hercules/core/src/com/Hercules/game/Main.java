@@ -15,6 +15,7 @@ public class Main extends Game {
     public static int x = 0, y = 0;
     public static float vol = 0.5f;
     public static int up =19, down =20, left =21, right =22, sword1 = 52, sword2 = 54, normalPunch =31, powerPunch = 50;
+    public static String username = "user";
     public static final int WIDTH = 2000;
     public static final int HEIGHT = 800;
     public static final float PPM = 800f;

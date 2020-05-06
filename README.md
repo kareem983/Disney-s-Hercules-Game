@@ -1,27 +1,27 @@
 # Disney-s-Hercules-Game
-1-Map (Kareem)
+1- Map (Kareem)
 
-2-Map2 (Kareem)
+2- Map2 (Kareem)
 
-3-Hercules (Omar)
+3- Hercules (Omar)
 
-4-BabyDragon (Kareem)
+4- BabyDragon (Kareem)
 
-5-Swords & HUD (Youssef)
+5- Swords & HUD (Youssef)
 
-6-TallPiller (Osama)
+6- TallPiller (Osama)
 
-7-Coins (Kareem)
+7- Coins (Kareem)
 
-8-FeatherSack & Block (Omar)
+8- FeatherSack & Block (Omar)
 
-9-Herculad & GradedStairs (Osama)
+9- Herculad & GradedStairs (Osama)
 
-10-SwordsCollision (Youssef)
+10- SwordsCollision (Youssef)
 
-11-FireballCannons (Kareem)
+11- FireballCannons (Kareem)
 
-12-MovingCharacters & GameOver (Kareem)
+12- MovingCharacters & GameOver (Kareem)
 
 13- Sound Adding (ALL)
 
@@ -34,3 +34,5 @@
 17- Settings (Youssef)
 
 18- Level Password (Osama)
+
+19- Scoreboard (Kareem)

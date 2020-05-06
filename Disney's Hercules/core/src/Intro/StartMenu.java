@@ -69,6 +69,7 @@ public class StartMenu implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(new Username(game, music));
+                getThisClass().dispose();
             }
         });
         stage.addActor(startGame);
@@ -79,37 +80,41 @@ public class StartMenu implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(new GameInstruction(game));
+                getThisClass().dispose();
             }
         });
         stage.addActor(gameInstructions);
 
-        TextButton scoreBoard = new TextButton("Score Board", skin);
-        scoreBoard.setPosition(gameInstructions.getX() ,gameInstructions.getY()-100);
-        scoreBoard.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new ScoreBoard(game));
-            }
-        });
-        stage.addActor(scoreBoard);
-
         TextButton levelPassword = new TextButton("Level Password", skin);
-        levelPassword.setPosition(scoreBoard.getX() , scoreBoard.getY()-100);
+        levelPassword.setPosition(gameInstructions.getX() ,gameInstructions.getY()-100);
         levelPassword.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 music.stop();
                 game.setScreen(new LevelPassword(game));
+                getThisClass().dispose();
             }
         });
         stage.addActor(levelPassword);
 
+        TextButton scoreBoard = new TextButton("Score Board", skin);
+        scoreBoard.setPosition(levelPassword.getX() , levelPassword.getY()-100);
+        scoreBoard.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new ScoreBoard(game));
+                getThisClass().dispose();
+            }
+        });
+        stage.addActor(scoreBoard);
+
         TextButton settings = new TextButton("Settings", skin);
-        settings.setPosition(levelPassword.getX() ,levelPassword.getY()-100);
+        settings.setPosition(scoreBoard.getX() ,scoreBoard.getY()-100);
         settings.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(new Setting(game));
+                getThisClass().dispose();
             }
         });
         stage.addActor(settings);
@@ -120,9 +125,13 @@ public class StartMenu implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 System.exit(0);
+                getThisClass().dispose();
             }
         });
         stage.addActor(exit);
+    }
+    private StartMenu getThisClass(){
+        return this;
     }
 
     @Override
