@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="6f5b15af-0bf5-40e7-bddf-6e61d07ac160" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="ProjectId" id="1bE41qmWWkvCxeI0OOLo6NUitfp" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Console Colors" />
+    <property name="show.unlinked.gradle.project.popup" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration name="DesktopLauncher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.Launcher.desktop.DesktopLauncher" />
+      <module name="Disney's_Hercules.desktop.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.Launcher.desktop.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.DesktopLauncher" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6f5b15af-0bf5-40e7-bddf-6e61d07ac160" name="Default Changelist" comment="" />
+      <created>1588183706423</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1588183706423</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="464" y="52" key="#DesktopLauncher" timestamp="1588715667503">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="464" y="52" key="#DesktopLauncher/0.0.1536.864@0.0.1536.864" timestamp="1588715667503" />
+    <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1588710751970">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1588710751970" />
+    <state width="1493" height="96" key="GridCell.Tab.0.bottom" timestamp="1588716182804">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1493" height="96" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1588716182804" />
+    <state width="1493" height="96" key="GridCell.Tab.0.center" timestamp="1588716182804">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1493" height="96" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1588716182804" />
+    <state width="1493" height="96" key="GridCell.Tab.0.left" timestamp="1588716182804">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1493" height="96" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1588716182804" />
+    <state width="1493" height="96" key="GridCell.Tab.0.right" timestamp="1588716182804">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1493" height="96" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1588716182804" />
+    <state x="0" y="0" key="SettingsEditor.inPresentationMode" timestamp="1588547351283">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="0" y="0" key="SettingsEditor.inPresentationMode/0.0.1536.864@0.0.1536.864" timestamp="1588547351283" />
+  </component>
+</project>

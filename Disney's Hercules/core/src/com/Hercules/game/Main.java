@@ -4,6 +4,7 @@ import Intro.StartMenu;
 import Scenes.IntroScenes;
 import Screens.PlayScreen;
 import Screens.PlayScreen2;
+import Intro.LevelPassword;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
@@ -62,14 +63,21 @@ public class Main extends Game {
         manager.load("Audio//Hercules - sounds//featherFinish.wav", Music.class);
         manager.load("Audio//Hercules - sounds//a3.wav", Music.class);
         manager.load("Audio//Hercules - sounds//a2.wav", Music.class);
-
         manager.load("Audio//Hercules - Voices//Hercules//Jumb2.wav", Music.class);
-
+        
+        manager.load("Audio//Hercules - Voices//Meg//Dont waste my time.wav" , Music.class);
+        manager.load("Audio//Hercules - Voices//Meg//More Wrong Password.wav" , Music.class);
+        manager.load("Audio//Hercules - Voices//Meg//Oh we got a winner.wav" , Music.class);
+        manager.load("Audio//Hercules - Voices//Meg//So u have a password with you.wav" , Music.class);
+        manager.load("Audio//Hercules - Voices//Meg//time to play vases.wav" , Music.class);
+        manager.load("Audio//Hercules - Voices//Meg//Wrong password.wav" , Music.class);
+        manager.load("Audio//Hercules - Voices//Meg//vase down.mp3" , Music.class);
+        manager.load("Audio//Hercules - Voices//Meg//vase up.mp3" , Music.class);
         manager.finishLoading();
 
-        // TOGGLE SCREENS
         //setScreen(new IntroScenes(this));
         setScreen(new StartMenu(this));
+        //setScreen(new MegScreen(this));
         //setScreen(new PlayScreen(this));
         //setScreen(new PlayScreen2(this));
     }

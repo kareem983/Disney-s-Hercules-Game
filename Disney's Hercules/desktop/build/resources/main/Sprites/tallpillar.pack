@@ -1,0 +1,54 @@
+
+tallpaller.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+t1
+  rotate: false
+  xy: 1, 365
+  size: 250, 351
+  orig: 250, 351
+  offset: 0, 0
+  index: -1
+t2
+  rotate: false
+  xy: 1, 12
+  size: 250, 351
+  orig: 250, 351
+  offset: 0, 0
+  index: -1
+t3
+  rotate: false
+  xy: 253, 365
+  size: 250, 351
+  orig: 250, 351
+  offset: 0, 0
+  index: -1
+t4
+  rotate: false
+  xy: 253, 365
+  size: 250, 351
+  orig: 250, 351
+  offset: 0, 0
+  index: -1
+t5
+  rotate: false
+  xy: 253, 12
+  size: 250, 351
+  orig: 250, 351
+  offset: 0, 0
+  index: -1
+t6
+  rotate: false
+  xy: 505, 365
+  size: 250, 351
+  orig: 250, 351
+  offset: 0, 0
+  index: -1
+t10
+  rotate: false
+  xy: 505, 1
+  size: 113, 362
+  orig: 113, 362
+  offset: 0, 0
+  index: -1

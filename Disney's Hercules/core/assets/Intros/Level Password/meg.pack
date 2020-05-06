@@ -1,0 +1,68 @@
+
+meg.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+meg1
+  rotate: false
+  xy: 1, 282
+  size: 853, 150
+  orig: 853, 150
+  offset: 0, 0
+  index: -1
+meg4
+  rotate: false
+  xy: 1, 138
+  size: 830, 142
+  orig: 830, 142
+  offset: 0, 0
+  index: -1
+meg2
+  rotate: false
+  xy: 856, 291
+  size: 361, 141
+  orig: 361, 141
+  offset: 0, 0
+  index: -1
+4
+  rotate: false
+  xy: 1, 5
+  size: 370, 131
+  orig: 370, 131
+  offset: 0, 0
+  index: -1
+2
+  rotate: false
+  xy: 1219, 301
+  size: 356, 131
+  orig: 356, 131
+  offset: 0, 0
+  index: -1
+meg5
+  rotate: false
+  xy: 373, 1
+  size: 347, 135
+  orig: 347, 135
+  offset: 0, 0
+  index: -1
+1
+  rotate: false
+  xy: 1577, 294
+  size: 292, 138
+  orig: 292, 138
+  offset: 0, 0
+  index: -1
+3
+  rotate: false
+  xy: 1219, 161
+  size: 292, 138
+  orig: 292, 138
+  offset: 0, 0
+  index: -1
+meg6
+  rotate: false
+  xy: 1871, 293
+  size: 55, 139
+  orig: 55, 139
+  offset: 0, 0
+  index: -1

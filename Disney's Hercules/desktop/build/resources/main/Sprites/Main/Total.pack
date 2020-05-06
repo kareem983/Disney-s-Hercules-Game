@@ -1,0 +1,40 @@
+
+Total3.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Phill
+  rotate: false
+  xy: 1, 556
+  size: 890, 261
+  orig: 890, 261
+  offset: 0, 0
+  index: -1
+Apes
+  rotate: false
+  xy: 1, 379
+  size: 903, 175
+  orig: 903, 175
+  offset: 0, 0
+  index: -1
+BabyDragons
+  rotate: false
+  xy: 1, 257
+  size: 840, 120
+  orig: 840, 120
+  offset: 0, 0
+  index: -1
+Deer
+  rotate: false
+  xy: 1, 150
+  size: 753, 105
+  orig: 753, 105
+  offset: 0, 0
+  index: -1
+Birds
+  rotate: false
+  xy: 1, 1
+  size: 573, 147
+  orig: 573, 147
+  offset: 0, 0
+  index: -1
