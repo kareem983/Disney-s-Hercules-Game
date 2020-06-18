@@ -1,10 +1,9 @@
 
 package Intro;
 
-import Screens.PlayScreen;
+import Screens.Level1;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Graphics.DisplayMode;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
@@ -77,7 +76,7 @@ public class Username implements Screen{
                 else {
                     music.stop();
                     game.username = username.getText();
-                    game.setScreen(new PlayScreen(game));
+                    game.setScreen(new Level1(game));
                     getObjectClass().dispose();    
                 }
             }

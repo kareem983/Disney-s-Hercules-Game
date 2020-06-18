@@ -1,6 +1,6 @@
 package Intro;
 
-import Screens.PlayScreen;
+import Screens.Level1;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -279,7 +279,7 @@ int counter=0 , prevcounter = 0,tmpCounter=0,wrongCounter=0;
      game.batch.end();
      
      if (!pass.isPlaying()  && success){
-         game.setScreen(new PlayScreen(game));
+         game.setScreen(new Level1(game));
          this.dispose();
      }
      

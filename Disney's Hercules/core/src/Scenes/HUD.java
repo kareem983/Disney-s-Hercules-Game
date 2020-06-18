@@ -69,7 +69,6 @@ public class HUD implements Disposable{
                table.top();
                table.setFillParent(true);
                concentrate = Main.manager.get("Audio//Hercules - Voices//Phil//Concentrate.wav", Music.class);
-               concentrate.setVolume(Main.vol);
          /*********************** KAREEM ***********************************/
         image = new Image(); 
         image2 = new Image();
@@ -129,9 +128,10 @@ public class HUD implements Disposable{
                 music = Main.manager.get("Audio//Hercules - sounds//Hercules_Atacked.wav",Music.class);
                 music.setVolume(Main.vol); 
                 music.play();
-                if (i==5 && !concentrate.isPlaying())
+                if (i==5 && !concentrate.isPlaying()){
                     concentrate.setVolume(Main.vol);
                     concentrate.play();
+                }
             }
                  
             else {

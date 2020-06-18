@@ -1,7 +1,6 @@
 package Sprites;
 
 import MovingObjects.Hercules;
-import Scenes.HUD;
 import Screens.PlayScreen;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.audio.Music;

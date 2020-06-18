@@ -1,6 +1,6 @@
 package MovingObjects;
 
-import Screens.PlayScreen;
+import Screens.*;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -26,9 +26,7 @@ public class Hercules extends Sprite {
     private float HerculesInitPosX = 750f;
     private float HerculesInitPosY = 180f;
     public float HerculesMaxSpeed = 1.5f;
-//    public float HerculesMaxSpeedHigh = 0.18333331f;
     public float HerculesMaxSpeedHigh = 0.19f;
-  //  public float HerculesMaxSpeedHigh = 0.8f;
     
     public enum State {
         FALLING, JUMPING, STANDING, RUNNING, pushing_hand, pushing_sword, pushing_sword2, pushing_sword3, Drink, die, smallPush
@@ -70,8 +68,15 @@ public class Hercules extends Sprite {
     private Music sound;
     private static float soundTimer;
     
+    public Hercules(World world, PlayScreen screen, float posX){
+         this.HerculesInitPosX = posX;
+         initializeConstructors(world, screen);
+    }
     public Hercules(World world, PlayScreen screen) {
-
+       initializeConstructors(world, screen);
+    }
+    
+    private void initializeConstructors(World world, PlayScreen screen){
         this.world = world;
         defineHercules();
 
@@ -228,10 +233,9 @@ public class Hercules extends Sprite {
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
         //get run animation frames and add them to HerculesRun Animation
-        for (int i = 1; i < 8; i++) {
-            frames.add(new TextureRegion(screen.getAtlas_Run().findRegion("run__"), i * 50, 0, 47, 75));
-        }
-
+            for (int i = 1; i < 8; i++) 
+                frames.add(new TextureRegion(screen.getAtlas_Run().findRegion("run__"), i * 50, 0, 47, 75));
+        
         HerculesRun = new Animation(0.1f, frames);
 
         frames.clear();
@@ -325,7 +329,6 @@ public class Hercules extends Sprite {
         HerculesSmallPush = new Animation(0.1f, frames);
         HerculesSmallPush.setPlayMode(Animation.PlayMode.NORMAL);
         frames.clear();
-
     }
     // this fn return true when Hercures pushing by hand
 

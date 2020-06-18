@@ -1,7 +1,7 @@
 package HealthAttacker;
 
 import Scenes.HUD;
-import Screens.PlayScreen;
+import Screens.Level1;
 import MovingObjects.Hercules;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.Gdx;

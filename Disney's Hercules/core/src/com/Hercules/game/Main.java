@@ -2,9 +2,7 @@ package com.Hercules.game;
 
 import Intro.StartMenu;
 import Scenes.IntroScenes;
-import Screens.PlayScreen;
-import Screens.PlayScreen2;
-import Intro.LevelPassword;
+import Screens.*;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
@@ -77,10 +75,9 @@ public class Main extends Game {
         manager.finishLoading();
 
         //setScreen(new IntroScenes(this));
-        setScreen(new StartMenu(this));
-        //setScreen(new MegScreen(this));
-        //setScreen(new PlayScreen(this));
-        //setScreen(new PlayScreen2(this));
+        //setScreen(new StartMenu(this));
+        setScreen(new Level1(this));
+        //setScreen(new Level2(this));
     }
 
     @Override

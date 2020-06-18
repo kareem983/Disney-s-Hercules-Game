@@ -26,6 +26,7 @@ public class StartMenu implements Screen {
     private Texture background;
     private Music music;
     private Viewport viewport;
+    
     public StartMenu(Main game) {
         music = game.manager.get("Audio//Hercules - sounds//IntroMainMenu.mp3", Music.class);
         music.setVolume(Main.vol);        

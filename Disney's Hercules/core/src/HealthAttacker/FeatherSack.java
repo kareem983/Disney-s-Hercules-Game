@@ -24,7 +24,7 @@ public class FeatherSack extends Sprite {
     boolean feather_is_collision , finish ;
     public static int Num_of_feather_Destroyed = 0;
     private int fristcollion ;
-            private  Music m;
+    private  Music m;
     public FeatherSack(float posx  , float posy ,World world , PlayScreen screen){
         this.posx =posx ;
         this.posy =posy ;

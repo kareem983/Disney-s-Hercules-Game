@@ -1,7 +1,7 @@
 
 package Scenes;
 
-import Screens.PlayScreen;
+import Screens.Level1;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -64,7 +64,7 @@ public class GameOver implements Screen{
        Gdx.gl.glClearColor(1, 1, 1, 1);
        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         if (Gdx.input.justTouched() || Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)){
-            game.setScreen(new PlayScreen((Main)game));
+            game.setScreen(new Level1((Main)game));
             dispose();
         }
         Main.batch.begin();

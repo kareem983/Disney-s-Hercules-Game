@@ -4,6 +4,7 @@ import Screens.PlayScreen;
 import com.Hercules.game.Main;
 import HealthAttacker.BabyDragon;
 import MovingObjects.*;
+import Screens.Level2;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -52,9 +53,8 @@ public class B2WorldCreator {
             Birds();
             BabyDragonSurface();
             BabyDragons();
-            
     }
-
+    
     private void Hercules(){
           
         for(MapObject object : map.getLayers().get("Hercules Ground").getObjects().getByType(RectangleMapObject.class)){
@@ -70,88 +70,109 @@ public class B2WorldCreator {
              }   
          }
     
-      private void CharactersGround(){
-           for(MapObject object : map.getLayers().get("Characters Ground").getObjects().getByType(RectangleMapObject.class)){
-            Rectangle  rec = ((RectangleMapObject) object ).getRectangle() ;
-            
-            bdef.type = BodyDef.BodyType.StaticBody ;
-            bdef.position.set((rec.getX() + rec.getWidth() /2) / Main.PPM  , (rec.getY()+ rec.getHeight()/2) / Main.PPM  ) ;
-            body =world.createBody(bdef) ;
-            shape.setAsBox( (rec.getWidth()/2 ) / Main.PPM , (rec.getHeight() /2) / Main.PPM );
-            fdef.shape =shape ;
-            fdef.filter.categoryBits = Main.CHARACTERS_GROUND_BIT;
-            body.createFixture(fdef ) ;
-        }
-      }
-      private void BirdSurface(){
-           for(MapObject object : map.getLayers().get("Birds Surface").getObjects().getByType(RectangleMapObject.class)){
-            Rectangle  rec = ((RectangleMapObject) object ).getRectangle() ;
-            
-            bdef.type = BodyDef.BodyType.StaticBody ;
-            bdef.position.set((rec.getX() + rec.getWidth() /2) / Main.PPM  , (rec.getY()+ rec.getHeight()/2) / Main.PPM  ) ;
-            body =world.createBody(bdef) ;
-            shape.setAsBox( (rec.getWidth()/2 ) / Main.PPM , (rec.getHeight() /2) / Main.PPM );
-            fdef.shape =shape ;
-            fdef.filter.categoryBits = Main.BIRDS_GROUND_BIT;
-            body.createFixture(fdef ) ;
-        }
-      }
-      private void BabyDragonSurface(){
-          
-         for(MapObject object : map.getLayers().get("Baby Dragon Surface").getObjects().getByType(RectangleMapObject.class)){
-            Rectangle  rec = ((RectangleMapObject) object ).getRectangle() ;
-            
-            bdef.type = BodyDef.BodyType.StaticBody ;
-            bdef.position.set((rec.getX() + rec.getWidth() /2) / Main.PPM  , (rec.getY()+ rec.getHeight()/2) / Main.PPM  ) ;
-            body =world.createBody(bdef) ;
-            shape.setAsBox( (rec.getWidth()/2 ) / Main.PPM , (rec.getHeight() /2) / Main.PPM );
-            fdef.filter.categoryBits = Main.BABYDRAGONS_SURFACE_BIT;
-            fdef.shape =shape ;
-            body.createFixture(fdef ) ;
-        }
+    private void CharactersGround(){
+          try{      
+                for(MapObject object : map.getLayers().get("Characters Ground").getObjects().getByType(RectangleMapObject.class)){
+                 Rectangle  rec = ((RectangleMapObject) object ).getRectangle() ;
 
-         for(MapObject object : map.getLayers().get("Sky Border").getObjects().getByType(RectangleMapObject.class)){
-            Rectangle  rec = ((RectangleMapObject) object ).getRectangle() ;
-            
-            bdef.type = BodyDef.BodyType.StaticBody ;
-            bdef.position.set((rec.getX() + rec.getWidth() /2) / Main.PPM  , (rec.getY()+ rec.getHeight()/2) / Main.PPM  ) ;
-            body =world.createBody(bdef) ;
-            shape.setAsBox( (rec.getWidth()/2 ) / Main.PPM , (rec.getHeight() /2) / Main.PPM );
-            fdef.filter.categoryBits = Main.SKY_BORDER_BIT;
-            fdef.shape =shape ;
-            body.createFixture(fdef ) ;
-        }
+                 bdef.type = BodyDef.BodyType.StaticBody ;
+                 bdef.position.set((rec.getX() + rec.getWidth() /2) / Main.PPM  , (rec.getY()+ rec.getHeight()/2) / Main.PPM  ) ;
+                 body =world.createBody(bdef) ;
+                 shape.setAsBox( (rec.getWidth()/2 ) / Main.PPM , (rec.getHeight() /2) / Main.PPM );
+                 fdef.shape =shape ;
+                 fdef.filter.categoryBits = Main.CHARACTERS_GROUND_BIT;
+                 body.createFixture(fdef ) ;
+             }
+          }catch(Exception ex){}
       }
       
-       private void Phill(){
-           for(MapObject object : map.getLayers().get("Phill").getObjects().getByType(RectangleMapObject.class)){
-            Rectangle  rec = ((RectangleMapObject) object ).getRectangle();
-            phill = new Phill(screen, rec.getX() / Main.PPM, rec.getY() / Main.PPM);
+    private void BirdSurface(){
+        try{
+            for(MapObject object : map.getLayers().get("Birds Surface").getObjects().getByType(RectangleMapObject.class)){
+             Rectangle  rec = ((RectangleMapObject) object ).getRectangle() ;
+
+             bdef.type = BodyDef.BodyType.StaticBody ;
+             bdef.position.set((rec.getX() + rec.getWidth() /2) / Main.PPM  , (rec.getY()+ rec.getHeight()/2) / Main.PPM  ) ;
+             body =world.createBody(bdef) ;
+             shape.setAsBox( (rec.getWidth()/2 ) / Main.PPM , (rec.getHeight() /2) / Main.PPM );
+             fdef.shape =shape ;
+             fdef.filter.categoryBits = Main.BIRDS_GROUND_BIT;
+             body.createFixture(fdef ) ;
+         }
+        } catch(Exception ex){}
       }
-    }
-       private void Birds(){
-           for(MapObject object : map.getLayers().get("Birds").getObjects().getByType(RectangleMapObject.class)){
-            Rectangle  rec = ((RectangleMapObject) object ).getRectangle();
-            birds.add(new Bird(screen, rec.getX() / Main.PPM, rec.getY() / Main.PPM));
+    private void BabyDragonSurface(){
+          try{
+                for(MapObject object : map.getLayers().get("Baby Dragon Surface").getObjects().getByType(RectangleMapObject.class)){
+                Rectangle  rec = ((RectangleMapObject) object ).getRectangle() ;
+
+                bdef.type = BodyDef.BodyType.StaticBody ;
+                bdef.position.set((rec.getX() + rec.getWidth() /2) / Main.PPM  , (rec.getY()+ rec.getHeight()/2) / Main.PPM  ) ;
+                body =world.createBody(bdef) ;
+                shape.setAsBox( (rec.getWidth()/2 ) / Main.PPM , (rec.getHeight() /2) / Main.PPM );
+                fdef.filter.categoryBits = Main.BABYDRAGONS_SURFACE_BIT;
+                fdef.shape =shape ;
+                body.createFixture(fdef ) ;
+            } 
+         
+            for(MapObject object : map.getLayers().get("Sky Border").getObjects().getByType(RectangleMapObject.class)){
+               Rectangle  rec = ((RectangleMapObject) object ).getRectangle() ;
+
+               bdef.type = BodyDef.BodyType.StaticBody ;
+               bdef.position.set((rec.getX() + rec.getWidth() /2) / Main.PPM  , (rec.getY()+ rec.getHeight()/2) / Main.PPM  ) ;
+               body =world.createBody(bdef) ;
+               shape.setAsBox( (rec.getWidth()/2 ) / Main.PPM , (rec.getHeight() /2) / Main.PPM );
+               fdef.filter.categoryBits = Main.SKY_BORDER_BIT;
+               fdef.shape =shape ;
+               body.createFixture(fdef ) ;
+           }
+        } catch(Exception ex){}
       }
+      
+    private void Phill(){
+        try{
+                for(MapObject object : map.getLayers().get("Phill").getObjects().getByType(RectangleMapObject.class)){
+                Rectangle  rec = ((RectangleMapObject) object ).getRectangle();
+                phill = new Phill(screen, rec.getX() / Main.PPM, rec.getY() / Main.PPM);
+            }
+        } catch(Exception ex){}
+           
     }
-       private void Deer(){
-           for(MapObject object : map.getLayers().get("Deer").getObjects().getByType(RectangleMapObject.class)){
+    private void Birds(){
+        try{
+                for(MapObject object : map.getLayers().get("Birds").getObjects().getByType(RectangleMapObject.class)){
+                Rectangle  rec = ((RectangleMapObject) object ).getRectangle();
+                birds.add(new Bird(screen, rec.getX() / Main.PPM, rec.getY() / Main.PPM));
+          }
+        } catch(Exception ex){}
+           
+    }
+    private void Deer(){
+        try{
+            for(MapObject object : map.getLayers().get("Deer").getObjects().getByType(RectangleMapObject.class)){
             Rectangle  rec = ((RectangleMapObject) object ).getRectangle();
             deers.add(new Deer(screen, rec.getX() / Main.PPM, rec.getY() / Main.PPM));
-      }
+            }
+        } catch(Exception ex){}
+           
     }
-       private void Apes(){
-           for(MapObject object : map.getLayers().get("Apes").getObjects().getByType(RectangleMapObject.class)){
-            Rectangle  rec = ((RectangleMapObject) object ).getRectangle() ;
-            apes.add(new Ape(screen, rec.getX() / Main.PPM, rec.getY() / Main.PPM));
-      }
+    private void Apes(){
+        try{
+                for(MapObject object : map.getLayers().get("Apes").getObjects().getByType(RectangleMapObject.class)){
+                Rectangle  rec = ((RectangleMapObject) object ).getRectangle() ;
+                apes.add(new Ape(screen, rec.getX() / Main.PPM, rec.getY() / Main.PPM));
+          }
+        } catch(Exception ex){}
+           
     }
-       private void BabyDragons(){
-           for(MapObject object : map.getLayers().get("Baby Dragons").getObjects().getByType(RectangleMapObject.class)){
-            Rectangle  rec = ((RectangleMapObject) object ).getRectangle() ;
-            babyDragons.add(new BabyDragon(screen, rec.getX() / Main.PPM, rec.getY() / Main.PPM));
-      }
+    private void BabyDragons(){
+        try{
+                for(MapObject object : map.getLayers().get("Baby Dragons").getObjects().getByType(RectangleMapObject.class)){
+                Rectangle  rec = ((RectangleMapObject) object ).getRectangle() ;
+                babyDragons.add(new BabyDragon(screen, rec.getX() / Main.PPM, rec.getY() / Main.PPM));
+          }
+        } catch(Exception ex){}
+           
     }
 
     public Phill getPhill() {

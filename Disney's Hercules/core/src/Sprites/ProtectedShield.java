@@ -14,8 +14,8 @@ import com.badlogic.gdx.utils.Array;
 
 public class ProtectedShield extends Sprite{
   
-  private int posX;
-  private int posY;
+  private float posX;
+  private float posY;
   private Animation ShieldDraw;
   private int stateTimer;
   private Hercules hercule;
@@ -27,9 +27,9 @@ public class ProtectedShield extends Sprite{
   private boolean isplayed;
   private Music music;
   
-  public ProtectedShield(Hercules hercule,HUD hud){
-     this.posX=4512;
-     this.posY=176;
+  public ProtectedShield(Hercules hercule,HUD hud, float posX, float posY){
+     this.posX=posX; 
+     this.posY=posY;
      this.hercule=hercule;
      this.hud=hud;
      this.stateTimer=0;
