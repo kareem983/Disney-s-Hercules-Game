@@ -90,28 +90,28 @@ int counter=0 , prevcounter = 0,tmpCounter=0,wrongCounter=0;
 
         start = game.manager.get("Audio//Hercules - Voices//Meg//So u have a password with you.wav" ,Music.class);
         start.setLooping(false);
-        start.setVolume(0.5f);
+        start.setVolume(Main.vol);
         start.play();
         
         vaseup=game.manager.get("Audio//Hercules - Voices//Meg//vase up.mp3" ,Music.class);
         vaseup.setLooping(false);
-        vaseup.setVolume(0.5f);
+        vaseup.setVolume(Main.vol);
             
         vasedown=game.manager.get("Audio//Hercules - Voices//Meg//vase down.mp3",Music.class);
         vasedown.setLooping(false);
-        vasedown.setVolume(0.5f);
+        vasedown.setVolume(Main.vol);
             
         pass = game.manager.get("Audio//Hercules - Voices//Meg//Oh we got a winner.wav",Music.class);
         pass.setLooping(false);
-        pass.setVolume(0.5f);
+        pass.setVolume(Main.vol);
                 
         wrongpassword = game.manager.get("Audio//Hercules - Voices//Meg//Wrong password.wav",Music.class);
         wrongpassword.setLooping(false);
-        wrongpassword.setVolume(0.5f);
+        wrongpassword.setVolume(Main.vol);
         
          time =game.manager.get("Audio//Hercules - Voices//Meg//time to play vases.wav",Music.class);
          time.setLooping(false);
-         time.setVolume(0.5f);
+         time.setVolume(Main.vol);
     }
     @Override
     public void show() {
@@ -171,14 +171,14 @@ int counter=0 , prevcounter = 0,tmpCounter=0,wrongCounter=0;
                       wrongpassword = game.manager.get("Audio//Hercules - Voices//Meg//More Wrong Password.wav",Music.class);
 
                       wrongpassword.setLooping(false);
-                      wrongpassword.setVolume(0.5f);
+                      wrongpassword.setVolume(Main.vol);
                       wrongpassword.play();
                   }
                      else {
                          wrongCounter=0;
                       wrongpassword = game.manager.get("Audio//Hercules - Voices//Meg//Dont waste my time.wav",Music.class);
                       wrongpassword.setLooping(false);
-                      wrongpassword.setVolume(0.5f);
+                      wrongpassword.setVolume(Main.vol);
                       wrongpassword.play();
                   }
             }
