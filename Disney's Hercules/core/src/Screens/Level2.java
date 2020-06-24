@@ -4,7 +4,6 @@ import MovingObjects.Hercules;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.Hercules.game.Main;
-import com.badlogic.gdx.math.Vector2;
 
 /* LEVEL TWO SCREEN  */
 public class Level2 extends PlayScreen{  
@@ -12,7 +11,7 @@ public class Level2 extends PlayScreen{
     public Level2(Main game){
         super(game, "Maps\\Level Two\\HerculesMap.tmx");
       
-        player= new Hercules(world , this, 1300f);
+        player= new Hercules(world , this, 1300.00f); // 1300f
        
     }
      public void update(float dt){
@@ -20,7 +19,7 @@ public class Level2 extends PlayScreen{
         world.step(1/60f, 6, 2);  
         player.update(dt); 
        
-        if (player.b2body.getPosition().x>1000/Main.PPM && player.b2body.getPosition().x<23000/Main.PPM)
+        if (player.b2body.getPosition().x>1000/Main.PPM  && player.b2body.getPosition().x<71000/Main.PPM) //
             gameCam.position.x = player .b2body.getPosition().x ;
         if (player.b2body.getPosition().y<470/Main.PPM )
         gameCam.position.y = player .b2body.getPosition().y+255/Main.PPM ;

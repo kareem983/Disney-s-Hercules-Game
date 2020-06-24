@@ -96,8 +96,8 @@ public class Hercules extends Sprite {
 
     public void update(float dt) {
         if(b2body.getPosition().x > 17580/Main.PPM && b2body.getPosition().x < 19280/Main.PPM ) HerculesMaxSpeedHigh = 0.9f ;
-        else if(b2body.getPosition().x > 19280/Main.PPM) HerculesMaxSpeedHigh = 0.25f;
-        else HerculesMaxSpeedHigh = 0.19f;
+        else if(b2body.getPosition().x > 19280/Main.PPM) HerculesMaxSpeedHigh = 0.9f; // 0.25f
+        else HerculesMaxSpeedHigh = 0.9f; // 0.19f
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2 + 50 / Main.PPM);
         setRegion(getFrame(dt));
         getYourSword(dt);

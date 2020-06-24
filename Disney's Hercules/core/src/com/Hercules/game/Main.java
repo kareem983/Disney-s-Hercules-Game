@@ -76,8 +76,8 @@ public class Main extends Game {
 
         //setScreen(new IntroScenes(this));
         //setScreen(new StartMenu(this));
-        setScreen(new Level1(this));
-        //setScreen(new Level2(this));
+        //setScreen(new Level1(this));
+        setScreen(new Level2(this));
     }
 
     @Override
