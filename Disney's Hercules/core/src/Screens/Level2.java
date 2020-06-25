@@ -1,19 +1,25 @@
 package Screens;
 
 import MovingObjects.Hercules;
+import Sprites.FinalCamelMoving;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.Hercules.game.Main;
 
 /* LEVEL TWO SCREEN  */
 public class Level2 extends PlayScreen{  
-    
+    private FinalCamelMoving FinalCamel; 
+
     public Level2(Main game){
         super(game, "Maps\\Level Two\\HerculesMap.tmx");
-      
         player= new Hercules(world , this, 1300.00f); // 1300f
-       
+        FinalCamel=new FinalCamelMoving(player,game);
+    
     }
+    
+    
+    
+    
      public void update(float dt){
         handleInput();
         world.step(1/60f, 6, 2);  
@@ -23,7 +29,7 @@ public class Level2 extends PlayScreen{
             gameCam.position.x = player .b2body.getPosition().x ;
         if (player.b2body.getPosition().y<470/Main.PPM )
         gameCam.position.y = player .b2body.getPosition().y+255/Main.PPM ;
-
+         FinalCamel.update();
         gameCam.update();
         renderer.setView(gameCam);
         
@@ -43,6 +49,7 @@ public class Level2 extends PlayScreen{
        
        game.batch.begin();
         player.draw(game.batch);
+        FinalCamel.draw(game.batch);
        game.batch.end();
         
     }

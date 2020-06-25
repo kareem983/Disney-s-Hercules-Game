@@ -76,6 +76,7 @@ public abstract class PlayScreen implements Screen{
     protected ArrayList<SilverCoin> silvercoin=new ArrayList<>();
     protected ArrayList<Cannons> filreball=new ArrayList<>();
 
+    
     protected ProtectedShield Shield;
     protected List<HealthAttacker.FeatherSack> featherList;
     protected List<MovingFeather> MovingfeatherList;
@@ -360,10 +361,12 @@ public abstract class PlayScreen implements Screen{
         for(int i=0;i<goldcoin.size();i++){
             goldcoin.get(i).update(player);
         }
+        
         //silver coins
         for(int i=0;i<silvercoin.size();i++){
             silvercoin.get(i).update(player);
         }
+        
     }
 
     protected void updateCharacters(float dt) {
