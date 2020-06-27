@@ -46,11 +46,11 @@ public class FinalCamelMoving extends Sprite{
     
     public void DefineAnimation(){
      Array<TextureRegion> frame = new Array<TextureRegion>();
-        frame.add(new TextureRegion(new Texture("Sprites\\Level 2\\camel1.png"),0,0,205,194));
-        frame.add(new TextureRegion(new Texture("Sprites\\Level 2\\camel2.png"),0,0,217,211));
-        frame.add(new TextureRegion(new Texture("Sprites\\Level 2\\camel3.png"),0,0,209,190));
-        frame.add(new TextureRegion(new Texture("Sprites\\Level 2\\camel4.png"),0,0,209,198));
-        frame.add(new TextureRegion(new Texture("Sprites\\Level 2\\camel5.png"),0,0,210,194));
+        frame.add(new TextureRegion(new Texture("Sprites\\Level 2\\Camel\\camel1.png"),0,0,205,194));
+        frame.add(new TextureRegion(new Texture("Sprites\\Level 2\\Camel\\camel2.png"),0,0,217,211));
+        frame.add(new TextureRegion(new Texture("Sprites\\Level 2\\Camel\\camel3.png"),0,0,209,190));
+        frame.add(new TextureRegion(new Texture("Sprites\\Level 2\\Camel\\camel4.png"),0,0,209,198));
+        frame.add(new TextureRegion(new Texture("Sprites\\Level 2\\Camel\\camel5.png"),0,0,210,194));
         
         CamelDraw=new Animation(0.5f,frame);
         frame.clear();

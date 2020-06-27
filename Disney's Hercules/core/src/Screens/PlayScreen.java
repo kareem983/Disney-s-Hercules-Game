@@ -29,7 +29,7 @@ import java.util.List;
 public abstract class PlayScreen implements Screen{
     
     //  Some Essential Variables
-    protected Main game;
+    protected Main game; 
     public float swordTimer;
     protected int normalcounter;
     protected boolean c, v;
