@@ -3,6 +3,7 @@ package Tools;
 
 import HealthAttacker.Enemy;
 import MovingObjects.Hercules;
+import MovingObjects.Wagon;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -11,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
 public class WorldContactListener implements ContactListener{
-
+    public Hercules player;
     @Override
     public void beginContact(Contact contact) {
         Fixture fixA = contact.getFixtureA();
@@ -19,6 +20,10 @@ public class WorldContactListener implements ContactListener{
         
         int collisionDefinition = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
         switch (collisionDefinition){
+            case Main.HERCULES_BIT | Main.GROUND_BIT:
+               if (player.body.getLinearVelocity().y <= 0)
+                     Hercules.onGround = true;
+                break;
             case Main.HERCULES_BORDER_BIT | Main.ENEMY_BIT:
                 if (fixA.getFilterData().categoryBits == Main.ENEMY_BIT && Hercules.hercules_sword2)
                     ((Enemy)fixA.getUserData()).Stap();
@@ -36,22 +41,41 @@ public class WorldContactListener implements ContactListener{
                 else
                     ((Enemy)fixB.getUserData()).reverseVelocity(true, false);
                 break;
+            case Main.HERCULES_BIT | Main.WAGON_BIT:
+                if (fixA.getFilterData().categoryBits == Main.WAGON_BIT)
+                    ((Wagon)fixA.getUserData()).move();
+                else
+                    ((Wagon)fixB.getUserData()).move();
+            break;
         }
     }
 
     @Override
     public void endContact(Contact contact) {
+        Fixture fixA = contact.getFixtureA();
+        Fixture fixB = contact.getFixtureB();
         
+        int collisionDefinition = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
+        switch (collisionDefinition){
+            case Main.HERCULES_BIT | Main.GROUND_BIT:
+                if (player.body.getLinearVelocity().y>0)
+                         Hercules.onGround = false;   
+                break;
+            case Main.HERCULES_BIT | Main.WAGON_BIT:
+                if (fixA.getFilterData().categoryBits == Main.WAGON_BIT)
+                    ((Wagon)fixA.getUserData()).stop();
+                else
+                    ((Wagon)fixB.getUserData()).stop();
+            break;
+        }
     }
 
     @Override
-    public void preSolve(Contact arg0, Manifold arg1) {
-        
+    public void preSolve(Contact contact, Manifold manifold) {
     }
-
+    
     @Override
-    public void postSolve(Contact arg0, ContactImpulse arg1) {
-        
+    public void postSolve(Contact contact, ContactImpulse contactImpulse) {
     }
     
 }

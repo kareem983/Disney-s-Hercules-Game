@@ -12,7 +12,7 @@ public abstract class Enemy extends Sprite{
     protected PlayScreen screen;
     public Body body;
     public Vector2 velocity;
-            
+    
     public Enemy(PlayScreen screen, float x, float y){
         this.world = screen.getWorld();
         this.screen = screen;

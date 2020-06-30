@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Main extends Game {
 
     public static int x = 0, y = 0;
-    public static float vol = 0.5f;
+    public static float vol = 0.5f; // 0.5f
     public static int up =19, down =20, left =21, right =22, sword1 = 52, sword2 = 54, normalPunch =31, powerPunch = 50;
     public static String username = "user";
     public static final int WIDTH = 2000;
@@ -25,9 +25,11 @@ public class Main extends Game {
     public static final short SKY_BORDER_BIT = 32;
     public static final short CHARACTERS_GROUND_BIT = 64;
     public static final short BIRDS_GROUND_BIT = 128;
-    public static final short HERCULES_SENSOR_BIT = 256;
+    public static final short WAGON_BIT = 256;
+    
     public static SpriteBatch batch;
     public static AssetManager manager;
+    
 
     @Override
     public void create() {
@@ -78,6 +80,7 @@ public class Main extends Game {
         //setScreen(new StartMenu(this));
         //setScreen(new Level1(this));
         setScreen(new Level2(this));
+        //setScreen(new Level3(this));
     }
 
     @Override

@@ -20,7 +20,7 @@ public class LightiningSword extends Swords {
              music.setVolume(Main.vol); 
              soundsword=0;
              
-        Tsword = new Texture("Sprites\\lightsword2.png");
+        Tsword = new Texture("Sprites\\Level 1\\Swords\\lightsword2.png");
         for (int i = 0; i < 3; i++) {
             frame.add(new TextureRegion(Tsword, 0, i * 76, 215, 76));
         }
@@ -41,7 +41,7 @@ public class LightiningSword extends Swords {
         if (!herucle.isRunningRight())
         {
             
-        setPosition(herucle.b2body.getPosition().x - getWidth() / 2 + 250/ Main.PPM-215 * 4 / Main.PPM, herucle.b2body.getPosition().y - getHeight() / 2 + 50 / Main.PPM);
+        setPosition(herucle.body.getPosition().x - getWidth() / 2 + 250/ Main.PPM-215 * 4 / Main.PPM, herucle.body.getPosition().y - getHeight() / 2 + 50 / Main.PPM);
         statetimer += Gdx.graphics.getDeltaTime();
         region = (TextureRegion) Asword.getKeyFrame(statetimer,true);
         if(!region.isFlipX()){
@@ -51,7 +51,7 @@ public class LightiningSword extends Swords {
         }
         else
         {
-        setPosition(herucle.b2body.getPosition().x - getWidth() / 2+165/Main.PPM+215*2 / Main.PPM, herucle.b2body.getPosition().y - getHeight() / 2 + 50 / Main.PPM);
+        setPosition(herucle.body.getPosition().x - getWidth() / 2+165/Main.PPM+215*2 / Main.PPM, herucle.body.getPosition().y - getHeight() / 2 + 50 / Main.PPM);
         statetimer += Gdx.graphics.getDeltaTime();
         region = (TextureRegion) Asword.getKeyFrame(statetimer , true);
         if(region.isFlipX()){

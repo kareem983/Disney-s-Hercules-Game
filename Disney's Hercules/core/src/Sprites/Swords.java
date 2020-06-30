@@ -11,9 +11,9 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public abstract class Swords extends Sprite {
 public Animation Asword;
-public Texture Tsword=new Texture("Sprites\\LeftSonicSword.png");
-public Texture Lsword=new Texture("Sprites\\fireball1.png");
-public Texture Msword=new Texture("Sprites\\fireball2.png");
+public Texture Tsword=new Texture("Sprites\\Level 1\\Swords\\LeftSonicSword.png");
+public Texture Lsword=new Texture("Sprites\\Level 1\\Swords\\fireball1.png");
+public Texture Msword=new Texture("Sprites\\Level 1\\Swords\\fireball2.png");
 public TextureRegion region;
 public Hercules herucle;
 public World world;

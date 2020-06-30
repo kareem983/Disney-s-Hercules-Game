@@ -2,7 +2,6 @@
 package Scenes;
 
 import MovingObjects.Hercules;
-import Sprites.Herculad;
 import Sprites.ProtectedShield;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -73,7 +72,7 @@ public class HUD implements Disposable{
         image = new Image(); 
         image2 = new Image();
         i = 1;
-        healthPath = "sprites\\hud\\Healthbar.png"; lifesPath="sprites\\hud\\Lifes.png";
+        healthPath = "Sprites\\Level 1\\HUD\\Healthbar.png"; lifesPath="Sprites\\Level 1\\HUD\\Lifes.png";
         X = new int [] {1, 1, 361, 1, 361, 361}; Y = new int [] {271, 136, 271, 1, 136, 1};
         X2 = new int [] {307, 205, 103, 1}; Y2 = new int [] {1, 1, 1, 1};
         region=new TextureRegion(new Texture(healthPath),X[0],Y[0],358,133);
@@ -113,7 +112,7 @@ public class HUD implements Disposable{
     {   
         fire_hit();
         ProtectedShield.ShowShieldTimer(swordtimertext, swordtimerlabel, dt);
-        if (Herculad.Catch){
+        if (Hercules.hercules_Drink){
             i=1;
             image.setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture(healthPath), X[0], Y[0], 358, 133)));
         }

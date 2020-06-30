@@ -17,17 +17,19 @@ public class Herculad extends Sprite {
     PolygonShape shape;
     float posx, posy;
     float stateTimer;
-    public static boolean p  , Catch , played= false , drink = true;
+    public static boolean p  , Catch=false , played= false , drink = true;
 
     public Rectangle rect;
     Texture texture ;
     Hercules hercule;
     Music music , m;
+    Hercules player;
     
-    public Herculad(World world, PlayScreen screen, float posx, float posy) {
-        super(new Texture("Sprites\\Juice.png"));
+    public Herculad(World world, PlayScreen screen, Hercules player, float posx, float posy) {
+        super(new Texture("Sprites\\Level 1\\Complement\\Juice.png"));
         this.world = world;
         this.screen = screen;
+        this.player=player;
         this.posx = posx;
         this.posy = posy;
         stateTimer = 80f;
@@ -45,8 +47,9 @@ public class Herculad extends Sprite {
 
     public void update(float dt) {
         Rectangle r = new Rectangle();
+        handleJuice();
         
-        if ( (posx/Main.PPM-screen.getPlayer().b2body.getPosition().x )  <=  (1.148f) && drink)  {
+        if ( (posx/Main.PPM-screen.getPlayer().body.getPosition().x )  <=  (1.148f) && drink)  {
             m = Main.manager.get("Audio//Hercules - Voices//Hercules//Herculad.wav" , Music.class);
             m.setLooping(false);
             m.setVolume(Main.vol);
@@ -79,6 +82,14 @@ public class Herculad extends Sprite {
             setPosition(posx / Main.PPM, posy / Main.PPM);
             setRegion(getTexture());
         }
+    }
+    
+    private void handleJuice() {
+        if (rect.overlaps(player.getBoundingRectangle())) 
+            if (!Catch) {
+                Catch = true;
+                player.hercules_Drink = true;
+            }
     }
 
 }

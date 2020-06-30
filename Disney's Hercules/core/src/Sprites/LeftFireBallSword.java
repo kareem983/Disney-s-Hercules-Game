@@ -4,7 +4,6 @@ import MovingObjects.Hercules;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
@@ -28,8 +27,8 @@ public class LeftFireBallSword extends Swords {
         frame.add(new TextureRegion(Msword ,227, 322, 222, 80));
         Asword = new Animation(1f / Main.PPM, frame);
         setBounds(0, 0, 222 / Main.PPM, 80 / Main.PPM);
-        directionx = herucle.b2body.getPosition().x;
-        directiony = herucle.b2body.getPosition().y;
+        directionx = herucle.body.getPosition().x;
+        directiony = herucle.body.getPosition().y;
     }
 
     @Override

@@ -15,6 +15,7 @@ public class MovingFeather extends FeatherSack {
     public boolean move ,right;
     float x, y, xdomin, xcopy;
    public int order ;
+   
     public MovingFeather(float pposx, float pposy, World wworld, PlayScreen Screen , int order) {
         super(pposx, pposy, wworld, Screen);
         y = pposy;
@@ -22,7 +23,7 @@ public class MovingFeather extends FeatherSack {
         xdomin = x +(500/Main.PPM);
         this.order = order;
         Rope = new Sprite();
-        Rope.setRegion(new Texture("Sprites\\Rope.png"));
+        Rope.setRegion(new Texture("Sprites\\Level 1\\Complement\\Rope.png"));
         Rope.setBounds(0, 0, 30 / Main.PPM, 300 / Main.PPM);
         Rope.setPosition(x + (40 / Main.PPM), y + (150 / Main.PPM));
         move = false; right = true;

@@ -1,9 +1,11 @@
 package Sprites;
 
+import MovingObjects.Hercules;
 import Screens.PlayScreen;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
@@ -23,15 +25,18 @@ public class TallPiller extends Sprite {
     World world;
     PlayScreen screen;
     Animation piller_animation;
-    public boolean STATE, x , crashed;
+    public boolean STATE, x , crashed, cc, vv;
+    private int normalcounter;
     public float pposx,pposy;
-
-    public TallPiller(World world, PlayScreen screen , float pposx , float pposy) {
+    private Music Pillarmusic, sound;
+    private Hercules player;
+    
+    public TallPiller(World world, PlayScreen screen , Hercules player, float pposx , float pposy) {
         super(screen.getAtlas_pillar().findRegion("t10"));
 
         this.world = world;
         this.screen = screen;
-
+        this.player = player;
         this.pposx = pposx;
         this.pposy=pposy;
         current = State.stand;
@@ -45,6 +50,9 @@ public class TallPiller extends Sprite {
         returned=new TextureRegion();
         definePillar();
         crashed = false;
+        Pillarmusic = Main.manager.get("Audio//Hercules - sounds//Tall pillar Cracked.wav");
+        sound = Main.manager.get("Audio//Hercules - Voices//Phil//Excellenty.wav", Music.class);
+        cc = vv = false; normalcounter = 0;
     }
 
     public void update(float dt) {
@@ -52,16 +60,47 @@ public class TallPiller extends Sprite {
         setPosition(pposx /Main.PPM, pposy /Main.PPM);
         returned = Animate(dt);
 
-        if (returned == crashedpic ) {
-
+        if (returned == crashedpic ) 
             setRegion(crashedpic);
-        }
-        else {
+        else
             setRegion(returned);
-        }
+        
         if (stateTimer > 10) stateTimer = 0;
+        
+        if (Gdx.input.isKeyJustPressed(Main.powerPunch)){
+            cc = true;
+            handleTallPillarCrash();
+        }
+        else if (Gdx.input.isKeyJustPressed(Main.normalPunch)) {
+            vv = true;
+            handleTallPillarCrash();
+        }
     }
+    
+    private void handleTallPillarCrash() {
+        //Allow Crash Animation to start
+        if (crashed == false) {
+            if (getBoundingRectangle().overlaps(player.getBoundingRectangle())) {
+                Pillarmusic.setVolume(Main.vol);
+                Pillarmusic.setLooping(false);
+                Pillarmusic.play();
 
+                if (cc == true || (vv == true && normalcounter == 4)) {
+                    sound.setVolume(Main.vol);
+                    sound.play();
+
+                    STATE = true;
+                    world.destroyBody(b2body);
+                    crashed = true;
+                } else if (vv) {
+                    normalcounter++;
+                    vv = false;
+                }
+            }
+        }
+         vv = cc = false;
+    }
+      
     public TextureRegion Animate(float dt) {
 
         frames = new Array<TextureRegion>();

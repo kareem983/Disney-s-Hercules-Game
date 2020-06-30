@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class FeatherSack extends Sprite {
     private float posx , posy , Rotation ;
-    private Animation AnimationfeatherDestroyed ;
+    private Animation animation ;
     private float stateimer ;
     private World world ;
     private boolean RotaionLeft , RotaionRight ;
@@ -25,11 +25,12 @@ public class FeatherSack extends Sprite {
     public static int Num_of_feather_Destroyed = 0;
     private int fristcollion ;
     private  Music m;
+    
     public FeatherSack(float posx  , float posy ,World world , PlayScreen screen){
         this.posx =posx ;
         this.posy =posy ;
         this.world =world;
-        setRegion(new Texture("Sprites\\Feather_Sack2.png"));
+        setRegion(new Texture("Sprites\\Level 1\\HealthAttacker\\Feather_Sack2.png"));
         setPosition(posx, posy);
         stateimer = 0 ;
       //  setRotation(20f);
@@ -39,9 +40,9 @@ public class FeatherSack extends Sprite {
                 feather_is_collision =false ; finish=  false ;
                 
                        Array<TextureRegion> frames = new Array<TextureRegion>();
-                   frames.add(new TextureRegion(new Texture("Sprites\\f1.png") , 0 , 0 , 67 , 56  ));
-                   frames.add(new TextureRegion(new Texture("Sprites\\F2.png") , 0 , 0 , 67 , 56  ));
-                   AnimationfeatherDestroyed  =new Animation(0.3f ,frames);
+                   frames.add(new TextureRegion(new Texture("Sprites\\Level 1\\HealthAttacker\\f1.png") , 0 , 0 , 67 , 56  ));
+                   frames.add(new TextureRegion(new Texture("Sprites\\Level 1\\HealthAttacker\\F2.png") , 0 , 0 , 67 , 56  ));
+                   animation  =new Animation(0.3f ,frames);
                    fristcollion =0;
                 
 
@@ -93,7 +94,7 @@ public class FeatherSack extends Sprite {
         }
         if(feather_is_collision == true ){
           //  x = 130 ; y = 190 ; 
-            setRegion((TextureRegion)AnimationfeatherDestroyed.getKeyFrame(stateimer, true));
+            setRegion((TextureRegion)animation.getKeyFrame(stateimer, true));
            stateimer += Gdx.graphics.getDeltaTime();
         }
         if(feather_rec.overlaps(palyer_rec) && player.timeSword2 <=0 && feather_is_collision ==false){

@@ -46,7 +46,7 @@ public class ProtectedShield extends Sprite{
   private void DefineAnimation(){
       Array<TextureRegion> frame=new Array<TextureRegion>();
      
-      frame.add(new TextureRegion(new Texture("Sprites\\HealthAttacker\\Shield.png"),0,0,100,104));
+      frame.add(new TextureRegion(new Texture("Sprites\\Level 1\\HealthAttacker\\Shield.png"),0,0,100,104));
        
       ShieldDraw=new Animation(0.09f,frame);
       frame.clear();
@@ -63,7 +63,7 @@ public class ProtectedShield extends Sprite{
         }
     }
     
-    if (this.isplayed && hercule.b2body.getPosition().x > (this.posX-950)/Main.PPM && hercule.b2body.getPosition().x < (this.posX+120)/Main.PPM )
+    if (this.isplayed && hercule.body.getPosition().x > (this.posX-950)/Main.PPM && hercule.body.getPosition().x < (this.posX+120)/Main.PPM )
     {
            music= Main.manager.get("Audio//Hercules - Voices//Hercules//A Gift from the gods.wav", Music.class);
            music.setVolume(Main.vol);
@@ -71,7 +71,7 @@ public class ProtectedShield extends Sprite{
            this.isplayed=false;
     }
     
-    if (hercule.b2body.getPosition().x > (this.posX-25)/Main.PPM && hercule.b2body.getPosition().x < (this.posX+120)/Main.PPM && hercule.b2body.getPosition().y>(this.posY-60)/Main.PPM && hercule.b2body.getPosition().y<(this.posY+80)/Main.PPM)
+    if (hercule.body.getPosition().x > (this.posX-25)/Main.PPM && hercule.body.getPosition().x < (this.posX+120)/Main.PPM && hercule.body.getPosition().y>(this.posY-60)/Main.PPM && hercule.body.getPosition().y<(this.posY+80)/Main.PPM)
     {
         //to ensure that Sheild is found or not
        if(this.isFound){

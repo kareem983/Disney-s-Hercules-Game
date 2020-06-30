@@ -88,7 +88,7 @@ public class Phill extends SecondaryCharacter{
             Rule95.play();
             played95=true;
         }
-        else if (player.b2body.getPosition().x >11000/Main.PPM && (!played96)){
+        else if (player.body.getPosition().x >11000/Main.PPM && (!played96)){
              Rule96.setVolume(Main.vol);
             Rule96.play();
             played96=true;
