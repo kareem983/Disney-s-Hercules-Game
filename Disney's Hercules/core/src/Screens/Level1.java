@@ -1,5 +1,6 @@
 package Screens;
 
+import MovingObjects.Block;
 import HealthAttacker.*;
 import Scenes.*;
 import Sprites.*;

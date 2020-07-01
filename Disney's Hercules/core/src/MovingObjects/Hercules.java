@@ -205,7 +205,6 @@ public class Hercules extends Sprite {
         shape.setRadius(30 / Main.PPM);
         fdef2.shape = shape;
         fdef2.filter.categoryBits = Main.HERCULES_BIT;
-        fdef2.filter.maskBits = Main.GROUND_BIT | Main.WAGON_BIT;
         body.createFixture(fdef2).setUserData(this);
 
         // CREATE SIDES FOR BABY DRAGON

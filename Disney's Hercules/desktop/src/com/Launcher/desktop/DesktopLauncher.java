@@ -9,7 +9,7 @@ public class DesktopLauncher {
             LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
                 config.title = "Disney's Hercules";
                 config.width = 1366;
-                config.height = 768;
+                config.height = 768;    
                 config.x = -10;
                 config.fullscreen = true;
             new LwjglApplication(new Main(), config);

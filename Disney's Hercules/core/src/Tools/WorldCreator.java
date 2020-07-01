@@ -1,11 +1,11 @@
 package Tools;
 
-import MovingObjects.Vulture;
 import Screens.PlayScreen;
 import com.Hercules.game.Main;
 import HealthAttacker.BabyDragon;
 import MovingObjects.*;
 import Sprites.Border;
+import Sprites.Slider;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -63,6 +63,7 @@ public class WorldCreator {
             BabyDragons();
             Wagons();
             Vultures();
+            Barriers();
     }
     
     private void Hercules(){
@@ -196,6 +197,23 @@ public class WorldCreator {
             }
                 
         } catch(Exception ex){}
+    }
+    private void Barriers() {
+        try{
+        for(MapObject object : map.getLayers().get("Obstacless").getObjects().getByType(RectangleMapObject.class)){
+            Rectangle  rec = ((RectangleMapObject) object ).getRectangle() ;
+            
+                bdef.type = BodyDef.BodyType.StaticBody ;
+                bdef.position.set((rec.getX() + rec.getWidth() /2) / Main.PPM  , (rec.getY()+ rec.getHeight()/2) / Main.PPM  ) ;
+                body =world.createBody(bdef) ;
+                shape.setAsBox( (rec.getWidth()/2 ) / Main.PPM , (rec.getHeight() /2) / Main.PPM );
+                fdef.shape =shape ;
+                body.createFixture(fdef ) ;
+                
+                
+                new Slider(screen);
+             } 
+        } catch (Exception ex){}
     }
      
     public Phill getPhill() {

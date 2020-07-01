@@ -1,9 +1,7 @@
 package Screens;
 
-import MovingObjects.Vulture;
-import HealthAttacker.VultureEgg;
+import Sprites.Slider;
 import MovingObjects.*;
-import Sprites.Block;
 import Sprites.Border;
 import Sprites.GoldenCoin;
 import Sprites.Sandal;
@@ -24,17 +22,17 @@ public class Level2 extends PlayScreen{
     private Word herculesWord ;
     private Wolf wolf;
     
-    public Level2(Main game){                                                                                   // Start       // Wagon      // End
-        super(game, 1300.00f, "Maps\\Level Two\\HerculesMap.tmx"); // 1300.00f // 9400.00f // 700000
+    public Level2(Main game){                                                                                   // Start       // Wagon       // Slider        // End
+        super(game, 1300.00f, "Maps\\Level Two\\HerculesMap.tmx"); // 1300.00f // 9400.00f // 42500.00f // 700000
       
         herculesWord = new Word(world,this ,2000,800 , 2200,800 ,2400,800 ,2600,800 ,2800,800 ,3000,800 ,3200,800 ,3400,800  );
         sandal = new Sandal(new Texture("sprites\\Level 1\\Complement\\sandal.png"), 100 / Main.PPM, 100 / Main.PPM, player); // Position Fix
         wolf = new Wolf(this , 1600, 400 , 2500);
         noSwords = true;
-        
         camel=new Camel(player,game);
         goldcoin.add(new GoldenCoin (this,2000,288,player,hud));
         chicken.add(new Chicken(1500f,358f));
+        
     }
     
      public void update(float dt){
