@@ -188,7 +188,7 @@ public class WorldCreator {
         try{
                 for(MapObject object : map.getLayers().get("Vultures").getObjects().getByType(RectangleMapObject.class)){
                 Rectangle  rec = ((RectangleMapObject) object ).getRectangle();
-                vultures.add(new Vulture(screen, rec.getX() / Main.PPM, rec.getY() / Main.PPM));
+                vultures.add(new Vulture(screen,screen.hud2,screen.timer ,rec.getX() / Main.PPM, rec.getY() / Main.PPM));
             }
                 
                 for(MapObject object : map.getLayers().get("Vulture Borders").getObjects().getByType(RectangleMapObject.class)){

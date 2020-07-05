@@ -13,32 +13,36 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.graphics.g2d.Animation;
 
 public class TallPiller extends Sprite {
+
     Array<TextureRegion> frames;
     float stateTimer;
-    public  Body b2body;
+    public Body b2body;
     public BodyDef bdef;
-    public enum State {stand, crash};
-    public  FixtureDef fdef;
+
+    public enum State {
+        stand, crash
+    };
+    public FixtureDef fdef;
     float crashtime;
     State current;
-    public TextureRegion Original, crash , crashedpic,returned;
+    public TextureRegion Original, crash, crashedpic, returned;
     World world;
     PlayScreen screen;
     Animation piller_animation;
-    public boolean STATE, x , crashed, cc, vv;
+    public boolean STATE, x, crashed, cc, vv;
     private int normalcounter;
-    public float pposx,pposy;
+    public float pposx, pposy;
     private Music Pillarmusic, sound;
     private Hercules player;
-    
-    public TallPiller(World world, PlayScreen screen , Hercules player, float pposx , float pposy) {
+
+    public TallPiller(World world, PlayScreen screen, Hercules player, float pposx, float pposy) {
         super(screen.getAtlas_pillar().findRegion("t10"));
 
         this.world = world;
         this.screen = screen;
         this.player = player;
         this.pposx = pposx;
-        this.pposy=pposy;
+        this.pposy = pposy;
         current = State.stand;
         STATE = false;
         x = false;
@@ -47,36 +51,39 @@ public class TallPiller extends Sprite {
         setRegion(Original);
         crash = new TextureRegion();
         crashedpic = new TextureRegion();
-        returned=new TextureRegion();
+        returned = new TextureRegion();
         definePillar();
         crashed = false;
         Pillarmusic = Main.manager.get("Audio//Hercules - sounds//Tall pillar Cracked.wav");
         sound = Main.manager.get("Audio//Hercules - Voices//Phil//Excellenty.wav", Music.class);
-        cc = vv = false; normalcounter = 0;
+        cc = vv = false;
+        normalcounter = 0;
     }
 
     public void update(float dt) {
         stateTimer += Gdx.graphics.getDeltaTime();
-        setPosition(pposx /Main.PPM, pposy /Main.PPM);
+        setPosition(pposx / Main.PPM, pposy / Main.PPM);
         returned = Animate(dt);
 
-        if (returned == crashedpic ) 
+        if (returned == crashedpic) {
             setRegion(crashedpic);
-        else
+        } else {
             setRegion(returned);
-        
-        if (stateTimer > 10) stateTimer = 0;
-        
-        if (Gdx.input.isKeyJustPressed(Main.powerPunch)){
+        }
+
+        if (stateTimer > 10) {
+            stateTimer = 0;
+        }
+
+        if (Gdx.input.isKeyJustPressed(Main.powerPunch)) {
             cc = true;
             handleTallPillarCrash();
-        }
-        else if (Gdx.input.isKeyJustPressed(Main.normalPunch)) {
+        } else if (Gdx.input.isKeyJustPressed(Main.normalPunch)) {
             vv = true;
             handleTallPillarCrash();
         }
     }
-    
+
     private void handleTallPillarCrash() {
         //Allow Crash Animation to start
         if (crashed == false) {
@@ -98,55 +105,54 @@ public class TallPiller extends Sprite {
                 }
             }
         }
-         vv = cc = false;
+        vv = cc = false;
     }
-      
+
     public TextureRegion Animate(float dt) {
 
         frames = new Array<TextureRegion>();
 
-        frames.add(new TextureRegion(screen.getAtlas_pillar().findRegion("t10").getTexture(),505, 1, 113, 362));
+        frames.add(new TextureRegion(screen.getAtlas_pillar().findRegion("t10").getTexture(), 505, 1, 113, 362));
 
         frames.add(new TextureRegion(screen.getAtlas_pillar().findRegion("t1").getTexture(), 1, 365, 250, 351));
-
 
         frames.add(new TextureRegion(screen.getAtlas_pillar().findRegion("t2").getTexture(), 1, 12, 250, 351));
 
         frames.add(new TextureRegion(screen.getAtlas_pillar().findRegion("t5").getTexture(), 253, 12, 250, 351));
 
-        crashedpic =new TextureRegion(screen.getAtlas_pillar().findRegion("t6").getTexture(), 505, 365, 250, 351);
+        crashedpic = new TextureRegion(screen.getAtlas_pillar().findRegion("t6").getTexture(), 505, 365, 250, 351);
         setBounds(0, 0, 113 * 2 / Main.PPM, 362 * 2 / Main.PPM);
         piller_animation = new Animation(0.7f, frames, Animation.PlayMode.NORMAL);
         setPosition(pposx / Main.PPM, pposy / Main.PPM);
 
         frames.clear();
-        crash = (TextureRegion) piller_animation.getKeyFrame(stateTimer,true);
+        crash = (TextureRegion) piller_animation.getKeyFrame(stateTimer, true);
         if (STATE == true && x == false) {
-            crashtime+=Gdx.graphics.getDeltaTime();
-            if (crashtime< 0.9f ){x=false;}
-            else{x = true;}
-
+            crashtime += Gdx.graphics.getDeltaTime();
+            if (crashtime < 0.9f) {
+                x = false;
+            } else {
+                x = true;
+            }
 
             return crash;
-        } else if(x == false) {
+        } else if (x == false) {
 
             return Original;
-        }
-
-        else {
+        } else {
             return crashedpic;
         }
     }
-    public void definePillar(){
-        bdef = new BodyDef();
-        bdef.position.set( ((pposx+105)/ Main.PPM) , pposy / Main.PPM);
-        bdef.type = BodyDef.BodyType.StaticBody ;
-        b2body =world.createBody(bdef) ;
 
+    public void definePillar() {
+        bdef = new BodyDef();
+        bdef.position.set(((pposx + 105) / Main.PPM), pposy / Main.PPM);
+        bdef.type = BodyDef.BodyType.StaticBody;
+        b2body = world.createBody(bdef);
         fdef = new FixtureDef();
         PolygonShape polygon = new PolygonShape();
-        polygon.setAsBox(113/Main.PPM, 362*2  / Main.PPM);
-        fdef.shape=polygon;
+        polygon.setAsBox(113 / Main.PPM, 362 * 2 / Main.PPM);
+        fdef.shape = polygon;
         b2body.createFixture(fdef);
 
     }

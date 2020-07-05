@@ -25,10 +25,10 @@ public class Level1 extends PlayScreen {
     private List<MovingFeather> MovingfeatherList;
     private List<Block> BlockList;
     private ReachPoint reachPoint;
-    
+
     public Level1(Main game) {
         super(game, 750f, "Maps\\Level One\\HerculesMap.tmx"); // 750f
-        
+
         piller = new TallPiller(world, this, player, 6660, 50);
         hill = new Hill(world, this, this.map);
         reachPoint = new ReachPoint(this);
@@ -289,6 +289,7 @@ public class Level1 extends PlayScreen {
             renderCoins();
             renderFireball();
             renderFeatherSacks();
+
         game.batch.end();
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
