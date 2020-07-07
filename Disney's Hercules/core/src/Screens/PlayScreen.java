@@ -1,3 +1,4 @@
+
 package Screens;
 
 import StaticGraphics.*;
@@ -19,10 +20,9 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.Hercules.game.Main;
-import java.util.ArrayList;
 
-public abstract class PlayScreen implements Screen {
-
+public abstract class PlayScreen implements Screen{
+    
     //  Some Essential Variables
     public Main game;
     public float swordTimer;
@@ -34,11 +34,8 @@ public abstract class PlayScreen implements Screen {
     protected OrthographicCamera gameCam;
     protected Viewport gamePort;
     protected HUD hud;
-
-//YOUSSSEF HUD2
-    public HUD2 hud2;
-    //
-
+    protected HUD2 hud2;
+    
     //Tiled Map Variables
     protected TmxMapLoader mapLoader;
     protected TiledMap map;
@@ -61,30 +58,28 @@ public abstract class PlayScreen implements Screen {
     //Sounds Variables
     public Music Game, GameOver;
     protected Music m;
-
+     
     //Sprites
     protected DrawClass staticGraphics;
     public Swords staticlightiningsword;
     public Swords staticfireballsword, leftfirball, rightfireball;
     public Swords staticsonicsword, sonicsword, lightningsword;
     protected Hercules player;
-
+   
     //Helping Variables and Objects
-    protected ArrayList<GoldenCoin> goldcoin = new ArrayList<>();
-    protected ArrayList<Cannons> filreball = new ArrayList<>();
     protected ProtectedShield Shield;
     protected Herculad juice;
-
+   
     public PlayScreen(Main game, float HercPosX, String mapPath) {
-        this.game = game;
+        this.game = game; 
         gameCam = new OrthographicCamera();
         gamePort = new StretchViewport(game.WIDTH / Main.PPM, game.HEIGHT / Main.PPM, gameCam);
         gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
-
+        
         mapLoader = new TmxMapLoader();
         map = mapLoader.load(mapPath);
         renderer = new OrthogonalTiledMapRenderer(map, 1 / Main.PPM);
-
+        
         FlameAtlas = new TextureAtlas("Sprites\\Level 1\\Main\\Flame.atlas");
         TotalAtlas = new TextureAtlas("Sprites\\Level 1\\Main\\Total.pack");
         Wagon = new TextureAtlas("Sprites\\Level 2\\Wagon\\Wagon.pack");
@@ -92,85 +87,60 @@ public abstract class PlayScreen implements Screen {
         atlas_jumb = new TextureAtlas("Sprites\\Level 1\\HERCULES\\H_Jump.pack");
         atlas_pillar = new TextureAtlas("Sprites\\Level 1\\Complement\\tallpillar.pack");
         staticGraphics = new DrawClass(this);
-
+        
         //CREATING THE BOX2D AND WORLD PHYSICS
         world = new World(new Vector2(0, -10f), true);
         worldContactListener = new WorldContactListener();
         world.setContactListener(worldContactListener);
         debuger = new Box2DDebugRenderer();
-        creator = new WorldCreator(this);
-
         player = new Hercules(world, this, HercPosX);
+        creator = new WorldCreator(this);
         worldContactListener.player = player;
-
+        
         hud = new HUD(player, game.batch);
-        
-         //YOUSSEF HUD2
         hud2 = new HUD2(player, game.batch);
-        //
-        
-        
         staticlightiningsword = new StaticLightSword(15555f / Main.PPM, 300f / Main.PPM, player);
         staticfireballsword = new StaticFireBallSword(10400f / Main.PPM, 300f / Main.PPM, player);
         leftfirball = rightfireball = staticfireballsword;
         staticsonicsword = new StaticSonicSword(20112f / Main.PPM, 336f / Main.PPM, player);
         sonicsword = new SonicSword(0, 0, player);
         lightningsword = staticsonicsword;
-
+        
         timer = new Timer(player, hud, hud2);
-        stopHercAction = false;
-
+        stopHercAction=false;
+        
         //Extra Objects
         Shield = new ProtectedShield(player, hud, 4512f, 176f);
         juice = new Herculad(world, this, player, 18080, 432);
     }
-
+   
     /*Start Objects GETTERS*/
-    public TextureAtlas getFlameAtlas() {
-        return FlameAtlas;
-    }
+    public TextureAtlas getFlameAtlas() { return FlameAtlas;}
 
-    public TextureAtlas getTotalAtlas() {
-        return TotalAtlas;
-    }
+    public TextureAtlas getTotalAtlas() { return TotalAtlas;}
+    
+    public TextureAtlas getTotal2Atlas() { return Wagon;}
+    
+    public TextureAtlas getAtlas_pillar() { return atlas_pillar;}
 
-    public TextureAtlas getTotal2Atlas() {
-        return Wagon;
-    }
+    public Hercules getPlayer() { return player;}
 
-    public TextureAtlas getAtlas_pillar() {
-        return atlas_pillar;
-    }
+    public TextureAtlas getAtlas_Run() {return atlas_run;}
 
-    public Hercules getPlayer() {
-        return player;
-    }
+    public TextureAtlas getAtlas_jumb() {return atlas_jumb;}
 
-    public TextureAtlas getAtlas_Run() {
-        return atlas_run;
-    }
+    public World getWorld() {return world;}
 
-    public TextureAtlas getAtlas_jumb() {
-        return atlas_jumb;
-    }
-
-    public World getWorld() {
-        return world;
-    }
-
-    public TiledMap getMap() {
-        return map;
-    }
-
+    public TiledMap getMap() {return map;}
     /*End Objects GETTERS*/
-
- /*Start Some Helping Methods*/
+    
+    /*Start Some Helping Methods*/
     protected void handleInput() {
-        if (!stopHercAction) { // MAKES HERCULES DOESN'T RESPOND TO USER ACTIONS
+        if (!stopHercAction){ // MAKES HERCULES DOESN'T RESPOND TO USER ACTIONS
             //control our player using immediate impulses
-            if (Gdx.input.isKeyJustPressed(game.up) && player.onGround) {
+                  if (Gdx.input.isKeyJustPressed(game.up) && player.onGround) {
                 player.body.applyLinearImpulse(new Vector2(0, 2.5f), player.body.getWorldCenter(), true);
-                HerculesActionSound("Audio//Hercules - Voices//Hercules//Jumb2.wav");
+                        HerculesActionSound("Audio//Hercules - Voices//Hercules//Jumb2.wav");
             } else if (Gdx.input.isKeyJustPressed(game.down)) {
                 player.body.applyLinearImpulse(new Vector2(0, -2.5f), player.body.getWorldCenter(), true);
             } else if (Gdx.input.isKeyPressed(game.right) && player.body.getLinearVelocity().x <= player.HerculesMaxSpeed) {
@@ -182,14 +152,15 @@ public abstract class PlayScreen implements Screen {
                 player.hercules_push = true;
                 HerculesActionSound("Audio//Hercules - sounds//a2.wav");
             } else if (Gdx.input.isKeyJustPressed(game.normalPunch)) {
-                player.hercules_Smallpush = true;
-                HerculesActionSound("Audio//Hercules - sounds//Punch.wav");
-            } else if (!noSwords) { // (NO SWORDS IN LEVEL 2)
+                    player.hercules_Smallpush = true;
+                    HerculesActionSound("Audio//Hercules - sounds//Punch.wav");
+            }
+            else if (!noSwords){ // (NO SWORDS IN LEVEL 2)
                 if (Gdx.input.isKeyPressed(game.sword2)) {
                     handleSword();
                 } else if (Gdx.input.isKeyJustPressed(game.sword1)) {
                     player.hercules_sword2 = true;
-                    HerculesActionSound("Audio//Hercules - sounds//sword.wav");
+                    HerculesActionSound("Audio//Hercules - sounds//sword.wav");            
                 }
             }
         }
@@ -219,15 +190,31 @@ public abstract class PlayScreen implements Screen {
 
         } else {
             player.hercules_sword = true;
-            HerculesActionSound("Audio//Hercules - sounds//a3.wav");
+                                      HerculesActionSound("Audio//Hercules - sounds//a3.wav");
 
         }
     }
 
     protected void updateCoins() {
-        //golden coins
-        for (int i = 0; i < goldcoin.size(); i++) {
-            goldcoin.get(i).update(player);
+        for(Coin coin : creator.getCoins())
+                coin.update(player);
+    }
+    protected void renderCoins() {
+        for(Coin coin : creator.getCoins()) 
+           coin.draw(game.batch);
+    }
+    
+    protected void updateFeathers(float dt) {
+       
+        for (FeatherSack feather : creator.getFeathers()){
+                feather.child=false; feather.update(dt);
+                if(feather instanceof MovingFeather){feather.child=true;feather.Update();}
+            }
+    }
+    protected void renderFeathers() {
+        for (FeatherSack feather : creator.getFeathers()){
+            if(feather.Rope!=null)feather.Rope.draw(game.batch);
+            feather.draw(game.batch);
         }
     }
 
@@ -249,58 +236,6 @@ public abstract class PlayScreen implements Screen {
             enemy.update(dt);
         }
     }
-
-    protected void updateSwords() {
-        staticlightiningsword.update();
-        lightningsword.update();
-        staticfireballsword.update();
-        leftfirball.update();
-        rightfireball.update();
-        staticsonicsword.update();
-        sonicsword.update();
-    }
-
-    protected void updateFireBalls() {
-        for (int i = 0; i < filreball.size(); i++) {
-            filreball.get(i).update();
-        }
-    }
-
-    protected void HerculesActionSound(String MusicPath) {
-        m = Main.manager.get(MusicPath, Music.class);
-        m.setVolume(Main.vol);
-        m.play();
-    }
-
-    protected boolean gameOver() {
-        if (player.currentState == Hercules.State.die && player.getStateTimer() > 1.4) {
-            GameOver.setVolume(Main.vol);
-            GameOver.play();
-            return true;
-        }
-        return false;
-    }
-
-    protected void cameraScoop(float startX, float endX) {
-        if (player.body.getPosition().x > startX / Main.PPM && player.body.getPosition().x < endX / Main.PPM) {
-            gameCam.position.x = player.body.getPosition().x;
-        }
-
-        if (player.body.getPosition().y < 470 / Main.PPM) {
-            gameCam.position.y = player.body.getPosition().y + 255 / Main.PPM;
-        }
-    }
-
-    /*End Some Helping Methods*/
-
-    @Override
-    public void show() {
-    }
-
-    @Override
-    public void render(float dt) {
-    }
-
     protected void renderCharacters() {
         creator.getPhill().draw(game.batch);
         for (SecondaryCharacter bird : creator.getBirds()) {
@@ -320,6 +255,15 @@ public abstract class PlayScreen implements Screen {
         }
     }
 
+    protected void updateSwords() {
+        staticlightiningsword.update();
+        lightningsword.update();
+        staticfireballsword.update();
+        leftfirball.update();
+        rightfireball.update();
+        staticsonicsword.update();
+        sonicsword.update();
+    }
     protected void renderSwords() {
         staticlightiningsword.draw(game.batch);
         lightningsword.draw(game.batch);
@@ -332,37 +276,62 @@ public abstract class PlayScreen implements Screen {
         sonicsword.upsonic.draw(game.batch);
     }
 
-    protected void renderCoins() {
-        //Golden Coins
-        for (int i = 0; i < goldcoin.size(); i++) {
-            goldcoin.get(i).draw(game.batch);
+    protected void updateFireBalls() {
+            for(Fireball fireball : creator.getFireballs())
+                fireball.update();
+    }
+    protected void renderFireballs(){
+        for(Fireball fireball : creator.getFireballs())
+                fireball.draw(game.batch);
+    }
+    
+    protected void  HerculesActionSound (String MusicPath){
+         m = Main.manager.get(MusicPath,Music.class);
+                m.setVolume(Main.vol); 
+                m.play();
+    }
+     
+    protected boolean gameOver() {
+        
+        if (player.currentState == Hercules.State.die)  {
+            if ((player.getStateTimer() > 1.4)){
+                GameOver.setVolume(Main.vol);
+                GameOver.play();
+            return true;
+            }
+            stopHercAction=true;
         }
+        return false;
     }
-
-    protected void renderFireball() {
-        //Cannons fireballs 
-        for (int i = 0; i < filreball.size(); i++) {
-            filreball.get(i).draw(game.batch);
-        }
-    }
+     
+    protected void cameraScoop(float startX, float endX){
+         if (player.body.getPosition().x>startX/Main.PPM  && player.body.getPosition().x<endX/Main.PPM)
+            gameCam.position.x = player .body.getPosition().x ;
+         
+        if (player.body.getPosition().y<470/Main.PPM )
+            gameCam.position.y = player .body.getPosition().y+255/Main.PPM ;
+     }
+    /*End Some Helping Methods*/
+    
+    @Override
+    public void show() {}
 
     @Override
-    public void resize(int width, int height) {
-    }
+    public void render(float dt) {}
+    
+    @Override
+    public void resize(int width, int height) {}
 
     @Override
-    public void pause() {
-    }
+    public void pause() {}
 
     @Override
-    public void resume() {
-    }
+    public void resume() {}
 
     @Override
-    public void hide() {
-    }
+    public void hide() {}
 
     @Override
-    public void dispose() {
-    }
+    public void dispose() {}
+    
 }

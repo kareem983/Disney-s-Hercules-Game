@@ -1,6 +1,7 @@
 package com.Hercules.game;
 
 import Intro.StartMenu;
+import Scenes.Credit;
 import Scenes.IntroScenes;
 import Screens.*;
 import com.badlogic.gdx.Game;
@@ -11,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Main extends Game {
 
     public static int x = 0, y = 0;
-    public static float vol = 0.5f; // 0.5f
+    public static float vol = 0.0f; // 0.5f
     public static int up =19, down =20, left =21, right =22, sword1 = 52, sword2 = 54, normalPunch =31, powerPunch = 50;
     public static String username = "user";
     public static final int WIDTH = 2000;
@@ -34,6 +35,17 @@ public class Main extends Game {
     @Override
     public void create() {
         batch = new SpriteBatch();
+        addMusicAndSounds();
+
+        //setScreen(new IntroScenes(this));
+        //setScreen(new StartMenu(this));
+        //setScreen(new Level1(this));
+        setScreen(new Level2(this));
+        //setScreen(new Level3(this));
+        //setScreen(new Credit(this));
+    }
+        
+   private void addMusicAndSounds(){
         manager = new AssetManager();
         manager.load("Audio//Hercules - sounds//Tall pillar Cracked.wav", Music.class);
         manager.load("Audio//Hercules - Voices//Phil//Excellenty.wav", Music.class);
@@ -75,14 +87,8 @@ public class Main extends Game {
         manager.load("Audio//Hercules - Voices//Meg//vase down.mp3" , Music.class);
         manager.load("Audio//Hercules - Voices//Meg//vase up.mp3" , Music.class);
         manager.finishLoading();
-
-        //setScreen(new IntroScenes(this));
-        //setScreen(new StartMenu(this));
-        //setScreen(new Level1(this));
-        setScreen(new Level2(this));
-        //setScreen(new Level3(this));
     }
-
+    
     @Override
     public void render() {
         super.render();

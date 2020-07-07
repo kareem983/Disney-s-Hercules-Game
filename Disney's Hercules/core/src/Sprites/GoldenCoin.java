@@ -2,6 +2,7 @@ package Sprites;
 
 import MovingObjects.Hercules;
 import Scenes.HUD;
+import Scenes.HUD2;
 import Screens.PlayScreen;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.Gdx;
@@ -9,15 +10,13 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
 public class GoldenCoin extends Coin {
 
-    public GoldenCoin(PlayScreen screen, float posX, float posY, Hercules hercule, HUD hud) {
-        super(screen, 0, 0, 563, 564, posX, posY);
-        this.hercule = hercule;
-        this.hud = hud;
+    public GoldenCoin(PlayScreen screen, float posX, float posY) {
+        super(0, 0, 563, 564, posX, posY);
+        this.screen = screen;
         setPosition(this.posX / Main.PPM, this.posY / Main.PPM);
     }
 
@@ -44,14 +43,16 @@ public class GoldenCoin extends Coin {
     @Override
     public void update(Hercules player) {
 
-        Rectangle coin_rec = this.getBoundingRectangle();
-        Rectangle palyer_rec = player.getBoundingRectangle();
+        //Rectangle coin_rec = this.getBoundingRectangle();
+        //Rectangle palyer_rec = player.getBoundingRectangle();
         //if(coin_rec.overlaps(palyer_rec))
 
-        if (hercule.body.getPosition().x > (this.posX - 68) / Main.PPM && hercule.body.getPosition().x < (this.posX + 88) / Main.PPM && hercule.body.getPosition().y > (this.posY - 120) / Main.PPM && hercule.body.getPosition().y < (this.posY + 50) / Main.PPM) {
-            setPosition(-50, -50);
+        if (player.body.getPosition().x > (this.posX - 68) / Main.PPM && player.body.getPosition().x < (this.posX + 88) / Main.PPM && player.body.getPosition().y > (this.posY - 120) / Main.PPM && player.body.getPosition().y < (this.posY + 50) / Main.PPM) {
+            //setPosition(-50, -50); 
+            screen.creator.getCoins().removeValue(this, true);
             if (this.isfound) {
-                this.hud.score += 10;
+                if(!screen.noSwords)HUD.score += 10;
+                else HUD2.score += 10;
                 music = Main.manager.get("Audio//Hercules - sounds//Coin.wav", Music.class);
                 music.setLooping(false);
                 music.setVolume(Main.vol);

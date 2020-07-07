@@ -1,4 +1,3 @@
-
 package Scenes;
 
 import Intro.StartMenu;
@@ -16,11 +15,11 @@ public class IntroScenes implements Screen{
     private float alpha;
     private float stateTimer;
     private int cnt;
-    private boolean safe;
     
     public IntroScenes(Main game) {
         this.game = game;
-        safe = false;
+        alpha = stateTimer = 0;
+        cnt = -1;
         // LOADING ALL INTORS IMAGES
         loadImages();
         /******************/
@@ -37,10 +36,10 @@ public class IntroScenes implements Screen{
         sprite[2] = new Sprite(texture[2], 0, 0, 1920, 1080);
         sprite[3] = new Sprite(texture[3], 0, 0, 728, 546);
         
-        sprite[0].setSize(Main.WIDTH-620, Main.HEIGHT-50);
-        sprite[1].setSize(Main.WIDTH-620, Main.HEIGHT-50);
-        sprite[2].setSize(Main.WIDTH-620, Main.HEIGHT-50);
-        sprite[3].setSize(Main.WIDTH-620, Main.HEIGHT-50);
+        sprite[0].setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        sprite[1].setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        sprite[2].setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        sprite[3].setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
     
     @Override
@@ -51,11 +50,11 @@ public class IntroScenes implements Screen{
        /********** TIME CONTROLLER **************/
        stateTimer += dt;
        
-        if (stateTimer < 2f)   //FADE IN
-            alpha += (1f / 60f) / 2;
-       else if (stateTimer > 4){ //FADE OUT
-           alpha -= (1f / 60f) /2;
-           if(stateTimer>5.47f){
+        if (stateTimer < 2f)  //FADE IN
+           alpha += (1f / 60f) / 2;
+        else if (stateTimer > 4) { //FADE OUT
+           alpha -= (1f / 60f) / 2;
+           if(stateTimer>6f){
             stateTimer=0;
             alpha=0;
             cnt++;
@@ -65,17 +64,18 @@ public class IntroScenes implements Screen{
         if (cnt==4){     // INTROS FINISHED 
             game.setScreen(new StartMenu(game));
             this.dispose();
-            safe = true;
         }
-        if (safe)cnt=7;
-        if (cnt<4)
+
+        if (cnt>-1&&cnt<4){
+            if(alpha<0)alpha=0;
+            else if (alpha>1)alpha=1;
             sprite[cnt].setAlpha(alpha);
+        }
        
        game.batch.begin();
-       if (cnt<4)
+        if (cnt>-1&&cnt<4)
            sprite[cnt].draw(game.batch);
        game.batch.end();
-      
     }
 
     @Override
@@ -100,11 +100,8 @@ public class IntroScenes implements Screen{
 
     @Override
     public void dispose() {
-        texture[0].dispose();
-        texture[1].dispose();
-        texture[2].dispose();
-        texture[3].dispose();
+        for(int i = 0; i<4 ;++i)
+            texture[i].dispose();
     }
-    
-    
+ 
 }

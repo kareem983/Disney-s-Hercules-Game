@@ -2,11 +2,14 @@ package Sprites;
 
 import MovingObjects.Hercules;
 import Screens.Level1;
+import Screens.PlayScreen;
+import Tools.WorldCreator;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
 
 public abstract class Swords extends Sprite {
@@ -24,4 +27,29 @@ public Sprite leftsonic=new Sprite(Tsword),upsonic=new Sprite(Tsword),rightsonic
 public Music music;
 public abstract void update();  
 public abstract boolean Finish();
+
+    public static void getbaby(PlayScreen screen){
+    for (int i = 0; i < screen.creator.getBabyDragons().size; i++) {
+            Rectangle recbaby = screen.creator.getBabyDragons().get(i).getBoundingRectangle();
+            if (recbaby.overlaps(screen.lightningsword.getBoundingRectangle())) {
+                if (screen.lightningsword.Finish() == false) {
+                    screen.creator.getBabyDragons().get(i).Stap();
+                }
+            } else if (recbaby.overlaps(screen.rightfireball.getBoundingRectangle())) {
+                if (screen.rightfireball.Finish() == false) {
+                    screen.creator.getBabyDragons().get(i).Stap();
+                }
+
+            } else if (recbaby.overlaps(screen.leftfirball.getBoundingRectangle())) {
+                if (screen.leftfirball.Finish() == false) {
+                    screen.creator.getBabyDragons().get(i).Stap();
+                }
+
+            } else if (recbaby.overlaps(screen.sonicsword.rightsonic.getBoundingRectangle()) || recbaby.overlaps(screen.sonicsword.leftsonic.getBoundingRectangle()) || recbaby.overlaps(screen.sonicsword.upsonic.getBoundingRectangle())) {
+                if (screen.sonicsword.Finish() == false) {
+                    screen.creator.getBabyDragons().get(i).Stap();
+                }
+            }
+        }
+    }
 }

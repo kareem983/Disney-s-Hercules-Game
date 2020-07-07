@@ -2,10 +2,9 @@ package Tools;
 
 import Screens.PlayScreen;
 import com.Hercules.game.Main;
-import HealthAttacker.BabyDragon;
+import HealthAttacker.*;
 import MovingObjects.*;
-import Sprites.Border;
-import Sprites.Slider;
+import Sprites.*;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -34,6 +33,15 @@ public class WorldCreator {
     private Array<Wagon> wagons;
     private Array<Vulture> vultures;
     private Array<Border> borders;
+    /***************************/
+    private Array<Coin> coins;
+    private Array<Fireball> fireballs;
+    private Array<FeatherSack> feathers;
+    private Array<Chicken> chickens;
+    private Array<Wolf> wolfs;
+    private Array<Wall> walls;
+    private Array<Letter> letters;
+    /***************************/
     
     public WorldCreator(PlayScreen  screen){
         this.screen = screen;
@@ -51,6 +59,13 @@ public class WorldCreator {
         wagons = new Array<Wagon>();
         vultures = new Array<Vulture>();
         borders = new Array<Border>();
+        coins = new Array<Coin>();
+        fireballs = new Array<Fireball>();
+        feathers = new Array<FeatherSack>();
+        chickens = new Array<Chicken>();
+        wolfs = new Array<Wolf>();
+        walls = new Array<Wall>();
+        letters = new Array<Letter>();
         
             Hercules();
             CharactersGround();
@@ -64,6 +79,13 @@ public class WorldCreator {
             Wagons();
             Vultures();
             Barriers();
+            Coins();
+            Fireballs();
+            Feathers();
+            Chickens();
+            Wolfs();
+            Walls();
+            Letters();
     }
     
     private void Hercules(){
@@ -188,7 +210,7 @@ public class WorldCreator {
         try{
                 for(MapObject object : map.getLayers().get("Vultures").getObjects().getByType(RectangleMapObject.class)){
                 Rectangle  rec = ((RectangleMapObject) object ).getRectangle();
-                vultures.add(new Vulture(screen,screen.hud2,screen.timer ,rec.getX() / Main.PPM, rec.getY() / Main.PPM));
+                vultures.add(new Vulture(screen, rec.getX() / Main.PPM, rec.getY() / Main.PPM));
             }
                 
                 for(MapObject object : map.getLayers().get("Vulture Borders").getObjects().getByType(RectangleMapObject.class)){
@@ -215,29 +237,91 @@ public class WorldCreator {
              } 
         } catch (Exception ex){}
     }
-     
-    public Phill getPhill() {
-        return phill;
+    private void Coins() {
+        try{
+                for(MapObject object : map.getLayers().get("Golden Coins").getObjects().getByType(RectangleMapObject.class)){
+                Rectangle  rec = ((RectangleMapObject) object ).getRectangle();
+                coins.add (new GoldenCoin(screen, rec.getX(), rec.getY()));
+            }
+        } catch(Exception ex){}
+        try{
+                for(MapObject object : map.getLayers().get("Silver Coins").getObjects().getByType(RectangleMapObject.class)){
+                Rectangle  rec = ((RectangleMapObject) object ).getRectangle();
+                coins.add (new SilverCoin(screen, rec.getX(), rec.getY()));
+            }
+        } catch(Exception ex){}
     }
-    public Array<Bird> getBirds() {
-        return birds;
+    private void Fireballs() {
+        try{
+                for(MapObject object : map.getLayers().get("Fireballs").getObjects().getByType(RectangleMapObject.class)){
+                Rectangle  rec = ((RectangleMapObject) object ).getRectangle();
+                fireballs.add (new Fireball(rec.getX(), rec.getY(), screen.getPlayer()));
+            }
+        } catch(Exception ex){}
     }
-    public Array<Deer> getDeers() {
-        return deers;
+    private void Feathers() {
+        try{
+                for(MapObject object : map.getLayers().get("Feather Sacks").getObjects().getByType(RectangleMapObject.class)){
+                Rectangle  rec = ((RectangleMapObject) object ).getRectangle();
+                feathers.add (new FeatherSack(rec.getX() / Main.PPM, rec.getY() / Main.PPM, screen));
+                }
+        } catch(Exception ex){}
+        try{
+                int cnt=0, order=1;
+                for(MapObject object : map.getLayers().get("Moving Feather Sacks").getObjects().getByType(RectangleMapObject.class)){
+                Rectangle  rec = ((RectangleMapObject) object ).getRectangle(); cnt++; if(cnt==5)order=2;
+                feathers.add (new MovingFeather(rec.getX() / Main.PPM, rec.getY() / Main.PPM, screen, order));
+                
+            }
+        } catch(Exception ex){}
     }
-    public Array<Ape> getApes(){
-        return apes;
+    private void Chickens() {
+        try{
+                for(MapObject object : map.getLayers().get("Chickens").getObjects().getByType(RectangleMapObject.class)){
+                Rectangle  rec = ((RectangleMapObject) object ).getRectangle();
+                chickens.add (new Chicken(rec.getX(), rec.getY()));
+                }
+        } catch(Exception ex){}
     }
-    public Array<BabyDragon> getBabyDragons() {
-        return babyDragons;
+    private void Wolfs() {
+        try{
+                for(MapObject object : map.getLayers().get("Wolfs").getObjects().getByType(RectangleMapObject.class)){
+                Rectangle  rec = ((RectangleMapObject) object ).getRectangle();
+                wolfs.add (new Wolf(screen, rec.getX(), rec.getY(), 2500f));
+                }
+        } catch(Exception ex){}
     }
-    public Array<Wagon> getWagons(){
-        return wagons;
+    private void Walls() {
+        try{
+                for(MapObject object : map.getLayers().get("Walls").getObjects().getByType(RectangleMapObject.class)){
+                Rectangle  rec = ((RectangleMapObject) object ).getRectangle();
+                walls.add (new Wall(screen, rec.getX(), rec.getY()));
+                }
+        } catch(Exception ex){}
     }
-    public Array<Vulture> getVultures(){
-        return vultures;
+    private void Letters() {
+        try{
+                for(MapObject object : map.getLayers().get("Letters").getObjects().getByType(RectangleMapObject.class)){
+                Rectangle  rec = ((RectangleMapObject) object ).getRectangle();
+                letters.add (new Letter(screen, rec.getX() / Main.PPM, rec.getY() / Main.PPM));
+                }
+        } catch(Exception ex){}
     }
-    public Array<Border> getBorders(){
-        return borders;
-    }
+    
+    public Phill getPhill() {return phill;}
+    public Array<Bird> getBirds() {return birds;}
+    public Array<Deer> getDeers() {return deers;}
+    public Array<Ape> getApes() {return apes;}
+    public Array<BabyDragon> getBabyDragons() {return babyDragons;}
+    public Array<Wagon> getWagons() {return wagons;}
+    public Array<Vulture> getVultures() {return vultures;}
+    public Array<Border> getBorders() {return borders;}
+    public Array<Coin> getCoins() {return coins;}
+    public Array<Fireball> getFireballs() {return fireballs;}
+    public Array<FeatherSack> getFeathers() {return feathers;}
+    public Array<Chicken> getChickens() {return chickens;}
+    public Array<Wolf> getWolfs() {return wolfs;}
+    public Array<Wall> getWalls() {return walls;}
+    public Array<Letter> getLetters() {return letters;}
+    
 }

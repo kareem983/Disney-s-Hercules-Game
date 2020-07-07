@@ -5,18 +5,13 @@ import com.Hercules.game.Main;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -33,7 +28,8 @@ public class HUD2 {
     public Label Timer, TimerLabel, DR, DrLabel, scoreText, scoreLabel;
     private Label.LabelStyle font;
     private BitmapFont FONT;
-    public int timer, score;
+    public int timer; 
+    public static int score;
     public Hercules herucle;
 
     public HUD2(Hercules herucle, SpriteBatch sb) {
@@ -84,32 +80,26 @@ public class HUD2 {
 
     public void update(float dt) {
         try {
-            if (i == 0) {
+            if (i == 0)
                 image.setDrawable(new TextureRegionDrawable(region[0]));
-
-            }
+            
             statetimer += Gdx.graphics.getDeltaTime();
             if (statetimer > 0.15f) {
                 image.setDrawable(new TextureRegionDrawable(region[i]));
-
                 i++;
                 if (i > 6) {
                     i = 1;
                     image.setDrawable(new TextureRegionDrawable(region[0]));
-
                 }
                 statetimer = 0;
             }
         } catch (IndexOutOfBoundsException e) {
             image.setDrawable(new TextureRegionDrawable(region[0]));
-
             i = 0;
         }
+        
         DrCounter = 88.5f - herucle.body.getPosition().x;
         DrLabel.setText(String.format("%.0f%s", DrCounter, " M"));
-    }
-
-    public void increaseScore(float extra) {
-        score += extra;
+        scoreLabel.setText(score);
     }
 }

@@ -1,12 +1,9 @@
 package MovingObjects;
 
 import HealthAttacker.VultureEgg;
-import Scenes.HUD2;
 import Screens.PlayScreen;
 import Sprites.Border;
-import Tools.Timer;
 import com.Hercules.game.Main;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -20,13 +17,10 @@ public class Vulture extends SecondaryCharacter {
     private Array<TextureRegion> frames;
     private float stateTimer, eggTimer, y;
     public VultureEgg egg;
-    public HUD2 hud2;
-    public Timer timer;
-    public Vulture(PlayScreen screen,HUD2 hud2,Timer timer, float x, float y){
+    
+    public Vulture(PlayScreen screen, float x, float y){
         super(screen, x, y);
         this.y = y;
-        this.hud2=hud2;
-        this.timer=timer;
         right = true;
         setPosition(x, y);
         egg = new VultureEgg(getX(), getY());
@@ -70,7 +64,7 @@ public class Vulture extends SecondaryCharacter {
             egg = new VultureEgg(getX(), getY());
         }
         if (egg.getBoundingRectangle().overlaps(screen.getPlayer().getBoundingRectangle())){
-            //timer.statetimer4 -=  10;
+               // DECREASE TIME HERE 
         }
         egg.update(dt);
     }

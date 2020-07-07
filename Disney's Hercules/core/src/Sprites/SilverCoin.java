@@ -2,6 +2,7 @@ package Sprites;
 
 import MovingObjects.Hercules;
 import Scenes.HUD;
+import Scenes.HUD2;
 import Screens.PlayScreen;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.Gdx;
@@ -14,18 +15,16 @@ import com.badlogic.gdx.utils.Array;
 
 public class SilverCoin extends Coin {
 
-    private boolean PoolSoundIsPlayed;
-    private int PoolPosX;
-
-    public SilverCoin(PlayScreen screen, float posX, float posY, Hercules hercule, HUD hud) {
-        super(screen, 0, 0, 563, 564, posX, posY);
-        this.hercule = hercule;
-        this.hud = hud;
+    //private boolean PoolSoundIsPlayed;
+    //private int PoolPosX;
+    
+    public SilverCoin(PlayScreen screen, float posX, float posY) {
+        super(0, 0, 563, 564, posX, posY);
+        this.screen = screen;
         setPosition(this.posX / Main.PPM, this.posY / Main.PPM);
-
         //Swimming pool sound effect boolean
-        PoolSoundIsPlayed = true;
-        this.PoolPosX = 14200;
+      //  PoolSoundIsPlayed = true;
+       // this.PoolPosX = 14200;
     }
 
     @Override
@@ -66,9 +65,11 @@ public class SilverCoin extends Coin {
 
         //if (hercule.b2body.getPosition().x > (this.posX-68)/Main.PPM && hercule.b2body.getPosition().x < (this.posX+88)/Main.PPM && hercule.b2body.getPosition().y>(this.posY-120)/Main.PPM && hercule.b2body.getPosition().y<(this.posY+50)/Main.PPM)
         if (coin_rec.overlaps(palyer_rec)) {
-            setPosition(-50, -50);
+            //setPosition(-50, -50);
+            screen.creator.getCoins().removeValue(this, true);
             if (this.isfound) {
-                this.hud.score += 5;
+                if(!screen.noSwords)HUD.score += 5;
+                else HUD2.score += 5;
                 music = Main.manager.get("Audio//Hercules - sounds//Coin.wav", Music.class);
                 music.setLooping(false);
                 music.setVolume(Main.vol);
@@ -83,6 +84,7 @@ public class SilverCoin extends Coin {
         if (stateTimer > 10) {
             stateTimer = 0;
         }
+      
         moving();
     }
 

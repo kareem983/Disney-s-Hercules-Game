@@ -3,6 +3,7 @@ package HealthAttacker;
 
 import Screens.PlayScreen;
 import MovingObjects.Hercules;
+import Scenes.HUD;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -11,41 +12,36 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
 public class FeatherSack extends Sprite {
-    private float posx , posy , Rotation ;
     private Animation animation ;
     private float stateimer ;
-    private World world ;
-    private boolean RotaionLeft , RotaionRight ;
-    private float x , y ; private boolean x_ ,y_;
+    protected PlayScreen screen;
+    protected float x , y, xx, yy, xdomin, xcopy ; private boolean x_ ,y_;
+    public boolean move ,right;
     boolean feather_is_collision , finish ;
     public static int Num_of_feather_Destroyed = 0;
+    public static boolean child=false;
     private int fristcollion ;
+    public int order ;
+    public Sprite Rope;
     private  Music m;
     
-    public FeatherSack(float posx  , float posy ,World world , PlayScreen screen){
-        this.posx =posx ;
-        this.posy =posy ;
-        this.world =world;
+    public FeatherSack(float posx  , float posy , PlayScreen screen){
+        this.screen  = screen;
         setRegion(new Texture("Sprites\\Level 1\\HealthAttacker\\Feather_Sack2.png"));
         setPosition(posx, posy);
-        stateimer = 0 ;
-      //  setRotation(20f);
-        Rotation =1; 
-        RotaionRight =true ; RotaionLeft =false;  x =95/Main.PPM; y = 155/Main.PPM;    x_ = true ;  y_ = true;
-                setBounds(posx, posy,x, y);
-                feather_is_collision =false ; finish=  false ;
+        stateimer = order = 0 ;
+        x =95/Main.PPM; y = 155/Main.PPM;    x_ = true ;  y_ = true;
+        setBounds(posx, posy,x, y);
+        feather_is_collision =false ; finish=  false ;
                 
-                       Array<TextureRegion> frames = new Array<TextureRegion>();
-                   frames.add(new TextureRegion(new Texture("Sprites\\Level 1\\HealthAttacker\\f1.png") , 0 , 0 , 67 , 56  ));
-                   frames.add(new TextureRegion(new Texture("Sprites\\Level 1\\HealthAttacker\\F2.png") , 0 , 0 , 67 , 56  ));
-                   animation  =new Animation(0.3f ,frames);
-                   fristcollion =0;
-                
-
+        Array<TextureRegion> frames = new Array<TextureRegion>();
+        frames.add(new TextureRegion(new Texture("Sprites\\Level 1\\HealthAttacker\\f1.png") , 0 , 0 , 67 , 56  ));
+        frames.add(new TextureRegion(new Texture("Sprites\\Level 1\\HealthAttacker\\f2.png") , 0 , 0 , 67 , 56  ));
+        animation  =new Animation(0.3f ,frames);
+        fristcollion =0;
     }
     
     public void update(float dt){
@@ -74,8 +70,19 @@ public class FeatherSack extends Sprite {
         
        
         setSize(x, y);
-        
-     
+        //=========================================\\
+        if(!child){
+            if (featherCollsoin(screen.getPlayer()) == 1) {
+                screen.creator.getFeathers().removeValue(this, true);
+                Num_of_feather_Destroyed++;
+                HUD.score+=10;
+            } else {
+                if (featherCollsoin(screen.getPlayer()) == 2) {
+                    HUD.featherHit();
+                } 
+            }
+        }
+     //=========================================\\
         }
      public int featherCollsoin(Hercules player ){
         Rectangle feather_rec = this.getBoundingRectangle();
@@ -107,8 +114,8 @@ public class FeatherSack extends Sprite {
             return 0 ;
         }
         
-        
     }
    
     
+    public void Update(){}
 }

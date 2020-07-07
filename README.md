@@ -43,8 +43,12 @@
 
 22- Code Refactoring (Sherif)
 
-22- Letters & Wolf (Osama)
+22- Letters & Wolfs (Osama)
 
-23- Chicken & Camel (Saeed)
+23- Chickens & Camel (Saeed)
 
 24- Wagons & Vultures (Sherif)
+
+25- HUD2 & Walls (Youssef)
+
+26- Huge Refactoring (Sherif)
