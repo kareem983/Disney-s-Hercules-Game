@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class StaticFireBallSword extends Swords{
     int counter,soundcounter;
+    
     public StaticFireBallSword(float x, float y, Hercules herucle) {
         this.herucle = herucle;this.x=x;this.y=y;
         Array<TextureRegion> frame= new Array<TextureRegion>();
@@ -26,6 +27,7 @@ public class StaticFireBallSword extends Swords{
         setBounds(0, 0, 79 / Main.PPM, 225 / Main.PPM);
         setPosition(x, y);
         music = Main.manager.get("Audio//Hercules - Voices//Hercules//FireballSword.wav", Music.class);
+        draw=true;
     }
      @Override
     public void update() {
@@ -38,7 +40,8 @@ public class StaticFireBallSword extends Swords{
         {
             counter++;
             herucle.pickedfireballsword=true;
-            setBounds(0,0,0,0);
+            draw=false;
+            setBounds(0, 0, 0, 0);
         }
         statetimer += Gdx.graphics.getDeltaTime();
         region = (TextureRegion) Asword.getKeyFrame(statetimer, true);
@@ -50,5 +53,12 @@ public class StaticFireBallSword extends Swords{
      public boolean Finish(){
         return false ;
     }
+     public void resetData(){
+        counter=0; soundcounter=0;
+        setBounds(0, 0, 79 / Main.PPM, 225 / Main.PPM);
+        setPosition(x, y);
+        herucle.pickedfireballsword=false;
+        draw=true;
+     }
 }
 

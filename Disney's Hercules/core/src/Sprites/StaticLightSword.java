@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class StaticLightSword extends Swords{
     int counter,soundcounter;
-    
+   
     public StaticLightSword(float x, float y, Hercules herucle) {
         this.herucle = herucle;this.x=x;this.y=y;
         Tsword = new Texture("Sprites\\Level 1\\Swords\\lightsword.png");
@@ -27,6 +27,7 @@ public class StaticLightSword extends Swords{
         setBounds(0, 0, 76 * 3 / Main.PPM, 215 / Main.PPM);
         setPosition(x, y);
         music = Main.manager.get("Audio//Hercules - Voices//Hercules//LighteningSword.wav", Music.class);
+        draw=true;
     }
      @Override
     public void update() {
@@ -38,10 +39,9 @@ public class StaticLightSword extends Swords{
         
          if (herucle.body.getPosition().x > x && herucle.body.getPosition().x < x+76 * 3 / Main.PPM&&herucle.body.getPosition().y>y &&herucle.body.getPosition().y<y+215 / Main.PPM&&counter==0)
         {
-            
            counter++;  
            herucle.pickedlightsword=true;
-           setBounds(0,0,0,0);  
+           draw=false;
         }
         
         statetimer += Gdx.graphics.getDeltaTime();
@@ -54,4 +54,11 @@ public class StaticLightSword extends Swords{
      public boolean Finish(){
         return false ;
     }
+     public void resetData(){
+         counter=0; soundcounter=0;
+        setBounds(0, 0, 79 / Main.PPM, 225 / Main.PPM);
+        setPosition(x, y);
+        herucle.pickedlightsword=false;
+        draw=true;
+     }
 }

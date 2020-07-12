@@ -39,7 +39,7 @@ public class Ape extends SecondaryCharacter{
 
     
     @Override
-    protected void defineCharacter() {
+    protected void defineObject() {
         BodyDef bdef = new BodyDef();
         bdef.position.set(getX(),getY());
         bdef.type = BodyDef.BodyType.DynamicBody ;

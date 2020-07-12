@@ -3,6 +3,7 @@ package MovingObjects;
 
 import Screens.PlayScreen;
 import com.Hercules.game.Main;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -17,6 +18,8 @@ public class Wagon extends SecondaryCharacter{
     private Animation animation;
     private TextureRegion currentRegion;
     private Array<TextureRegion> frames;
+    private boolean once;
+    private Music music;
     
     public Wagon(PlayScreen screen, float x, float y) {
         super(screen, x, y);
@@ -30,14 +33,17 @@ public class Wagon extends SecondaryCharacter{
         velocity.x = stateTime = 0f;
         running = false;
         setBounds(getX(), getY(), 200/Main.PPM, 120/Main.PPM);
+        once=false;
+        
+        music = Main.manager.get("Audio//Hercules - sounds//Wagon.mp3", Music.class);
     }
     
     @Override
-    protected void defineCharacter() {
+    protected void defineObject() {
             BodyDef bdef = new BodyDef();
             bdef.position.set(getX(),getY());
             bdef.type = BodyDef.BodyType.DynamicBody ;
-            body =world.createBody(bdef) ;
+            body = world.createBody(bdef) ;
 
             FixtureDef fdef = new FixtureDef(), fdef2 = new FixtureDef();
             
@@ -76,15 +82,25 @@ public class Wagon extends SecondaryCharacter{
             setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight()/2);
             currentRegion = (TextureRegion)animation.getKeyFrame(stateTime, true);
             setRegion(currentRegion);
+            
+            if(screen.restart && !once){
+              body.setActive(false);
+            // world.destroyBody(body);
+                once=true;
+            }
     }
     
     public void move(){
        running = true;
        velocity.x=2f; 
+       music.play();
+       music.setLooping(true);
+       music.setVolume(Main.vol);
     }
     public void stop(){
         running = false;
         velocity.x = 0f;
         screen.getPlayer().body.applyLinearImpulse(-1.38f, 0f, 0f, 0f, false);
+        music.stop();
     }
 }

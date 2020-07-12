@@ -12,8 +12,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class MovingFeather extends FeatherSack {
    
-    public MovingFeather(float pposx, float pposy, PlayScreen Screen , int order) {
-        super(pposx, pposy, Screen);
+    public MovingFeather(PlayScreen Screen, float pposx, float pposy , int order) {
+        super(Screen, pposx, pposy);
         yy = pposy;
         xx = pposx; xcopy = pposx;
         xdomin = xx +(500/Main.PPM);
@@ -22,7 +22,7 @@ public class MovingFeather extends FeatherSack {
         Rope.setRegion(new Texture("Sprites\\Level 1\\Complement\\Rope.png"));
         Rope.setBounds(0, 0, 30 / Main.PPM, 300 / Main.PPM);
         Rope.setPosition(xx + (40 / Main.PPM), yy + (150 / Main.PPM));
-        move = false; right = true;
+        move =false; right = true;
     }
     
     public void featherMoving(Hercules player) {

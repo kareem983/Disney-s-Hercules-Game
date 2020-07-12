@@ -42,14 +42,10 @@ public class GoldenCoin extends Coin {
 
     @Override
     public void update(Hercules player) {
-
-        //Rectangle coin_rec = this.getBoundingRectangle();
-        //Rectangle palyer_rec = player.getBoundingRectangle();
-        //if(coin_rec.overlaps(palyer_rec))
-
         if (player.body.getPosition().x > (this.posX - 68) / Main.PPM && player.body.getPosition().x < (this.posX + 88) / Main.PPM && player.body.getPosition().y > (this.posY - 120) / Main.PPM && player.body.getPosition().y < (this.posY + 50) / Main.PPM) {
             //setPosition(-50, -50); 
             screen.creator.getCoins().removeValue(this, true);
+            //screen.creator.goldPool.free(this);
             if (this.isfound) {
                 if(!screen.noSwords)HUD.score += 10;
                 else HUD2.score += 10;

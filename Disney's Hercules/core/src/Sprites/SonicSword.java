@@ -14,7 +14,7 @@ public class SonicSword extends Swords{
         this.herucle = herucle;this.x=x;this.y=y;
         Tsword=new Texture("Sprites\\Level 1\\Swords\\LeftSonicSword.png");
         leftsonic=new Sprite(Tsword);
-        leftsonic.setBounds(0, 0, 500/Main.PPM, 500/Main.PPM);
+        leftsonic.setBounds(0, 0, 500/Main.PPM, 500/Main.PPM); 
         Tsword=new Texture("Sprites\\Level 1\\Swords\\UpSonicSword.png");
         upsonic=new Sprite(Tsword);
         upsonic.setBounds(0, 0, 500/Main.PPM, 500/Main.PPM);
@@ -25,7 +25,6 @@ public class SonicSword extends Swords{
         recleftsonic=leftsonic.getBoundingRectangle();
         recrightsonic=rightsonic.getBoundingRectangle();
         recupsonic=upsonic.getBoundingRectangle();
-        
     }
 
     @Override
@@ -57,5 +56,11 @@ public class SonicSword extends Swords{
         public boolean Finish(){
         return (statetimer > 1) ;
     }
-
+    public void resetData(){
+        statetimer=0;
+        setBounds(0, 0, 215 * 6 / Main.PPM, 76 / Main.PPM);
+        rightsonic.setBounds(0, 0, 500/Main.PPM,500/Main.PPM); 
+        upsonic.setBounds(0, 0, 500/Main.PPM, 500/Main.PPM);
+        leftsonic.setBounds(0, 0, 500/Main.PPM, 500/Main.PPM);
+    }
 }

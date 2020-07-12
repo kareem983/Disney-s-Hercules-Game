@@ -8,13 +8,19 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.LineNumberReader;
 import java.util.Arrays;
-import javax.swing.JOptionPane;
 
 public class ScoreBoard implements Screen{
 
@@ -27,7 +33,7 @@ public class ScoreBoard implements Screen{
     private String NAME, SCORE;
     private boolean nameReaded, scoreReaded, once, empty;
     private int cnt;
-    private int PlayersCnt;
+    private static int PlayersCnt;
     private int level;
     private int ScoreArr1[], ScoreArr2[];
     private String NameArr1[], NameArr2[];
@@ -45,6 +51,9 @@ public class ScoreBoard implements Screen{
         font2 = new BitmapFont(Gdx.files.internal("Fonts\\1st.fnt"));
         
         empty = false;
+        
+        /************ ANDROID BUTTON ****************/
+            backButton();
         /************ HEADER ROW ****************/ 
             addHeader();
         /******** READ FROM THE FILE *************/
@@ -59,8 +68,20 @@ public class ScoreBoard implements Screen{
         /*************************************/
             }
         
-        
         stage.addActor(table);
+    }
+    
+    private void backButton(){
+        ImageButton backAndroid = new ImageButton (new TextureRegionDrawable(new TextureRegion(new Texture("Intros\\Back.png"))));
+        backAndroid.setPosition(80f, Main.HEIGHT/10f);
+        backAndroid.addListener(new ClickListener() {
+           public void clicked(InputEvent event, float x, float y){
+               game.setScreen(new StartMenu(game));
+               stage.dispose();
+           }
+        });
+        stage.addActor(backAndroid);
+        Gdx.input.setInputProcessor(stage);
     }
     
     private void addHeader() {
@@ -77,16 +98,17 @@ public class ScoreBoard implements Screen{
     }
 
     private void readFromFile() {
-        try{
-            FileReader reader = new FileReader("..\\core\\assets\\scoresheet.txt");
-            int c;
-            while((c=reader.read()) != -1){
-                PlayersCnt = Integer.valueOf((char)(c-48));
-                break;
-            }
-        }catch(Exception ex){
-             JOptionPane.showMessageDialog(null, ex);
+        /******************************************************************/ // Getting the number of players in the scoreboard
+        LineNumberReader read = null;
+        try {
+          read = new LineNumberReader(new FileReader(new File("..\\core\\assets\\scoresheet.txt")));
+          while ((read.readLine()) != null);// Read file till the end
+          PlayersCnt =read.getLineNumber();
+          read.close();
+        } catch (Exception ex) {
+            System.out.println("ERROR GETTING THE PLAYERS COUNTER");
         }
+        /******************************************************************/
         if (PlayersCnt==0){
             empty=true;
             return;
@@ -99,21 +121,16 @@ public class ScoreBoard implements Screen{
         NameArr1 = new String[PlayersCnt];
         NameArr2 = new String[PlayersCnt];
         nameReaded = scoreReaded = once = false;
-        boolean sizeReaded=false;
         try{
             FileReader reader = new FileReader("..\\core\\assets\\scoresheet.txt");
-            int c;
+            int c; boolean firstIteration=true;
             while((c=reader.read()) != -1){
-                if(!sizeReaded){
-                    sizeReaded=true;
-                    continue;
-                }
                 if ((char) c == '-' && !nameReaded){
                     nameReaded = true;
                     scoreReaded = false;
                 }
                 else if (!nameReaded){
-                    if (once)
+                    if (once || firstIteration) // to avoid taking \n 
                         NAME+=(char) c;
                     once=true;
                 }
@@ -129,11 +146,13 @@ public class ScoreBoard implements Screen{
                 }    
                 else if (!scoreReaded)
                     SCORE+=(char) c;
+                
+                firstIteration=false;
             }
             reader.close();
         }
         catch(Exception ex){
-            JOptionPane.showMessageDialog(null, ex);
+            System.out.println("ERROR READING SCORESHEET FILE 3");
         }
     }
     
@@ -150,15 +169,13 @@ public class ScoreBoard implements Screen{
     }
     
     private void rewriteFile() {
-        
         try {
             FileWriter writer = new FileWriter("..\\core\\assets\\scoresheet.txt", false);
-            writer.write(PlayersCnt+48);
             for(int i = PlayersCnt - 1; i >= 0; --i)
-                writer.write("\n" + NameArr1[i] +"-" + ScoreArr1[i]+"-");
+                writer.write(NameArr1[i] +"-" + ScoreArr1[i]+"-\n");
             writer.close();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex);
+            System.out.println("ERROR REWRITING SCORESHEET FILE");
         }
         
     }
@@ -171,7 +188,7 @@ public class ScoreBoard implements Screen{
             rank = new Label("#" + (PlayersCnt -i), new Label.LabelStyle(font, null));
             name = new Label(NameArr1[i], new Label.LabelStyle(font, null));
             score = new Label(String.valueOf(ScoreArr1[i]), new Label.LabelStyle(font, null));
-            level = (ScoreArr1[i] >= 800)? 2 : 1; 
+            level = (ScoreArr1[i] > 420)? 2 : 1; 
             levels = new Label(String.valueOf(level), new Label.LabelStyle(font, null));
 
             table.add(rank).expandX();
@@ -179,6 +196,17 @@ public class ScoreBoard implements Screen{
             table.add(score).expandX();
             table.add(levels).expandX();
             table.row();  
+        }
+    }
+    
+    public static void addNewScore(String name, int score){
+        PlayersCnt++; // The New One
+        try {
+            FileWriter writer = new FileWriter("..\\core\\assets\\scoresheet.txt", true);
+            writer.write(name +"-" + score+"-\n");
+            writer.close();
+        } catch (Exception ex) {
+            System.out.println("ERROR ADDING NEW SCORE IN THE SCORESHEET");
         }
     }
     

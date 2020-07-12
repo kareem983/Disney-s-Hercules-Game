@@ -1,7 +1,9 @@
 
 package StaticGraphics;
 
-import Scenes.Transition1;
+import Intro.ScoreBoard;
+import Scenes.HUD;
+import Scenes.Transition;
 import Screens.PlayScreen;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -51,10 +53,14 @@ public class ReachPoint extends Sprite{
         setRegion(getFrame(dt));
         if (getBoundingRectangle().overlaps(screen.getPlayer().getBoundingRectangle())){
                 screen.stopHercAction=true;
+                screen.Victory.play();
+                screen.Victory.setLooping(true);
+                screen.Victory.setVolume(Main.vol);
                 delayTime+=dt;
                 if (delayTime>=3){ // Wait for 3 Seconds and Move on Transition1 Screen
                     screen.Game.stop();
-                    screen.game.setScreen(new Transition1(screen.game));
+                    ScoreBoard.addNewScore(Main.username, HUD.score);
+                    screen.game.setScreen(new Transition(screen, HUD.score));
                     screen.dispose();
                 }
             }

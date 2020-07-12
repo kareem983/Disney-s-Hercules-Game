@@ -2,6 +2,7 @@
 package Sprites;
 
 import HealthAttacker.FeatherSack;
+import Scenes.HUD;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -12,8 +13,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class Block extends Sprite {
-    private float posx ,posy ;
-    public boolean blockDown ,blockFinish, once ;
+    private float posx ,posy, Ty;
+    public boolean blockDown ,blockFinish, once;
     private World world ;
     public  Body body;
     private BodyDef bdef;
@@ -22,7 +23,7 @@ public class Block extends Sprite {
     
     public  Block(float posx , float posy , World world, int num){
         this.posx =posx ;
-        this.posy =posy;
+        this.posy = Ty= posy;
         this.world = world ;
         once=false;
         numOf_feathersack_destoyed_to_open = num;
@@ -47,12 +48,20 @@ public class Block extends Sprite {
            }
             
             if (blockDown == false && blockFinish && !once) {
-                    world.destroyBody(body);
+                    body.setActive(false);
                     once=true;
             }
     }
+        public void resetData(){
+            once=false;
+            blockDown=true;
+            blockFinish=false;
+            FeatherSack.Num_of_feather_Destroyed = 0;
+            posy=Ty;
+            body.setActive(true);
+        }
         
-        public void defineT_satic_Block(){
+        private void defineT_satic_Block(){
             bdef = new BodyDef();
             bdef.position.set( ((posx+275)/ Main.PPM) ,( (posy+150) / Main.PPM));
             bdef.type = BodyDef.BodyType.StaticBody ;

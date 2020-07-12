@@ -3,19 +3,16 @@ package Tools;
 
 import Scenes.HUD;
 import MovingObjects.Hercules;
-import Scenes.HUD2;
 import com.badlogic.gdx.Gdx;
 
 public class Timer {
     public Hercules herucle;
     public HUD hud;
-    public HUD2 hud2;
-    public float statetimer1=10,statetimer2=8,statetimer3=6,statetimer4=150;
-    public Timer(Hercules herucle,HUD hud,HUD2 hud2) 
+    public float statetimer1=10,statetimer2=8,statetimer3=6;
+    public Timer(Hercules herucle,HUD hud) 
     {
         this.herucle=herucle;
         this.hud=hud;
-        this.hud2=hud2;
     }
     public void update()
     {
@@ -32,9 +29,7 @@ public class Timer {
                  hud.swordtimerlabel.setText(String.format("%.0f",statetimer1));
               }
         }
-            if(herucle.pickedfireballsword==true)
-        {
-            
+            if(herucle.pickedfireballsword==true) {
               statetimer2 -= Gdx.graphics.getDeltaTime();
               hud.swordtimerlabel.setText(String.format("%.0f",statetimer2));
              
@@ -57,7 +52,10 @@ public class Timer {
                   hud.swordtimerlabel.setText(String.format("%.0f",statetimer3));
               }
         } 
-              statetimer4-=Gdx.graphics.getDeltaTime();
-              hud2.TimerLabel.setText(String.format("%.0f",statetimer4));
+    }
+    public void resetData(){
+        statetimer1=10;
+        statetimer2=8;
+        statetimer3=6;
     }
 }

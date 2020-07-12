@@ -28,7 +28,7 @@ public class FeatherSack extends Sprite {
     public Sprite Rope;
     private  Music m;
     
-    public FeatherSack(float posx  , float posy , PlayScreen screen){
+    public FeatherSack(PlayScreen screen, float posx, float posy){
         this.screen  = screen;
         setRegion(new Texture("Sprites\\Level 1\\HealthAttacker\\Feather_Sack2.png"));
         setPosition(posx, posy);
@@ -115,7 +115,6 @@ public class FeatherSack extends Sprite {
         }
         
     }
-   
     
     public void Update(){}
 }

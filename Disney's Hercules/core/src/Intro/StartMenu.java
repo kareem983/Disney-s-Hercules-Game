@@ -28,7 +28,7 @@ public class StartMenu implements Screen {
     private Viewport viewport;
     
     public StartMenu(Main game) {
-        music = game.manager.get("Audio//Hercules - sounds//IntroMainMenu.mp3", Music.class);
+        music = game.manager.get("Audio//Hercules - sounds//MainMenu.mp3", Music.class);
         music.setVolume(Main.vol);        
         music.play();
         this.game = game;
@@ -39,7 +39,6 @@ public class StartMenu implements Screen {
 
         createBasicSkin();
         createActions();
-        
     }
 
     private void createBasicSkin() {

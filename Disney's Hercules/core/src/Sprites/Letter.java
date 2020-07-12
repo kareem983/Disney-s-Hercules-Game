@@ -1,37 +1,51 @@
 package Sprites;
 import Screens.PlayScreen;
 import com.Hercules.game.Main;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Array;
 
 public class Letter extends Sprite {
-     private World world;
+    
      private PlayScreen screen;
-     int posx, posy ;
+     private Animation animation;
+     private float frameDuration;
      private static float displayTime=0;
      public static boolean GET[] = new boolean[8], LetterTaken;
+     public boolean onlyOnce;
      public  Sprite Letter , toBeCollected;
+     private Music music;
      private float x, y;
      private static int next=0, i=0;
      public int ID;
-    
+     
      public Letter(PlayScreen screen, float x,float y) {
           this.screen = screen;
-          this.world = screen.getWorld();
           this.x=x; this.y=y;
           ID = next; next++; 
+          onlyOnce=false;
           
           char[] s = {'H', 'E', 'R', 'C', 'U', 'L', 'E', 'S'};
           
-            Letter = new Sprite(new Texture("Sprites/Level 2/Name/"+s[ID]+".png"));            
+          Array <TextureRegion> frames = new Array<TextureRegion>();
+          Texture texture = new Texture("Sprites\\Level 2\\Name\\Letter"+s[ID]+".png");
+            for(int i = 0; i < 2; ++i)
+                frames.add(new TextureRegion(texture, i*126, 0, 126, 144));
+            animation = new Animation(0.2f, frames);
+            
+            Letter = new Sprite(texture, 0, 0, 126, 144);            
             Letter.setPosition(x, y);
             Letter.setBounds(0, 0, 80 / Main.PPM, 80 / Main.PPM);
             Letter.setRegion(Letter.getTexture());
           
-          toBeCollected = new Sprite(new Texture("Sprites/Level 2/Name/Remaining Letters.png"));
-          toBeCollected.setBounds(0, 0, 1500 / Main.PPM, 80 / Main.PPM);
-          toBeCollected.setRegion(toBeCollected.getTexture());
+            toBeCollected = new Sprite(new Texture("Sprites/Level 2/Name/zRemaining Letters.png"));
+            toBeCollected.setBounds(0, 0, 1500 / Main.PPM, 80 / Main.PPM);
+            toBeCollected.setRegion(toBeCollected.getTexture());
+            
+            music = Main.manager.get("Audio//Hercules - Voices//Name//"+s[ID]+".mp3", Music.class);
      }
 
     private void Collision(){
@@ -47,6 +61,12 @@ public class Letter extends Sprite {
         if(GET[ID]){
             Letter.setPosition(toBeCollected.getX() + ( (ID * 195) / (Main.PPM) ), toBeCollected.getY());        
             Letter.draw(Main.batch);
+            
+            if(!onlyOnce){
+              music.play();
+              music.setVolume(Main.vol);  
+              onlyOnce=true;
+            }
         }
         i++;
     }
@@ -55,7 +75,6 @@ public class Letter extends Sprite {
          Collision();
         
          Letter.setPosition(x, y);
-         Letter.setRegion(Letter.getTexture());
          
          toBeCollected.setPosition(screen.getPlayer().body.getPosition().x -(750/Main.PPM) ,600/Main.PPM );
          
@@ -66,12 +85,15 @@ public class Letter extends Sprite {
              }
              else displayTime+=dt;
          }
+         
+         frameDuration+=dt;
+         Letter.setRegion((TextureRegion) animation.getKeyFrame(frameDuration, true));
      }
      
      public void draw(){
            if (GET[ID]==false) 
                     Letter.draw(Main.batch); 
           
-          if (LetterTaken)displayWord();
+          if (LetterTaken) displayWord();
      }
 }

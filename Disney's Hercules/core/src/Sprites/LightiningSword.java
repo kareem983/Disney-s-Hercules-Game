@@ -40,7 +40,6 @@ public class LightiningSword extends Swords {
        }
         if (!herucle.isRunningRight())
         {
-            
         setPosition(herucle.body.getPosition().x - getWidth() / 2 + 250/ Main.PPM-215 * 4 / Main.PPM, herucle.body.getPosition().y - getHeight() / 2 + 50 / Main.PPM);
         statetimer += Gdx.graphics.getDeltaTime();
         region = (TextureRegion) Asword.getKeyFrame(statetimer,true);
@@ -64,5 +63,10 @@ public class LightiningSword extends Swords {
      @Override
     public boolean Finish(){
         return (statetimer > 1) ;
+    }
+    
+    public void resetData(){
+        soundsword=0;
+        setBounds(0, 0, 215 * 6 / Main.PPM, 76 / Main.PPM);
     }
 }

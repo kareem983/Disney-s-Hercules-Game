@@ -2,51 +2,65 @@ package Screens;
 
 import Sprites.Block;
 import Sprites.TallPiller;
-import Sprites.Hill;
 import Sprites.Swords;
 import Scenes.GameOver;
+import Scenes.HUD;
 import StaticGraphics.ReachPoint;
+import Tools.Timer;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.Hercules.game.Main;
-import com.badlogic.gdx.audio.Music;
 
 /* LEVEL ONE SCREEN  */
 public class Level1 extends PlayScreen {
     
-    private Block block;
+    public Block block;
     public TallPiller piller;
-    public Hill hill;
     private ReachPoint reachPoint;
     
     public Level1(Main game) {
         super(game, 750f, "Maps\\Level One\\HerculesMap.tmx"); // 750f
         
+        hud = new HUD(this);
+        createPauseMenu(hud.stage, hud.skin);
+        timer = new Timer(player, hud);
         block = new Block(4360, 60, world, 4);
-        piller = new TallPiller(world, this, player, 6660, 50);
-        hill = new Hill(world, this, this.map);
+        piller = new TallPiller(this, 6660, 50);
         reachPoint = new ReachPoint(this);
         noSwords=false;
         adaptSounds();
-        
         Game.play();
     }
     
-    /*Start Constructor Methods*/ 
-     private void adaptSounds(){
-        GameOver = game.manager.get("Audio//Hercules - sounds//Game Over.mp3", Music.class);
-        Game = game.manager.get("Audio//Hercules - sounds//Nature Sound.wav", Music.class);
-        Game.setLooping(true);
-        Game.setVolume(Main.vol);
-    } 
-    /*End Constructor Methods*/
+    @Override
+    public void restart() {
+        player.body.setTransform(1100f/Main.PPM, 0.184f, 0f);
+        stopHercAction=false;
+        creator.restart();
+        
+        hud.score=0;
+        hud.swordtimer=0f;
+        piller.resetData();
+        block.resetData();
+        staticfireballsword.resetData();
+        staticlightiningsword.resetData();
+        staticsonicsword.resetData();
+        leftfirball.resetData(); 
+        rightfireball.resetData();
+        lightningsword.resetData();
+        sonicsword.resetData();
+        timer.resetData();
+        Shield.resetData();
+        juice.resetData();
+        restart =false;
+    }
     
     /*Start Rendering Objects*/  
     public void update(float dt) {
         handleInput();
         hud.update(dt);
         world.step(1 / 60f, 6, 2);
-
+        if(restart)restart();
         updateCharacters(dt);
 
         Swords.getbaby(this);
@@ -65,21 +79,34 @@ public class Level1 extends PlayScreen {
 
         gameCam.update();
         renderer.setView(gameCam);
-
+         
+        if (checkGameOver() && hud.lifeCounter==0) {
+            Game.stop();
+            creator.destroyBodies(this);
+            game.setScreen(new GameOver(game));
+            dispose();
+        }
         cameraScoop(1000f, 23000f);
-        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) 
-            System.exit(0);
+        
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            pauseWindow.setVisible(true);
+            paused=true;
+        }
         
     }
 
     @Override
     public void render(float delta) {
-        update(delta);
+        if(!paused)update(delta);
+        else if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+           paused=false;
+           pauseWindow.setVisible(false);
+       }
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         renderer.render();
-        //debuger.render(world,gameCam.combined);
+        debuger.render(world,gameCam.combined);
 
         game.batch.setProjectionMatrix(gameCam.combined);
 
@@ -87,10 +114,10 @@ public class Level1 extends PlayScreen {
             renderCharacters();
             reachPoint.draw(game.batch);
             player.draw(game.batch);
-            Shield.draw(game.batch);
+            if(Shield.draw)Shield.draw(game.batch);
             block.draw(game.batch);
             piller.draw(game.batch);
-            juice.draw(game.batch);
+            if(juice.draw)juice.draw(game.batch);
             renderSwords();
             renderCoins();
             renderFireballs();
@@ -99,14 +126,12 @@ public class Level1 extends PlayScreen {
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
-        
-        if (gameOver()) {
-            Game.stop();
-            game.setScreen(new GameOver(game));
-            dispose();
-        }
     }
     /*End Rendering Objects*/
+    
+    protected boolean checkGameOver() {
+        return ((player.getStateTimer() > 1.4f) && player.hercules_Die);
+    }
     
     @Override
     public void resize(int width, int height) {
@@ -119,23 +144,20 @@ public class Level1 extends PlayScreen {
     }
 
     @Override
-    public void pause() {
-
-    }
+    public void pause() {}
 
     @Override
-    public void resume() {
-
-    }
+    public void resume() {}
 
     @Override
-    public void hide() {
-
-    }
+    public void hide() {}
 
     @Override
     public void dispose() {
         map.dispose();
         hud.dispose();
+        FlameAtlas.dispose();
+        TotalAtlas.dispose();
     }
+    
 }

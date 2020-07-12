@@ -1,13 +1,9 @@
 package Screens;
 
-import MovingObjects.Hercules;
-import MovingObjects.SecondaryCharacter;
 import StaticGraphics.Sea;
-import StaticGraphics.Waterfall;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.Hercules.game.Main;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 /* LEVEL TWO SCREEN  */
 public class Level3 extends PlayScreen{  
@@ -67,6 +63,10 @@ public class Level3 extends PlayScreen{
        world.dispose();
        //debuger.dispose();
        //hud.dispose();
+    }
+
+    @Override
+    public void restart() {
     }
     
 }

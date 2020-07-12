@@ -9,8 +9,8 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public abstract class SecondaryCharacter extends Sprite{
     
-    protected World world;
-    protected PlayScreen screen;
+    public World world;
+    public PlayScreen screen;
     public Body body;
     public Vector2 velocity;
     
@@ -18,11 +18,11 @@ public abstract class SecondaryCharacter extends Sprite{
         this.world = screen.getWorld();
         this.screen = screen;
         setPosition(x, y);
-        defineCharacter();
+        defineObject();
         velocity = new Vector2(-0.4f, 0);
     }
       
-    protected abstract void defineCharacter();
+    protected abstract void defineObject();
     public abstract void update (float dt);
     
     public void reverseVelocity(boolean x, boolean y){

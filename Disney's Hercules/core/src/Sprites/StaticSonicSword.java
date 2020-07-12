@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class StaticSonicSword extends Swords{
     int counter;
+    
     public StaticSonicSword(float x, float y, Hercules herucle) {
         this.herucle = herucle;this.x=x;this.y=y;
         Array<TextureRegion> frame= new Array<TextureRegion>();
@@ -27,6 +28,7 @@ public class StaticSonicSword extends Swords{
         counter=0;
         setBounds(0,0,200/Main.PPM,200/Main.PPM);
         setPosition(x, y);
+        draw2=true;
     }
 
     @Override
@@ -35,7 +37,7 @@ public class StaticSonicSword extends Swords{
         {
             counter++;
             herucle.pickedsonicsword=true;
-            setBounds(0,0,0,0);
+            draw2=false;
         }
          statetimer += Gdx.graphics.getDeltaTime();
       
@@ -47,5 +49,12 @@ public class StaticSonicSword extends Swords{
         public boolean Finish(){
         return false ;
     }
-
+        public void resetData(){
+             counter=0; 
+            setBounds(0,0,200/Main.PPM,200/Main.PPM);
+            setPosition(x, y);
+            herucle.pickedsonicsword=false;
+            draw2=true;
+     }
+        
 }

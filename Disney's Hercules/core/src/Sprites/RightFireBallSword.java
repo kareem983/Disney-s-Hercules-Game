@@ -50,4 +50,8 @@ public class RightFireBallSword extends Swords {
      public boolean Finish(){
         return (statetimer > 1) ;
     }
+     public void resetData(){
+         soundsword=increment=0;
+         setBounds(0, 0, 222 / Main.PPM, 80 / Main.PPM);
+     }
 }

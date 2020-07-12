@@ -3,7 +3,6 @@ package Sprites;
 import MovingObjects.Hercules;
 import Screens.Level1;
 import Screens.PlayScreen;
-import Tools.WorldCreator;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -27,26 +26,29 @@ public Sprite leftsonic=new Sprite(Tsword),upsonic=new Sprite(Tsword),rightsonic
 public Music music;
 public abstract void update();  
 public abstract boolean Finish();
+public boolean draw, draw2;
 
+    public void resetData(){}
+    
     public static void getbaby(PlayScreen screen){
     for (int i = 0; i < screen.creator.getBabyDragons().size; i++) {
             Rectangle recbaby = screen.creator.getBabyDragons().get(i).getBoundingRectangle();
             if (recbaby.overlaps(screen.lightningsword.getBoundingRectangle())) {
-                if (screen.lightningsword.Finish() == false) {
+                if (screen.lightningsword.Finish() == false && screen.creator.getBabyDragons().get(i).body.isActive()) {
                     screen.creator.getBabyDragons().get(i).Stap();
                 }
             } else if (recbaby.overlaps(screen.rightfireball.getBoundingRectangle())) {
-                if (screen.rightfireball.Finish() == false) {
+                if (screen.rightfireball.Finish() == false && screen.creator.getBabyDragons().get(i).body.isActive()) {
                     screen.creator.getBabyDragons().get(i).Stap();
                 }
 
-            } else if (recbaby.overlaps(screen.leftfirball.getBoundingRectangle())) {
+            } else if (recbaby.overlaps(screen.leftfirball.getBoundingRectangle()) && screen.creator.getBabyDragons().get(i).body.isActive()) {
                 if (screen.leftfirball.Finish() == false) {
                     screen.creator.getBabyDragons().get(i).Stap();
                 }
 
             } else if (recbaby.overlaps(screen.sonicsword.rightsonic.getBoundingRectangle()) || recbaby.overlaps(screen.sonicsword.leftsonic.getBoundingRectangle()) || recbaby.overlaps(screen.sonicsword.upsonic.getBoundingRectangle())) {
-                if (screen.sonicsword.Finish() == false) {
+                if (screen.sonicsword.Finish() == false && screen.creator.getBabyDragons().get(i).body.isActive()) {
                     screen.creator.getBabyDragons().get(i).Stap();
                 }
             }

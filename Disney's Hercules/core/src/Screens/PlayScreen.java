@@ -6,6 +6,7 @@ import MovingObjects.*;
 import Sprites.*;
 import Scenes.*;
 import HealthAttacker.*;
+import Intro.StartMenu;
 import Tools.*;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.audio.Music;
@@ -20,6 +21,13 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.Hercules.game.Main;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 
 public abstract class PlayScreen implements Screen{
     
@@ -28,13 +36,16 @@ public abstract class PlayScreen implements Screen{
     public float swordTimer;
     public boolean stopHercAction;
     public boolean noSwords;
+    public boolean paused;
+    public boolean restart;
     public Timer timer;
 
     //Basic PlayScreen Variables
     protected OrthographicCamera gameCam;
     protected Viewport gamePort;
-    protected HUD hud;
-    protected HUD2 hud2;
+    public HUD hud;
+    public HUD2 hud2;
+    public Window pauseWindow;
     
     //Tiled Map Variables
     protected TmxMapLoader mapLoader;
@@ -47,7 +58,6 @@ public abstract class PlayScreen implements Screen{
     protected TextureAtlas Wagon;
     protected TextureAtlas atlas_run;
     protected TextureAtlas atlas_jumb;
-    protected TextureAtlas atlas_pillar;
 
     //Box2d Variables
     protected World world;
@@ -56,7 +66,7 @@ public abstract class PlayScreen implements Screen{
     public WorldContactListener worldContactListener;
 
     //Sounds Variables
-    public Music Game, GameOver;
+    public Music Game, GameOver, concentrate, Victory;
     protected Music m;
      
     //Sprites
@@ -67,7 +77,7 @@ public abstract class PlayScreen implements Screen{
     protected Hercules player;
    
     //Helping Variables and Objects
-    protected ProtectedShield Shield;
+    protected ProtectingShield Shield;
     protected Herculad juice;
    
     public PlayScreen(Main game, float HercPosX, String mapPath) {
@@ -85,7 +95,6 @@ public abstract class PlayScreen implements Screen{
         Wagon = new TextureAtlas("Sprites\\Level 2\\Wagon\\Wagon.pack");
         atlas_run = new TextureAtlas("Sprites\\Level 1\\HERCULES\\Run600_75.pack");
         atlas_jumb = new TextureAtlas("Sprites\\Level 1\\HERCULES\\H_Jump.pack");
-        atlas_pillar = new TextureAtlas("Sprites\\Level 1\\Complement\\tallpillar.pack");
         staticGraphics = new DrawClass(this);
         
         //CREATING THE BOX2D AND WORLD PHYSICS
@@ -97,8 +106,6 @@ public abstract class PlayScreen implements Screen{
         creator = new WorldCreator(this);
         worldContactListener.player = player;
         
-        hud = new HUD(player, game.batch);
-        hud2 = new HUD2(player, game.batch);
         staticlightiningsword = new StaticLightSword(15555f / Main.PPM, 300f / Main.PPM, player);
         staticfireballsword = new StaticFireBallSword(10400f / Main.PPM, 300f / Main.PPM, player);
         leftfirball = rightfireball = staticfireballsword;
@@ -106,13 +113,81 @@ public abstract class PlayScreen implements Screen{
         sonicsword = new SonicSword(0, 0, player);
         lightningsword = staticsonicsword;
         
-        timer = new Timer(player, hud, hud2);
-        stopHercAction=false;
+        stopHercAction = restart = paused = false; 
         
         //Extra Objects
-        Shield = new ProtectedShield(player, hud, 4512f, 176f);
-        juice = new Herculad(world, this, player, 18080, 432);
+        Shield = new ProtectingShield(player, hud, 4512f, 176f);
+        juice = new Herculad(this, 18080, 432);
     }
+    
+     /*Start Constructor Methods*/ 
+    protected void adaptSounds(){
+        String path = (noSwords)?"Audio//Hercules - sounds//Game Over 2.mp3":"Audio//Hercules - sounds//Game Over.mp3";
+        GameOver = game.manager.get(path, Music.class);
+        Game = game.manager.get("Audio//Hercules - sounds//Nature Sound.wav", Music.class);
+        Victory = game.manager.get("Audio//Hercules - sounds//Victory.mp3", Music.class);
+        concentrate = game.manager.get("Audio//Hercules - Voices//Phil//Concentrate.wav", Music.class);
+        
+        Game.setLooping(true);
+        Game.setVolume(Main.vol);
+    }
+    
+    protected void createPauseMenu(Stage stage, Skin skin){
+         pauseWindow = new Window("PAUSE", skin);
+         /****************************************************/
+         // Pause Menu TextButtons
+        TextButton continueBtn = new TextButton("Continue", skin);
+        final TextButton soundBtn = new TextButton("Mute Sounds", skin); 
+        TextButton exitBtn = new TextButton("Exit", skin);
+        soundBtn.getLabel().setFontScale(0.65f, 1f);
+        continueBtn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                pauseWindow.setVisible(false);
+                paused=false;
+            }
+        });
+        soundBtn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                String s = soundBtn.getText().toString();
+                if(s.equals("Mute Sounds")){
+                    game.vol = 0f;
+                    Game.setVolume(0f);
+                    soundBtn.setText("Unmute Sounds");
+                }
+                else {
+                    game.vol = 1f;
+                    Game.setVolume(1f);
+                    soundBtn.setText("Mute Sounds");
+                }
+            }
+        });
+        exitBtn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Game.stop();
+                game.setScreen(new StartMenu(game));
+                dispose();
+            }
+        });
+        /****************************************************/
+        // Independent Pause Menu
+        
+        pauseWindow.padTop(200);
+        pauseWindow.getTitleLabel().setAlignment(Align.center); pauseWindow.getTitleLabel().setFontScale(0.6f);
+        pauseWindow.add(continueBtn).padTop(-100f).size(300, 70).row();
+        pauseWindow.add(soundBtn).padTop(20f).size(300, 70).row();
+        pauseWindow.add(exitBtn).padTop(20).size(300, 70);
+        pauseWindow.setSize(stage.getWidth() / 1.5f, stage.getHeight() / 1.2f);
+        pauseWindow.setPosition(stage.getWidth() / 2 - pauseWindow.getWidth() /2, stage.getHeight() / 2 - pauseWindow.getHeight() /2);
+        pauseWindow.setMovable(false);
+        pauseWindow.setVisible(false);
+        /****************************************************/
+        Gdx.input.setInputProcessor(stage);
+        stage.addActor(pauseWindow);
+    }
+    /*End Constructor Methods*/
    
     /*Start Objects GETTERS*/
     public TextureAtlas getFlameAtlas() { return FlameAtlas;}
@@ -121,8 +196,6 @@ public abstract class PlayScreen implements Screen{
     
     public TextureAtlas getTotal2Atlas() { return Wagon;}
     
-    public TextureAtlas getAtlas_pillar() { return atlas_pillar;}
-
     public Hercules getPlayer() { return player;}
 
     public TextureAtlas getAtlas_Run() {return atlas_run;}
@@ -265,12 +338,12 @@ public abstract class PlayScreen implements Screen{
         sonicsword.update();
     }
     protected void renderSwords() {
-        staticlightiningsword.draw(game.batch);
+        if(staticlightiningsword.draw)staticlightiningsword.draw(game.batch);
         lightningsword.draw(game.batch);
-        staticfireballsword.draw(game.batch);
+        if(staticfireballsword.draw) staticfireballsword.draw(game.batch);
         leftfirball.draw(game.batch);
         rightfireball.draw(game.batch);
-        staticsonicsword.draw(game.batch);
+        if(staticsonicsword.draw2)staticsonicsword.draw(game.batch);
         sonicsword.leftsonic.draw(game.batch);
         sonicsword.rightsonic.draw(game.batch);
         sonicsword.upsonic.draw(game.batch);
@@ -290,11 +363,13 @@ public abstract class PlayScreen implements Screen{
                 m.setVolume(Main.vol); 
                 m.play();
     }
+    
+    public abstract void restart();
      
     protected boolean gameOver() {
         
         if (player.currentState == Hercules.State.die)  {
-            if ((player.getStateTimer() > 1.4)){
+            if ((player.getStateTimer() > 1.35f)){
                 GameOver.setVolume(Main.vol);
                 GameOver.play();
             return true;
@@ -333,5 +408,4 @@ public abstract class PlayScreen implements Screen{
 
     @Override
     public void dispose() {}
-    
 }

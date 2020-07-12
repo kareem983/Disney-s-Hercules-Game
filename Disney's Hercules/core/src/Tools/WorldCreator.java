@@ -4,6 +4,12 @@ import Screens.PlayScreen;
 import com.Hercules.game.Main;
 import HealthAttacker.*;
 import MovingObjects.*;
+import Pooling.DragonPool;
+import Pooling.FeatherPool;
+import Pooling.GoldenCoinPool;
+import Pooling.MovingFeatherPool;
+import Pooling.SilverCoinPool;
+import Screens.Level1;
 import Sprites.*;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -15,6 +21,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Pool;
 
 
 public class WorldCreator {
@@ -42,6 +49,13 @@ public class WorldCreator {
     private Array<Wall> walls;
     private Array<Letter> letters;
     /***************************/
+    /***************************/
+    public GoldenCoinPool goldPool;
+    public SilverCoinPool silverPool;
+    public FeatherPool featherPool;
+    public MovingFeatherPool movingFeatherPool;
+    public DragonPool dragonPool;
+    /***************************/
     
     public WorldCreator(PlayScreen  screen){
         this.screen = screen;
@@ -66,6 +80,11 @@ public class WorldCreator {
         wolfs = new Array<Wolf>();
         walls = new Array<Wall>();
         letters = new Array<Letter>();
+        goldPool = new GoldenCoinPool();
+        silverPool = new SilverCoinPool();
+        featherPool = new FeatherPool();
+        movingFeatherPool = new MovingFeatherPool();
+        dragonPool = new DragonPool();
         
             Hercules();
             CharactersGround();
@@ -194,7 +213,9 @@ public class WorldCreator {
         try{
                 for(MapObject object : map.getLayers().get("Baby Dragons").getObjects().getByType(RectangleMapObject.class)){
                 Rectangle  rec = ((RectangleMapObject) object ).getRectangle() ;
-                babyDragons.add(new BabyDragon(screen, rec.getX() / Main.PPM, rec.getY() / Main.PPM));
+                dragonPool.screen = screen; dragonPool.x = rec.getX() / Main.PPM; dragonPool.y = rec.getY() / Main.PPM;
+                BabyDragon dragon = dragonPool.obtain();
+                babyDragons.add(dragon);
           }
         } catch(Exception ex){}
     }
@@ -241,13 +262,17 @@ public class WorldCreator {
         try{
                 for(MapObject object : map.getLayers().get("Golden Coins").getObjects().getByType(RectangleMapObject.class)){
                 Rectangle  rec = ((RectangleMapObject) object ).getRectangle();
-                coins.add (new GoldenCoin(screen, rec.getX(), rec.getY()));
+                goldPool.screen=screen; goldPool.x = rec.getX(); goldPool.y = rec.getY();
+                Coin gold = goldPool.obtain();
+                coins.add (gold);
             }
         } catch(Exception ex){}
         try{
                 for(MapObject object : map.getLayers().get("Silver Coins").getObjects().getByType(RectangleMapObject.class)){
                 Rectangle  rec = ((RectangleMapObject) object ).getRectangle();
-                coins.add (new SilverCoin(screen, rec.getX(), rec.getY()));
+                silverPool.screen=screen; silverPool.x = rec.getX(); silverPool.y = rec.getY();
+                Coin silver = silverPool.obtain();
+                coins.add (silver);
             }
         } catch(Exception ex){}
     }
@@ -263,15 +288,18 @@ public class WorldCreator {
         try{
                 for(MapObject object : map.getLayers().get("Feather Sacks").getObjects().getByType(RectangleMapObject.class)){
                 Rectangle  rec = ((RectangleMapObject) object ).getRectangle();
-                feathers.add (new FeatherSack(rec.getX() / Main.PPM, rec.getY() / Main.PPM, screen));
-                }
+                featherPool.screen=screen; featherPool.x = rec.getX() / Main.PPM; featherPool.y = rec.getY()/Main.PPM;
+                FeatherSack feather = featherPool.obtain();
+                feathers.add (feather);
+            }
         } catch(Exception ex){}
         try{
                 int cnt=0, order=1;
                 for(MapObject object : map.getLayers().get("Moving Feather Sacks").getObjects().getByType(RectangleMapObject.class)){
                 Rectangle  rec = ((RectangleMapObject) object ).getRectangle(); cnt++; if(cnt==5)order=2;
-                feathers.add (new MovingFeather(rec.getX() / Main.PPM, rec.getY() / Main.PPM, screen, order));
-                
+                movingFeatherPool.screen=screen; movingFeatherPool.x=rec.getX() / Main.PPM; movingFeatherPool.y=rec.getY() /Main.PPM; movingFeatherPool.order =order;
+                MovingFeather feather = movingFeatherPool.obtain();
+                feathers.add (feather);
             }
         } catch(Exception ex){}
     }
@@ -279,7 +307,7 @@ public class WorldCreator {
         try{
                 for(MapObject object : map.getLayers().get("Chickens").getObjects().getByType(RectangleMapObject.class)){
                 Rectangle  rec = ((RectangleMapObject) object ).getRectangle();
-                chickens.add (new Chicken(rec.getX(), rec.getY()));
+                chickens.add (new Chicken(screen, rec.getX(), rec.getY()));
                 }
         } catch(Exception ex){}
     }
@@ -287,7 +315,7 @@ public class WorldCreator {
         try{
                 for(MapObject object : map.getLayers().get("Wolfs").getObjects().getByType(RectangleMapObject.class)){
                 Rectangle  rec = ((RectangleMapObject) object ).getRectangle();
-                wolfs.add (new Wolf(screen, rec.getX(), rec.getY(), 2500f));
+                wolfs.add (new Wolf(screen, rec.getX(), rec.getY(), 2000f));
                 }
         } catch(Exception ex){}
     }
@@ -323,5 +351,68 @@ public class WorldCreator {
     public Array<Wolf> getWolfs() {return wolfs;}
     public Array<Wall> getWalls() {return walls;}
     public Array<Letter> getLetters() {return letters;}
+    
+    public void restart(){
+        screen.restart=false;
+        for(Coin coin : coins){
+            if(coin instanceof GoldenCoin){
+                goldPool.free(coin);
+                coins.removeValue(coin, true);
+            }
+            else {
+                silverPool.free(coin);
+                coins.removeValue(coin, true);
+            }
+        }
+        Coins();
+        
+        for(FeatherSack feather : feathers){
+            if (feather instanceof MovingFeather){
+                movingFeatherPool.free((MovingFeather)feather);
+                feathers.removeValue(feather, true);
+            }
+            else {
+                featherPool.free(feather);
+                feathers.removeValue(feather, true);
+            }
+        }
+        
+        Feathers();
+        
+        for (BabyDragon dragon : babyDragons){
+            babyDragons.removeValue(dragon, true);
+            dragonPool.free(dragon);
+        }
+        BabyDragons();
+     
+    }
+    public void restart2(){
+        
+        for(int i = 0; i < 8; ++i){
+            Letter.GET[i]=false;
+            letters.get(i).onlyOnce=false;
+        }
+        
+        for(Wagon wagon : wagons)
+            screen.getWorld().destroyBody(wagon.body);
+        wagons.clear();
+        Wagons();
+        
+        screen.restart = false;
+        
+        walls.clear();
+        Walls();
+        
+        coins.clear();
+        Coins();
+        
+    }
+    public void destroyBodies(Level1 screen){
+        screen.getWorld().destroyBody(body);
+        screen.getWorld().destroyBody(screen.block.body);
+        screen.getWorld().destroyBody(screen.piller.body);
+        for(BabyDragon dragon : babyDragons)
+            screen.getWorld().destroyBody(dragon.body);
+    }
     
 }

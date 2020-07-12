@@ -2,7 +2,7 @@ package MovingObjects;
 
 import Screens.PlayScreen;
 import com.Hercules.game.Main;
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -15,17 +15,23 @@ public class Wolf extends SecondaryCharacter {
 public TextureAtlas atlas ;
 Animation animation;
 float stateTimer;
-    boolean flip1 = false, flip2 = true , f2=true,f1=false;
+    boolean flip1, flip2;
     Array<TextureRegion> frames;
+    private Music music;
+    
     public Wolf(PlayScreen screen, float x, float y , float en){
         super(screen , x , y);
-st = x/Main.PPM ;
- this.en = en/Main.PPM;
- this.x = x ; this.y = y;
+        st = x/Main.PPM ;
+        this.en = st+en/Main.PPM;
+        this.x = x ; this.y = y;
+        flip1 = false;
+        flip2 = true;
+        
+        music = Main.manager.get("Audio//Hercules - sounds//Wolf.mp3", Music.class);
     }
 
     @Override
-    protected void defineCharacter() {
+    protected void defineObject() {
         atlas = new TextureAtlas("Sprites/Level 2/wolf/r.pack");
         frames = new Array<TextureRegion>();
         frames.add(new TextureRegion(atlas.findRegion("wolf6") , 1,1,107, 52));
@@ -44,26 +50,32 @@ st = x/Main.PPM ;
 if (!start){setPosition(x/Main.PPM , y/ Main.PPM); start = true;}
         TextureRegion region = (TextureRegion) animation.getKeyFrame(stateTimer,true);
 
-        stateTimer += Gdx.graphics.getDeltaTime();
+        stateTimer += dt;
 
 if (flip1)
 {
-    if (region.isFlipX() != f1) {
+    if (region.isFlipX() != false) {
         region.flip(true, false);
     }
     setPosition((getX() - 4/Main.PPM) , y / Main.PPM);
-    if (getX() <= st) {flip2 = true;flip1 = false;}
+    if (getX() < st) {flip1 = false;flip2 = true;}
 }
 
     else if (flip2)
 {
-    if (region.isFlipX() != f2) {
+    if (region.isFlipX() != true) {
         region.flip(true, false);
     }
     setPosition((getX() + 4/Main.PPM) , y / Main.PPM);
-    if (getX() >= en) {flip1 = true;flip2 = false ;}
+    if (getX() > en) {flip1 = true;flip2 = false ;}
 }
 
+    /***********/
+    if(screen.getPlayer().body.getPosition().x > getX()-0.5f && screen.getPlayer().body.getPosition().x < getX()+0.5f){
+        music.play();
+        music.setVolume(Main.vol);
+    }
+    /**********/
     setRegion(region);
     }
 

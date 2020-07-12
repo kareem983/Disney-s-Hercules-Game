@@ -12,12 +12,13 @@ public class VultureEgg extends Sprite{
     
     private Animation animation;
     private float stateTimer;
-
-    public VultureEgg(float x, float y) {
+    public float x, y;
+    
+    public VultureEgg() {
         defineEgg();
-        setPosition(x, y);
+        x=y=0f;
     }
-
+    
     private void defineEgg() {
         Array<TextureRegion> frames = new Array<TextureRegion>();
         for(int i = 0; i < 8; ++i)
@@ -29,7 +30,7 @@ public class VultureEgg extends Sprite{
     public void update(float dt){
         stateTimer += dt;
         setRegion((TextureRegion) animation.getKeyFrame(stateTimer, true));
-        setPosition(getX(), getY() - 2/Main.PPM);
+        setPosition(x, y - 2/Main.PPM); y=y - 2/Main.PPM;
     }
-    
 }
+

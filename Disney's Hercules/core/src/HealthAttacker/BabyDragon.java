@@ -12,8 +12,9 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Pool.Poolable;
 
-public class BabyDragon extends Enemy{
+public class BabyDragon extends Enemy implements Poolable{
     
     private float stateTime;
     private Animation flyAnimation;
@@ -65,7 +66,8 @@ public class BabyDragon extends Enemy{
     public void update (float dt){
         stateTime+=dt;
         if (setToDestroy && !destroyed){
-            world.destroyBody(body);
+            screen.creator.dragonPool.free(this);
+            body.setActive(false);
             destroyed = true;
             setOrigin(getWidth()/2, getHeight()/2);
             stateTime = 0;
@@ -104,6 +106,14 @@ public class BabyDragon extends Enemy{
     @Override
     public void attackHercules() {
         HUD.hit();
+    }
+
+    @Override
+    public void reset() {
+        stateTime=0f;
+        setToDestroy = false;
+        destroyed = false;
+        body.setActive(true);
     }
     
 }

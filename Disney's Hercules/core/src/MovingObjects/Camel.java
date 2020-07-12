@@ -1,9 +1,15 @@
 package MovingObjects;
 
+import Intro.ScoreBoard;
 import MovingObjects.Hercules;
-import Scenes.Transition2;
+import Scenes.HUD;
+import Scenes.HUD2;
+import Screens.PlayScreen;
+import Scenes.Transition;
+import Sprites.Letter;
 import com.Hercules.game.Main;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -19,15 +25,17 @@ public class Camel extends Sprite{
     private float stateTimer;
     private float HerculesPosX;
     private float HerculesPosY;
+    public boolean isOn,isOk, once, losed;
+    private PlayScreen screen;
     private Hercules player;
     private Main game;
     private Animation CamelDraw;
-    private boolean isOn,isOk;
+    private Music music;
     
-
-    public Camel(Hercules player,Main game){
-        this.player=player;
-        this.game=game;
+    public Camel(PlayScreen screen){
+        this.screen = screen;
+        this.player=screen.getPlayer();
+        this.game = screen.game;
         this.PosX=70800f;
         this.PosY=140f;
         this.stateTimer=0;
@@ -35,11 +43,14 @@ public class Camel extends Sprite{
         this. CamelPosx=(this.PosX+(2*this.counter));;
         this.isOn=false;
         this.isOk=false;
+        this.once=false;
+        this.losed=false;
         this.HerculesPosX=0;
         this.HerculesPosY=0;
         
         setBounds(0, 0, 300 / Main.PPM, 320 / Main.PPM);
         DefineAnimation();
+        music = Main.manager.get("Audio//Hercules - sounds//Camel.mp3", Music.class);
         
     }
     
@@ -54,7 +65,6 @@ public class Camel extends Sprite{
         CamelDraw=new Animation(0.5f,frame);
         frame.clear();
     }
-    
     
     public void update(){
         //hercules positions
@@ -72,21 +82,48 @@ public class Camel extends Sprite{
         }
  
         else{
-            CamelPosx=(this.PosX+(2*this.counter));
-            counter+=1f;
-            setPosition(this.CamelPosx /Main.PPM , PosY /Main.PPM); 
-            player.setPosition((this.CamelPosx-20) /Main.PPM , (PosY+180) /Main.PPM); isOk=true;
-            if(CamelPosx >= PosX+1000){
-            //counter=0;
-            game.setScreen(new Transition2(game));
+            /***************************/
+            //Check For Victory Conditions
+            if(!once){
+                once=true;
+                for(int i = 0 ; i < 8; ++i)
+                if (Letter.GET[i]==false){
+                    if(HUD2.NumberOfTrials==0)
+                        screen.hud2.GameOver();
+                    else 
+                        screen.hud2.LooseTrial();
+                    losed=true;
+                    break;
+                }
             }
-             
-            stateTimer+=Gdx.graphics.getDeltaTime();  
+            /***************************/
+                if(!losed){
+                CamelPosx=(this.PosX+(2*this.counter));
+                counter+=1f;
+                setPosition(this.CamelPosx /Main.PPM , PosY /Main.PPM); 
+                player.setPosition((this.CamelPosx-20) /Main.PPM , (PosY+180) /Main.PPM); isOk=true;
+                screen.stopHercAction=true;
+                if(CamelPosx >= PosX+1000){ // TRAVELING TO LEVEL 3
+                    screen.Game.stop();
+                    player.danger.stop(); 
+//                    ScoreBoard.addNewScore(Main.username, HUD.score + (HUD2.score + HUD2.timer * 2));
+                    game.setScreen(new Transition(screen, HUD2.score, HUD2.timer));
+                    screen.dispose();
+                }
+                screen.Victory.play();
+                screen.Victory.setLooping(true);
+                screen.Victory.setVolume(game.vol);
+                stateTimer+=Gdx.graphics.getDeltaTime();  
+            }
         }
     
         setRegion((TextureRegion) CamelDraw.getKeyFrame(stateTimer,true ));
         if(stateTimer>5){stateTimer=0;}
     
+        if(player.body.getPosition().x > getX()-0.5f && player.body.getPosition().x < getX()+0.5f && !music.isPlaying()){
+            music.play();
+            music.setVolume(Main.vol);
+        }
     }
 
     

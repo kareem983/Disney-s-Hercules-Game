@@ -54,14 +54,13 @@ public class Hercules extends Sprite {
     public static boolean hercules_sword2 = false;
     public float timeSword2 = 0;
     public static boolean hercules_sword3 = false;
-    private float timeSword3 = 0;
     public static boolean hercules_Drink = false;
     private float timeDrink = 0;
     public static boolean hercules_Die = false;
     private float timeDie = 0;
     public boolean hercules_Smallpush = false;
     public float timeSmallPush = 0;
-    private Music sound;
+    public Music sound, danger;
     private static float soundTimer;
     
     public Hercules(World world, PlayScreen screen, float posX){
@@ -85,6 +84,7 @@ public class Hercules extends Sprite {
         defineAnimation(screen);
         
         sound = Main.manager.get("Audio//Hercules - Voices//Phil//Get your sword.wav", Music.class);
+        danger = Main.manager.get("Audio//Hercules - sounds//Red Zone.mp3", Music.class);
     }
 
     public boolean isRunningRight() {
@@ -95,8 +95,15 @@ public class Hercules extends Sprite {
         setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight() / 2 + 50 / Main.PPM);
         setRegion(getFrame(dt));
         getYourSword(dt);
+        if (screen.noSwords)Level2DangerArea();
     }
-
+    private void Level2DangerArea(){
+        if (body.getPosition().x >46272.00 / Main.PPM && body.getPosition().x < 68784.00 && !danger.isPlaying()){
+            danger.play();
+            danger.setVolume(Main.vol);
+        }
+    }
+    
     // this fn return which animation that will draw now 
     public TextureRegion getFrame(float dt) {
         currentState = getState();
@@ -407,7 +414,7 @@ public class Hercules extends Sprite {
     public boolean Hercules_Die() {
         if (hercules_Die == true) {
             timeDie += Gdx.graphics.getDeltaTime();
-            if (timeDie < 1.5) {
+            if (timeDie < 1.6) {
                 return true;
             } else {
                 timeDie = 0;
