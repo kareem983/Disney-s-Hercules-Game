@@ -1,0 +1,47 @@
+
+r.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+wolf6
+  rotate: false
+  xy: 1, 1
+  size: 107, 52
+  orig: 107, 52
+  offset: 0, 0
+  index: -1
+wolf1
+  rotate: false
+  xy: 110, 1
+  size: 105, 52
+  orig: 105, 52
+  offset: 0, 0
+  index: -1
+wolf2
+  rotate: false
+  xy: 217, 1
+  size: 105, 52
+  orig: 105, 52
+  offset: 0, 0
+  index: -1
+wolf3
+  rotate: false
+  xy: 324, 1
+  size: 103, 52
+  orig: 103, 52
+  offset: 0, 0
+  index: -1
+wolf5
+  rotate: false
+  xy: 429, 1
+  size: 102, 52
+  orig: 102, 52
+  offset: 0, 0
+  index: -1
+wolf4
+  rotate: false
+  xy: 533, 1
+  size: 101, 52
+  orig: 101, 52
+  offset: 0, 0
+  index: -1
