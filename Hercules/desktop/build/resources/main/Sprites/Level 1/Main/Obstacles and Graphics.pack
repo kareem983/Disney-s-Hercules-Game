@@ -1,0 +1,68 @@
+
+Obstacles and Graphics.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Hercules Logo
+  rotate: false
+  xy: 0, 184
+  size: 243, 324
+  orig: 243, 324
+  offset: 0, 0
+  index: -1
+Intro1
+  rotate: false
+  xy: 243, 184
+  size: 242, 324
+  orig: 242, 324
+  offset: 0, 0
+  index: -1
+Intro2
+  rotate: false
+  xy: 485, 187
+  size: 240, 321
+  orig: 240, 321
+  offset: 0, 0
+  index: -1
+Hercules Different TileSet
+  rotate: false
+  xy: 0, 77
+  size: 342, 107
+  orig: 342, 107
+  offset: 0, 0
+  index: -1
+Graphics
+  rotate: false
+  xy: 725, 347
+  size: 283, 161
+  orig: 283, 161
+  offset: 0, 0
+  index: -1
+Hercules Resources
+  rotate: false
+  xy: 725, 202
+  size: 248, 145
+  orig: 248, 145
+  offset: 0, 0
+  index: -1
+Disney
+  rotate: false
+  xy: 342, 93
+  size: 141, 91
+  orig: 141, 91
+  offset: 0, 0
+  index: -1
+Feather Sack
+  rotate: false
+  xy: 0, 21
+  size: 162, 56
+  orig: 162, 56
+  offset: 0, 0
+  index: -1
+Tall Pillar
+  rotate: false
+  xy: 725, 0
+  size: 182, 202
+  orig: 182, 202
+  offset: 0, 0
+  index: -1

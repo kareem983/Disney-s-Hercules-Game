@@ -710,8 +710,8 @@ public class GameInstruction implements Screen{
         //Handle to Exit
         if (backBtnIsClicked || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
             gameCam.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2 , 0);
-            //game.setScreen(new StartMenu(game));
-            System.exit(0);
+            game.setScreen(new StartMenu(game));
+           // System.exit(0);
             this.dispose();
         }
         

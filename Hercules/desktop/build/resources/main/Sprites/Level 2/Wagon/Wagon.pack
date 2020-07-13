@@ -1,0 +1,12 @@
+
+Wagon.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Wagon
+  rotate: false
+  xy: 0, 0
+  size: 975, 190
+  orig: 975, 190
+  offset: 0, 0
+  index: -1
