@@ -12,22 +12,25 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 public class Credit implements Screen {
     private Sprite sprite[];
     private Sprite theEnd;
-    private float alpha, stateTimer;
-    private boolean passEnd;
+    private float alpha, stateTimer, exitTimer;
+    private boolean passEnd, exit;
     private int cnt;
     private Music finale;
     
     public Credit () {
         theEnd = new Sprite(new Texture("Intros//The End.jpg"));
         theEnd.setSize(Main.WIDTH, Main.HEIGHT);
-        sprite = new Sprite[2];
+        sprite = new Sprite[3];
         sprite[0] = new Sprite(new Texture("Intros//Credit.jpg"), 0, 0, 1365, 768);
         sprite[1] = new Sprite(new Texture("Intros//Credit 2.jpg"), 0, 0, 1365, 768);
+        sprite[2] = new Sprite(new Texture("Intros//Thanking.jpg"));
         sprite[0].setSize(Main.WIDTH, Main.HEIGHT);
         sprite[1].setSize(Main.WIDTH, Main.HEIGHT);
-        alpha=stateTimer=0f;
+        sprite[2].setSize(Main.WIDTH, Main.HEIGHT);
+        
+        alpha=stateTimer=exitTimer=0f;
         cnt=0;
-        passEnd=false;
+        passEnd=exit=false;
         finale = Main.manager.get("Audio//Hercules - sounds//The End.mp3", Music.class);
         finale.play();
         finale.setLooping(true);
@@ -75,11 +78,13 @@ public class Credit implements Screen {
            theEnd.draw(Main.batch);
        else if (cnt>-1&&cnt<4)
            sprite[cnt].draw(Main.batch);
+       if(exit)
+            sprite[2].draw(Main.batch);
        Main.batch.end();
        
-        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) 
-            System.exit(0);
-        
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) exit=true;
+        if(exit==true) exitTimer+=dt;
+        if(exitTimer>20f)System.exit(0);
     }
 
     @Override

@@ -35,7 +35,7 @@ public class ScreenSetting implements Screen {
     }
 
     private void createBasicSkin() {
-        skin1 = new Skin(Gdx.files.internal("Fonts\\uiskin.json"));
+        skin1 = new Skin(Gdx.files.internal("Fonts/uiskin.json"));
 
         BitmapFont font = new BitmapFont(Gdx.files.internal("Fonts\\Menu.fnt"));
         skin2 = new Skin();
@@ -57,7 +57,6 @@ public class ScreenSetting implements Screen {
         skin2.add("default", textButtonStyle);
     }
     void Buttons() {
-
         final SelectBox<String> selectBox = new SelectBox<String>(skin1);
         selectBox.setSize(340, 80);
         selectBox.setPosition(Gdx.graphics.getWidth() / 2 +150+Main.x, Gdx.graphics.getHeight() / 2 +120+Main.y );
@@ -147,6 +146,8 @@ TextButton back = new TextButton("Back", skin2);
     @Override
     public void dispose() {
         stage.dispose();
+        skin1.dispose();
+        skin2.dispose();
         background.dispose();
     }
 

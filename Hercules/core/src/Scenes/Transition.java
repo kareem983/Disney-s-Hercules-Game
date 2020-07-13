@@ -58,7 +58,7 @@ public class Transition implements Screen {
          stage = new Stage(viewport, ((Main) game).batch);
          BitmapFont FONT= new BitmapFont(Gdx.files.internal("Fonts\\PlayAgain.fnt"));
          BitmapFont FONT2= new BitmapFont(Gdx.files.internal("Fonts\\HUD2.fnt"));
-         BitmapFont FONT3= new BitmapFont(Gdx.files.internal("Fonts\\menu.fnt"));
+         BitmapFont FONT3= new BitmapFont(Gdx.files.internal("Fonts\\Menu.fnt"));
          
          Label.LabelStyle font = new Label.LabelStyle(FONT, null);
          Label.LabelStyle font2 = new Label.LabelStyle(FONT2, null);
@@ -81,7 +81,6 @@ public class Transition implements Screen {
          String declaration="";
          if(timer!=-1)declaration="(Level 1 score + Level 2 score + 2xSaved Time)";
          Label rowThreeC3 = new Label(declaration, font3);
-         
          table.add(rowOneC1).expandX().center();
          if(timer!=-1){table.add(rowOneC2).expandX();}
          table.add(rowOneC3).expand().padTop(0f).center();
@@ -118,7 +117,6 @@ public class Transition implements Screen {
               stage.dispose();
            }
         });
-        
         stage.addActor(backAndroid);
         stage.addActor(nextAndroid);
         Gdx.input.setInputProcessor(stage);
@@ -129,8 +127,6 @@ public class Transition implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         time+= delta;
-        
-        if (!Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
             game.batch.begin();
                 if (time < 2)  //FADE IN
                     alpha += (1f / 60f) / 2;
@@ -153,7 +149,12 @@ public class Transition implements Screen {
             game.batch.end();
             
             stage.draw();
-        }
+            
+             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+                 if(timer==-1) {screen.Victory.stop();game.setScreen(new Level2(game));}
+                 else {screen.Victory.stop();game.setScreen(new Credit());}
+                stage.dispose();
+             }
     }
 
     @Override
