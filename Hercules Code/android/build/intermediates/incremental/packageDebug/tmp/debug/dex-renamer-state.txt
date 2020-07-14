@@ -1,0 +1,4 @@
+#Mon Jul 13 16:58:19 EET 2020
+base.0=C\:\\Users\\Google\\Documents\\NetBeansProjects\\Hercules\\android\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out
+path.0=classes.dex
+renamed.0=classes.dex

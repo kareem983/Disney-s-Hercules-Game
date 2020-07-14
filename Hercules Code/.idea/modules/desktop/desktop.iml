@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id=":desktop" external.linked.project.path="$MODULE_DIR$/../../../desktop" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="Hercules" external.system.module.version="1.0" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="android-gradle" name="Android-Gradle">
+      <configuration>
+        <option name="GRADLE_PROJECT_PATH" value=":desktop" />
+        <option name="LAST_SUCCESSFUL_SYNC_AGP_VERSION" />
+        <option name="LAST_KNOWN_AGP_VERSION" />
+      </configuration>
+    </facet>
+    <facet type="java-gradle" name="Java-Gradle">
+      <configuration>
+        <option name="BUILD_FOLDER_PATH" value="$MODULE_DIR$/../../../desktop/build" />
+        <option name="BUILDABLE" value="true" />
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7">
+    <output url="file://$MODULE_DIR$/../../../desktop/build/classes/java/main" />
+    <output-test url="file://$MODULE_DIR$/../../../desktop/build/classes/java/test" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../android/assets">
+      <sourceFolder url="file://$MODULE_DIR$/../../../android/assets" type="java-resource" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../desktop">
+      <sourceFolder url="file://$MODULE_DIR$/../../../desktop/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../desktop/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../desktop/src/test/resources" type="java-test-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../desktop/.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../desktop/build" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="core" exported="" />
+    <orderEntry type="library" exported="" name="Gradle: gdx-backend-lwjgl-1.9.10" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: gdx-platform-1.9.10-natives-desktop" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: gdx-box2d-platform-1.9.10-natives-desktop" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: gdx-box2d-1.9.10" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: gdx-1.9.10" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: lwjgl_util-2.9.3" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: lwjgl-2.9.3" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: jlayer-1.0.1-gdx" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: jorbis-0.0.17" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: lwjgl-platform-2.9.3-natives-windows" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: lwjgl-platform-2.9.3-natives-linux" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: lwjgl-platform-2.9.3-natives-osx" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: jinput-2.0.5" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: jutils-1.0.0" level="project" />
+    <orderEntry type="library" exported="" scope="RUNTIME" name="Gradle: jinput-platform-2.0.5-natives-linux" level="project" />
+    <orderEntry type="library" exported="" scope="RUNTIME" name="Gradle: jinput-platform-2.0.5-natives-windows" level="project" />
+    <orderEntry type="library" exported="" scope="RUNTIME" name="Gradle: jinput-platform-2.0.5-natives-osx" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="Gradle: jinput-platform-2.0.5-natives-linux" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="Gradle: jinput-platform-2.0.5-natives-windows" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="Gradle: jinput-platform-2.0.5-natives-osx" level="project" />
+  </component>
+</module>
