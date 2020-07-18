@@ -1,6 +1,7 @@
 package com.main;
 
 import Scenes.IntroScenes;
+import Screens.Level3;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
@@ -39,7 +40,7 @@ public class Main extends Game {
         //setScreen(new GameInstruction(this));
         //setScreen(new Level1(this));
         //setScreen(new Level2(this));
-        //setScreen(new Level3(this));
+        setScreen(new Level3(this));
         //setScreen(new Transition(new Level2(this), 800, 20));
         //setScreen(new Credit());
         //setScreen (new GameOver(this));

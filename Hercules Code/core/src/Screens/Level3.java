@@ -11,9 +11,9 @@ public class Level3 extends PlayScreen{
     private Sea sea;
     
     public Level3(Main game){
-        super(game, 100.00f, "C:\\Users\\Google\\Desktop\\Level Three\\Map.tmx");// 1300f
+        super(game, 100.00f, "Maps\\Level Three\\HerculesMap.tmx");// 1300f
       
-        sea = new Sea(this);
+     // sea = new Sea(this);
     }
     
      public void update(float dt){
@@ -21,7 +21,7 @@ public class Level3 extends PlayScreen{
         world.step(1/60f, 6, 2);  
         
         player.update(dt);
-        sea.update(dt);
+//        sea.update(dt);
         
         gameCam.update();
         renderer.setView(gameCam);
@@ -39,14 +39,14 @@ public class Level3 extends PlayScreen{
        renderer.render();
         //debuger.render(world,gameCam.combined);
        // if (player.b2body.getPosition().x>1000/Main.PPM  && player.b2body.getPosition().x<71000/Main.PPM) //
-            gameCam.position.x = player .body.getPosition().x ;
+            gameCam.position.x = player .body.getPosition().x+900/Main.PPM ;
       //  if (player.b2body.getPosition().y<470/Main.PPM )
-        gameCam.position.y = player .body.getPosition().y+255/Main.PPM ;
+       gameCam.position.y = player .body.getPosition().y+290/Main.PPM ;
        game.batch.setProjectionMatrix(gameCam.combined);
        
        game.batch.begin();
-        sea.draw(game.batch);
-        player.draw(game.batch);
+       // sea.draw(game.batch);
+       player.draw(game.batch);
        game.batch.end();
        
     }
