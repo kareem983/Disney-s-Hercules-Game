@@ -40,7 +40,7 @@ public class Camel extends Sprite{
         this.PosY=140f;
         this.stateTimer=0;
         this.counter=0;
-        this. CamelPosx=(this.PosX+(2*this.counter));;
+        this. CamelPosx=(this.PosX+(2*this.counter));
         this.isOn=false;
         this.isOk=false;
         this.once=false;

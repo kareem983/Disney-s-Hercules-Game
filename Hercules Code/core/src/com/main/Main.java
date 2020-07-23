@@ -1,7 +1,6 @@
 package com.main;
 
 import Scenes.IntroScenes;
-import Screens.Level3;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
@@ -40,7 +39,7 @@ public class Main extends Game {
         //setScreen(new GameInstruction(this));
         //setScreen(new Level1(this));
         //setScreen(new Level2(this));
-        setScreen(new Level3(this));
+        //setScreen(new Level3(this));
         //setScreen(new Transition(new Level2(this), 800, 20));
         //setScreen(new Credit());
         //setScreen (new GameOver(this));
@@ -110,6 +109,12 @@ public class Main extends Game {
         manager.load("Audio//Hercules - sounds//Vulture.mp3", Music.class); // Finished
         manager.load("Audio//Hercules - sounds//Wagon.mp3", Music.class); // Finished
         manager.load("Audio//Hercules - sounds//Wolf.mp3", Music.class); // Finished
+        
+        manager.load("Audio//Hercules - Voices//Cyclops//Level3 Sound.mp3", Music.class); // Finished
+        manager.load("Audio//Hercules - Voices//Cyclops//Hercules Where are you.wav", Music.class); // Finished
+        manager.load("Audio//Hercules - Voices//Cyclops//Hahaha.wav", Music.class); // Finished
+        manager.load("Audio//Hercules - Voices//Cyclops//Run run magets.wav", Music.class); // Finished
+        manager.load("Audio//Hercules - Voices//Cyclops//Hercules come out face me.wav", Music.class); // Finished
         
         manager.finishLoading();
     }

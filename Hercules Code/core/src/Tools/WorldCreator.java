@@ -280,7 +280,7 @@ public class WorldCreator {
         try{
                 for(MapObject object : map.getLayers().get("Fireballs").getObjects().getByType(RectangleMapObject.class)){
                 Rectangle  rec = ((RectangleMapObject) object ).getRectangle();
-                fireballs.add (new Fireball(rec.getX(), rec.getY(), screen.getPlayer()));
+                fireballs.add (new Fireball(rec.getX(), rec.getY(), screen.getPlayer(),"Level1"));
             }
         } catch(Exception ex){}
     }

@@ -45,6 +45,7 @@ public abstract class PlayScreen implements Screen{
     protected Viewport gamePort;
     public HUD hud;
     public HUD2 hud2;
+    public HUD3 hud3;
     public Window pauseWindow;
     
     //Tiled Map Variables

@@ -3,6 +3,7 @@ package Scenes;
 import com.main.Main;
 import Intro.StartMenu;
 import Screens.Level2;
+import Screens.Level3;
 import Screens.PlayScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -32,6 +33,8 @@ public class Transition implements Screen {
     private int score;
     private int timer;
     private static int totalScore;
+    public boolean IsLevel3;
+    
     
     public  Transition(PlayScreen screen, int score){
         sprite = new Sprite(new Texture("Intros//Transition1.jpeg"));
@@ -41,7 +44,7 @@ public class Transition implements Screen {
         this.timer=-1;
         this.totalScore = score;
         construct();
-}
+    }
     
     public  Transition(PlayScreen screen, int score, int timer){
         sprite = new Sprite(new Texture("Intros//Transition2.jpeg"));
@@ -51,7 +54,18 @@ public class Transition implements Screen {
         this.timer = timer;
         this.totalScore += (score + timer * 2);
         construct();
-}
+    }
+   
+     public  Transition(PlayScreen screen){
+        IsLevel3=true;
+        sprite = new Sprite(new Texture("Intros//Transition2.jpeg"));
+        this.screen = screen;
+        this.game = screen.game;
+        this.score = 0;
+        this.timer = 0;
+        this.totalScore += (score + timer * 2);
+        construct();
+    }
     
     private void construct(){
          StretchViewport viewport = new StretchViewport(Main.WIDTH, Main.HEIGHT,  new OrthographicCamera());
@@ -113,7 +127,9 @@ public class Transition implements Screen {
         nextAndroid.addListener(new ClickListener() {
            public void clicked(InputEvent event, float x, float y){
               if(timer==-1) {screen.Victory.stop();game.setScreen(new Level2(game));}
+              else if(!IsLevel3 ){screen.Victory.stop();game.setScreen(new Level3(game));}
               else {screen.Victory.stop();game.setScreen(new Credit());}
+
               stage.dispose();
            }
         });
@@ -152,6 +168,7 @@ public class Transition implements Screen {
             
              if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
                  if(timer==-1) {screen.Victory.stop();game.setScreen(new Level2(game));}
+                 else if(!IsLevel3 ){screen.Victory.stop();game.setScreen(new Level3(game));}
                  else {screen.Victory.stop();game.setScreen(new Credit());}
                 stage.dispose();
              }

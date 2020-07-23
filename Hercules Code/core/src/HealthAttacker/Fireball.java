@@ -2,6 +2,7 @@ package HealthAttacker;
 
 import Scenes.HUD;
 import MovingObjects.Hercules;
+import Scenes.HUD3;
 import com.main.Main;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -19,13 +20,15 @@ public class Fireball extends Sprite{
     private float stateTimer;
     private float counter;
     private Hercules hercule;
+    private String LevelNum;
     
-    public Fireball(float posX, float posY,Hercules hercule){
+    public Fireball(float posX, float posY,Hercules hercule,String LevelNum){
         this.posX=posX;
         this.posY=posY;
         this.stateTimer=0;
         this.counter=0;
         this.hercule=hercule;
+        this.LevelNum=LevelNum;
         
         setBounds(0, 0, 137 / Main.PPM, 320 / Main.PPM);
         DefineAnimation();
@@ -49,11 +52,13 @@ public class Fireball extends Sprite{
     }
     
         if (hercule.body.getPosition().x > (this.posX-25)/Main.PPM && hercule.body.getPosition().x < (this.posX+100)/Main.PPM && hercule.body.getPosition().y>(this.FirePosY+20)/Main.PPM && hercule.body.getPosition().y<(this.FirePosY+250)/Main.PPM)
-    {
-      counter=0;
-      HUD.FireDecrease=true;
-    }
-    else this.counter-=3;    
+        {
+            counter=0;
+            if(LevelNum.equals("Level1"))HUD.FireDecrease=true;
+            else if(LevelNum.equals("Level3"))HUD3.FireDecrease=true;
+            
+        }
+        else this.counter-=3;    
      
         setPosition(this.posX /Main.PPM , FirePosY /Main.PPM);   
         stateTimer+=Gdx.graphics.getDeltaTime();

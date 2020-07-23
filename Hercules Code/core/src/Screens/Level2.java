@@ -90,7 +90,7 @@ public class Level2 extends PlayScreen{
                 player.danger.stop();
                 game.setScreen(new GameOver(game));
                 dispose();
-        }
+            }
     }
     
     @Override
