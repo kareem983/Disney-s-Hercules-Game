@@ -1,15 +1,28 @@
 package Scenes;
 
+import Intro.StartMenu;
+import Screens.PlayScreen;
 import com.main.Main;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 public class Credit implements Screen {
+    private PlayScreen screen;
+    private Main game;
+    private Stage stage;
     private Sprite sprite[];
     private Sprite theEnd;
     private float alpha, stateTimer, exitTimer;
@@ -17,7 +30,12 @@ public class Credit implements Screen {
     private int cnt;
     private Music finale;
     
-    public Credit () {
+    public Credit(PlayScreen screen) {
+        this.screen=screen;
+        this.game = screen.game;
+        StretchViewport viewport = new StretchViewport(Main.WIDTH, Main.HEIGHT,  new OrthographicCamera());
+        stage = new Stage(viewport, ((Main) game).batch);
+        
         theEnd = new Sprite(new Texture("Intros//The End.jpg"));
         theEnd.setSize(Main.WIDTH, Main.HEIGHT);
         sprite = new Sprite[3];
@@ -35,8 +53,26 @@ public class Credit implements Screen {
         finale.play();
         finale.setLooping(true);
         finale.setVolume(Main.vol);
+        BackButton();
     }
    
+    
+    private void BackButton(){
+        ImageButton backBtn = new ImageButton (new TextureRegionDrawable(new TextureRegion(new Texture("Intros\\Back.png"))));
+        backBtn.setPosition(40f, game.HEIGHT/1.2f);
+        backBtn.addListener(new ClickListener() {
+           public void clicked(InputEvent event, float x, float y){
+               finale.stop();
+               game.setScreen(new StartMenu(game));
+               stage.dispose();
+           }
+        });
+        
+        stage.addActor(backBtn);
+        Gdx.input.setInputProcessor(stage);
+    }
+    
+    
     @Override
     public void render(float dt) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -82,6 +118,7 @@ public class Credit implements Screen {
             sprite[2].draw(Main.batch);
        Main.batch.end();
        
+       stage.draw();
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) exit=true;
         if(exit==true) exitTimer+=dt;
         if(exitTimer>20f)System.exit(0);

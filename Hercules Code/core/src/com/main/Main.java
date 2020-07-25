@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Main extends Game {
 
-    public static int x = 0, y = 0;
+    public static int x = 0, y = 0,TotalScore=0;
     public static float vol = 1.0f; // 0.5f
     public static int up =19, down =20, left =21, right =22, sword1 = 52, sword2 = 54, normalPunch =31, powerPunch = 50;
     public static String username = "user";

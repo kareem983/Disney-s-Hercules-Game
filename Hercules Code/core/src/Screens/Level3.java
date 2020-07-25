@@ -20,6 +20,7 @@ public class Level3 extends PlayScreen{
     private Cyclops cyclops;
     private CyclopsFire cyclopsfire;
     private CyclopsDie cyclopsDie;
+    private int VectoryTime; 
     private Music x;
    
     
@@ -29,7 +30,8 @@ public class Level3 extends PlayScreen{
         cyclops=new Cyclops(this);
         cyclopsfire=new CyclopsFire(this);
         cyclopsDie=new CyclopsDie(this);
-
+        VectoryTime=0;
+                
         hud3=new HUD3(this);
         createPauseMenu(hud3.stage, hud3.skin);
         AddFireAttack();
@@ -69,27 +71,26 @@ public class Level3 extends PlayScreen{
         if(restart || CyclopsDie.FinalDie )restart();
         
         
-        if(player.body.getPosition().x> (4670 /Main.PPM)){
+        if(player.body.getPosition().x> (4667 /Main.PPM) && player.body.getPosition().y < (250 /Main.PPM)){
+            VectoryTime++;
+            stopHercAction=true;
             Game.stop();
             Victory.setVolume(Main.vol);
             Victory.play();
-            
-           game.setScreen(new Transition(this));
+            if(VectoryTime >100)game.setScreen(new Transition(this));
         }
         
         player.update(dt);
         hud3.update(dt);
         gameCam.update();
-       if(!HUD3.CyclopsDie){
-           cyclops.update();
-       }
+        
+       if(!HUD3.CyclopsDie)cyclops.update();
        else{
-           if(!CyclopsDie.FinalDie)
-           cyclopsDie.update();
+         if(!CyclopsDie.FinalDie)
+         cyclopsDie.update();
        }
         cyclopsfire.update();
         for(int i=0;i<fireAttack.size();i++)fireAttack.get(i).update();
-        
         renderer.setView(gameCam);
         
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
@@ -129,12 +130,10 @@ public class Level3 extends PlayScreen{
        game.batch.setProjectionMatrix(gameCam.combined);
        
        game.batch.begin();
-      if(!HUD3.CyclopsDie) {
-          cyclops.draw(game.batch);
-      }
+      if(!HUD3.CyclopsDie)cyclops.draw(game.batch);
       else {
-          if(!CyclopsDie.FinalDie)
-          cyclopsDie.draw(game.batch);
+        if(!CyclopsDie.FinalDie)
+        cyclopsDie.draw(game.batch);
       }
        cyclopsfire.draw(game.batch);
        for(int i=0;i<fireAttack.size();i++)fireAttack.get(i).draw(game.batch);;
@@ -159,7 +158,5 @@ public class Level3 extends PlayScreen{
        hud3.dispose();
        //debuger.dispose();
     }
-
    
-    
 }
