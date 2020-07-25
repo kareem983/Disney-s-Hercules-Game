@@ -88,6 +88,8 @@ public class Level2 extends PlayScreen{
             if (gameOver()) {
                 Game.stop();
                 player.danger.stop();
+                GameOver.setVolume(Main.vol);
+                GameOver.play();
                 game.setScreen(new GameOver(game));
                 dispose();
             }
