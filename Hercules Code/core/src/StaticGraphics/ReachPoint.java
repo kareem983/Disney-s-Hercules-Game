@@ -59,7 +59,7 @@ public class ReachPoint extends Sprite{
                 delayTime+=dt;
                 if (delayTime>=3){ // Wait for 3 Seconds and Move on Transition1 Screen
                     screen.Game.stop();
-                    ScoreBoard.addNewScore(Main.username, HUD.score);
+                    //ScoreBoard.addNewScore(Main.username, HUD.score);
                     screen.game.setScreen(new Transition(screen, HUD.score));
                     screen.dispose();
                 }

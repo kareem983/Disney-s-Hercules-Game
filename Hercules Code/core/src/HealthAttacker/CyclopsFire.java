@@ -64,6 +64,7 @@ public class CyclopsFire extends Sprite{
          //collission hercules with Cyclops
          if(Gdx.input.isKeyJustPressed(Main.sword1) && player.body.getPosition().x > (Cyclops.CyclopsPosx-40)/Main.PPM){
              HUD3.CyclopsDecrease=true;
+             HUD3.score+=10;
          }
          if(player.body.getPosition().x > (Cyclops.CyclopsPosx+60)/Main.PPM){
               HUD3.FireDecrease=true;    

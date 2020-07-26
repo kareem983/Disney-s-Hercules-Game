@@ -155,6 +155,10 @@ public abstract class PlayScreen implements Screen{
                 if(s.equals("Mute Sounds")){
                     game.vol = 0f;
                     Game.setVolume(0f);
+                    Cyclops.x.stop();
+                    Level3.x.stop();
+                    HUD3.music.stop();
+                    HUD3.x.stop();
                     soundBtn.setText("Unmute Sounds");
                 }
                 else {

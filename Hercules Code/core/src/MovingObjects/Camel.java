@@ -106,7 +106,7 @@ public class Camel extends Sprite{
                 if(CamelPosx >= PosX+1000){ // TRAVELING TO LEVEL 3
                     screen.Game.stop();
                     player.danger.stop(); 
-                    ScoreBoard.addNewScore(Main.username, HUD.score + (HUD2.score + HUD2.timer * 2));
+                    //ScoreBoard.addNewScore(Main.username, HUD.score + (HUD2.score + HUD2.timer * 2));
                     game.setScreen(new Transition(screen, HUD2.score, HUD2.timer));
                     screen.dispose();
                 }

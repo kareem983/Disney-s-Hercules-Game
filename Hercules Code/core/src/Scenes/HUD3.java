@@ -5,9 +5,11 @@ import Screens.PlayScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -22,11 +24,15 @@ public class HUD3 implements Disposable{
     private TextureRegion region, region2, region3, region4;
     private static String healthPath_herucle, healthPath_cyco, herucle_path, cyco_path;
     private static int X[], Y[], X2[], Y2[];
+    public Label scoreText,scoreLabel;
+    private BitmapFont FONT;
+    private Label.LabelStyle font;
+    public static Integer score;
     public static PlayScreen screen;
     public static boolean FireDecrease,CyclopsDecrease,CyclopsDie;
     public static Hercules herucle;
-    private static Music music;
-    private static Music x;
+    public static Music music, x;
+    
     
     public HUD3(PlayScreen screen) {
         this.screen=screen;
@@ -39,6 +45,7 @@ public class HUD3 implements Disposable{
         FireDecrease=CyclopsDecrease=CyclopsDie=false;
         i=1;
         j=1;
+        score=0;
         image = new Image();
         image2 = new Image();
         image3 = new Image();
@@ -60,16 +67,29 @@ public class HUD3 implements Disposable{
         image3.setDrawable(new TextureRegionDrawable(region3));
         image4.setDrawable(new TextureRegionDrawable(region4));
         
+        FONT= new BitmapFont(Gdx.files.internal("Fonts\\HUD.fnt"));
+        font = new Label.LabelStyle(FONT, null);
+        scoreText = new Label("SCORE", font);
+        scoreText.setFontScale(0.7f);
+        scoreLabel = new Label(String.format("%3d", score),font);
+        scoreLabel.setFontScale(0.7f);
         
-        table.add(image).padTop(10f);
-        table.add(image3).padTop(10f).padRight(600f);
-        table.add(image4).padTop(10f);
-        table.add(image2).padTop(10f);
+        
+        music = Main.manager.get("Audio//Hercules - sounds//Hercules_Atacked.wav",Music.class);
+        x = Main.manager.get("Audio//Hercules - Voices//Cyclops//Run run magets.wav",Music.class);
+
+        
+        table.add(image).padTop(stage.getHeight()-140f);
+        table.add(image3).padTop(stage.getHeight()-140f).padRight(600f);
+        table.add(scoreText).expandX().padTop(stage.getHeight()-165f).padLeft(-500);
+        table.add(image4).padTop(stage.getHeight()-140f);
+        table.add(image2).padTop(stage.getHeight()-140f);
+        table.add(scoreLabel).expandX().padTop(stage.getHeight()-60).padLeft(-1480);
       
-      /*  table.setBackground(skin.getDrawable("dialogDim"));
+        table.setBackground(skin.getDrawable("dialogDim"));
         table.setSize(stage.getWidth(), 150);
         table.setPosition(0, stage.getHeight()-150);
-      */
+     
         
         stage.addActor(table);
         
@@ -78,6 +98,7 @@ public class HUD3 implements Disposable{
     public void update(float dt) {
         fire_hit();
         Cyco_hit();
+        scoreLabel.setText(String.format("%3d",score));
         
     }
 
@@ -95,7 +116,6 @@ public class HUD3 implements Disposable{
     public static void hercules_hit() {
            if(i<6){
                 image.setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture(healthPath_herucle), X[i], Y[i++], 358, 133)));
-                music = Main.manager.get("Audio//Hercules - sounds//Hercules_Atacked.wav",Music.class);
                 music.setVolume(Main.vol); 
                 music.play();
             }
@@ -111,7 +131,6 @@ public class HUD3 implements Disposable{
     
     public static void Cycolps_hit() {
         if(j==3||j==8){
-             x = Main.manager.get("Audio//Hercules - Voices//Cyclops//Run run magets.wav",Music.class);
              x.setVolume(Main.vol); 
              x.play();
             

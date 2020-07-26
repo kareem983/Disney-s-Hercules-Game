@@ -65,7 +65,7 @@ public class Transition implements Screen {
         sprite = new Sprite(new Texture("Intros//Transition2.jpeg"));
         this.screen = screen;
         this.game = screen.game;
-        this.score = 100;
+        this.score = HUD3.score;
         this.totalScore = Main.TotalScore+this.score;
         LevelNum=3;
         construct();

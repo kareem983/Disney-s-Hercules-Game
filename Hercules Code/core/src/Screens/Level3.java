@@ -4,8 +4,11 @@ import HealthAttacker.Cyclops;
 import HealthAttacker.CyclopsDie;
 import HealthAttacker.CyclopsFire;
 import HealthAttacker.Fireball;
+import Intro.ScoreBoard;
 import Intro.StartMenu;
 import Scenes.GameOver;
+import Scenes.HUD;
+import Scenes.HUD2;
 import Scenes.HUD3;
 import Scenes.Transition;
 import com.main.Main;
@@ -21,7 +24,7 @@ public class Level3 extends PlayScreen{
     private CyclopsFire cyclopsfire;
     private CyclopsDie cyclopsDie;
     private int VectoryTime; 
-    private Music x;
+    public static Music x;
    
     
     public Level3(Main game){
@@ -52,6 +55,9 @@ public class Level3 extends PlayScreen{
     @Override
     public void restart() {
         x.stop();
+        HUD3.music.stop();
+        HUD3.x.stop();
+        Cyclops.x.stop();
         Victory.stop();
             
     }
@@ -75,9 +81,16 @@ public class Level3 extends PlayScreen{
             VectoryTime++;
             stopHercAction=true;
             Game.stop();
+            x.stop();
+            HUD3.music.stop();
+            HUD3.x.stop();
+            Cyclops.x.stop();
             Victory.setVolume(Main.vol);
             Victory.play();
-            if(VectoryTime >100)game.setScreen(new Transition(this));
+            if(VectoryTime >100){
+                ScoreBoard.addNewScore(Main.username, HUD.score + (HUD2.score + HUD2.timer * 2)+HUD3.score);
+                game.setScreen(new Transition(this));
+            }
         }
         
         player.update(dt);

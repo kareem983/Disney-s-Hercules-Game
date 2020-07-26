@@ -20,7 +20,7 @@ public class Cyclops extends Sprite{
     public static float CyclopsPosx;
     private Animation AttackCyclopsDraw, BackCyclopsDraw, PushCyclopsDraw;
     private boolean Attack,pushMovement;
-    private Music x;
+    public static Music x;
     
     
     public Cyclops(PlayScreen screen){
